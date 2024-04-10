@@ -2,20 +2,21 @@ import Chart from 'react-apexcharts'
 
 export default function Linha({categoria, nome, valor}: {categoria: Array<string>, nome: string, valor: Array<number>}){
     const dados = {options: {
-        chart: {
-          id: 'apexchart-example'
-        },
-        xaxis: {
-          categories: categoria
-        }
+      chart: {
+        id: 'apexchart-example'
       },
-      series: [{
-        name: nome,
-        data: valor
-      }]}
-      return (
-        <div>
-            <Chart options={dados.options} series={dados.series} type="line" width={500} height={320} />
-        </div>
-      );
+      xaxis: {
+        categories: categoria
+      }
+    },
+    series: [{
+      name: nome,
+      data: valor
+    }]
+  };
+  return (
+  <div>
+    <Chart options={dados.options} series={dados.series} type="line" width={500} height={320} />
+  </div>
+  );
 }
