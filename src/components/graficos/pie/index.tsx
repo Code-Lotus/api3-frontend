@@ -2,33 +2,35 @@ import React, { Component } from "react";
 import Chart from "react-apexcharts";
 // import ApexCharts from "apexcharts";
 
-class Pizza extends Component {
-    public state = {
-        series: [44, 55, 13, 43, 22],
-        options: {
-            chart: {
-            id: "pie"
-            },
-            xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-            }
-        }
-    };
+type Props = {
+  valores: Array<number>
+  legenda: Array<string>
+}
+
+class Pizza extends Component<Props> {
+  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+  constructor(props: Props){
+    super(props)
+  }
+  public state = {
+      series: this.props.valores,
+      options: {
+        labels: this.props.legenda,
+        chart: {
+          id: "pie"
+        },
+      }
+  };
 
   render() {
     return (
-      <div className="app">
-        <div className="row">
-          <div className="mixed-chart">
-            <Chart
-              options={this.state.options}
-              series={this.state.series}
-              type="pie"
-              width="500"
-            />
-          </div>
-        </div>
-
+      <div>
+        <Chart
+          options={this.state.options}
+          series={this.state.series}
+          type="pie"
+          width="400"
+        />
       </div>
     );
   }

@@ -16,7 +16,7 @@ export default function Linha({categoria, nome, valor}: {categoria: Array<string
   };
   return (
   <div>
-    <Chart options={dados.options} series={dados.series} type="line" width={500} height={320} />
+    <Chart options={dados.options} series={dados.series} type="line" width={400} height={220} />
   </div>
   );
 }
