@@ -7,7 +7,7 @@ type Props = {
   legenda: Array<string>
 }
 
-class Pizza extends Component<Props> {
+export default class Pizza extends Component<Props> {
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(props: Props){
     super(props)
@@ -19,6 +19,9 @@ class Pizza extends Component<Props> {
         chart: {
           id: "pie"
         },
+      },
+      legend: {
+        position: 'bottom'
       }
   };
 
@@ -35,5 +38,3 @@ class Pizza extends Component<Props> {
     );
   }
 }
-
-export default Pizza;
