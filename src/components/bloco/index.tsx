@@ -11,14 +11,14 @@ export default function Bloco({v1,v2,v3,v4}: {v1: Array<number>, v2: Array<numbe
                 <h3>Produto Novo</h3>
                 <div className={Style.dashboardBlocosProduto}>
                     <section>
-                        <div className={Style.grafico}>
                         <h4>Cliente novo</h4>
+                        <div className={Style.grafico}>
                             <Linha categoria={["Janeiro", "Fevereiro", "Março", "Abril", "Maio"]} nome="produto" valor={[1,2,3,4,10]} />
                         </div>
                     </section>
                     <section>
-                        <div className={Style.grafico}>
                         <h4>Cliente antigo</h4>
+                        <div className={Style.grafico}>
                             <Linha categoria={["Janeiro", "Fevereiro", "Março", "Abril", "Maio"]} nome="produto" valor={[1,2,3,4,5]} />
                         </div>
                     </section>
@@ -26,14 +26,14 @@ export default function Bloco({v1,v2,v3,v4}: {v1: Array<number>, v2: Array<numbe
                 <h3>Produto antigo</h3>
                 <div className={Style.dashboardBlocosProduto}>
                     <section>
-                        <div className={Style.grafico}>
                         <h4>Cliente novo</h4>
+                        <div className={Style.grafico}>
                             <Linha categoria={["Janeiro", "Fevereiro", "Março", "Abril", "Maio"]} nome="produto" valor={[1,2,3,4,5]}/>
                         </div>
                     </section>
                     <section>
-                        <div className={Style.grafico}>
                         <h4>Cliente antigo</h4>
+                        <div className={Style.grafico}>
                             <Linha categoria={["Janeiro", "Fevereiro", "Março", "Abril", "Maio"]} nome="produto" valor={[1,2,3,5,7 ]}/>
                         </div>
                     </section>

@@ -1,7 +1,7 @@
 import Style from './App.module.scss';
-import Bloco from '../components/bloco';
-import Navbar from '../components/navbar';
-import Footer from '../components/footer';
+import Bloco from './components/bloco';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
 
 export default function App() {
   return (
