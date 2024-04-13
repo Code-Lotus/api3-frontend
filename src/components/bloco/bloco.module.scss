@@ -25,6 +25,22 @@
     align-self: center;
 }
 
+.dashboardGraficos{
+    background-color: #FFF;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    // display: flex;
+    // flex-flow: column;
+    // justify-content: space-around;
+
+}
+
+.dashboardBlocos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 // section{
 //     background-color: aquamarine;
 // }
