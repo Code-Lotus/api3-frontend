@@ -43,9 +43,19 @@ export default function Bloco({v1,v2,v3,v4}: {v1: Array<number>, v2: Array<numbe
                     </div>
                 </div>               
             </div>
-            <div className={Style.graficoPizza}>
-                <h3 className="tituloGraficoPizza">Geral</h3>
-                <Pizza valores={[1,2,3,4]} legenda={['novo', 'velho', 'mumia', 'cadaver']}  />
+            <div className={Style.dashboardGraficos}>
+                <h3>Geral</h3>
+                <div className={Style.graficoPizza}>
+                    <Pizza valores={[1,2,3,4]} legenda={['v1', 'v2', 'v3', 'v4']}  />
+                </div>
+                <div className={Style.valores}>
+                    <h5>TOTAL VENDIDO (R$)</h5>
+                    <label>1.970,00</label>
+                </div>
+                <div className={Style.valores}>
+                    <h5>TOTAL DE COMISSÃO (R$)</h5>
+                    <label>987,00</label>
+                </div>
             </div>
         </div>
     );
