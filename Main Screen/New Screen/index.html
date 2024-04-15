@@ -1,25 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
 
-    <title>Document</title>
+	<title>Home</title>
 </head>
 <body>
-   
-    <section id="sidebar">
-        <a href="" class="brand">
-            <i class='bx bxs-wink-smile'></i>
-            <span class="admin"></span>
-        </a>
-        <ul class="side-menu top"></ul>
-    </section>
 
 
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-home'></i>
+			<span class="text">Início</span>
+		</a>
+		<ul class="sideMenu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Produtos</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">Análise</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="sideMenu">
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog' ></i>
+					<span class="text">Configurações</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Sair</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<form action="#">
+				<div class="formInput">
+					<input type="search" placeholder="Pesquisar...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell' ></i>
+				<span class="num">2</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="img/avatar.png">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<main>
+			<div class="topTitle">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="guia">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Início</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a>
+			</div>
+
+			<ul class="generalInfo">
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>550</h3>
+						<p>Vendas Ativas</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3>74</h3>
+						<p>CLientes</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle' ></i>
+					<span class="text">
+						<h3>R$10.523,50</h3>
+						<p>Faturamento</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="dateTable">
+				<div class="order">
+					<div class="head">
+						<h3>Últimas Vendas</h3>
+						<i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Vendedor</th>
+								<th>Data</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<img src="img/avatar.png">
+									<p>João Pedro</p>
+								</td>
+								<td>06/10/2024</td>
+								<td><span class="status completed">Completa</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/avatar.png">
+									<p>João Pedro</p>
+								</td>
+								<td>06/10/2024</td>
+								<td><span class="status pending">Pedente</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/avatar.png">
+									<p>João Pedro</p>
+								</td>
+								<td>06/10/2024</td>
+								<td><span class="status process">Em Processamento</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/avatar.png">
+									<p>João Pedro</p>
+								</td>
+								<td>05/10/2024</td>
+								<td><span class="status pending">Pendente</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/avatar.png">
+									<p>João Pedro</p>
+								</td>
+								<td>05/10/2024</td>
+								<td><span class="status completed">Completa</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="product">
+					<div class="head">
+						<h3>Produtos</h3>
+						<i class='bx bx-plus' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<ul class="productList">
+						<li class="completed">
+							<p>Produto 01</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Produto 02</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Produto 03</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Produto 04</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Produto 05</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+	</section>
+	
+	<script src="script.js"></script>
 </body>
 </html>
