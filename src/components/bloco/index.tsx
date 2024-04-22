@@ -1,6 +1,6 @@
 import Linha from "../graficos/linha";
 import Pizza from "../graficos/pie";
-import Style from "../bloco/bloco.module.scss";
+import Style from "./bloco.module.scss";
 import Vendas from "../../scripts/controllers/vendas-controller"
 import PlanilhaVendas from "../../scripts/models/planilhaVendas";
 import Vendedor from "../../scripts/models/vendedor";

@@ -29,6 +29,26 @@ export default class Vendas {
         this.vendas.push(venda)
     }
 
+    public filtroPorCliente(cliente: Cliente): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = [] 
+        this.vendas.forEach((venda => {
+            if(venda.cliente.cpfcnpj === cliente.cpfcnpj) {
+                listaFiltrada.push(venda)
+            }
+        }))
+        return listaFiltrada
+    }
+
+    public filtroPorProduto(produto: Produto): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = []
+        this.vendas.forEach((venda => {
+            if(venda.produto.id === produto.id) {
+                listaFiltrada.push(venda)
+            }
+        }))
+        return listaFiltrada
+    }
+
     public getMes(index: number): string {
         return this._meses[index]
     }
