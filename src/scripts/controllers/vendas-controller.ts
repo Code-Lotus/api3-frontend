@@ -1,5 +1,9 @@
 import Comissao from '../models/comissao';
 import PlanilhaVendas from '../models/planilhaVendas';
+import readXlsxFile from 'read-excel-file';
+import Vendedor from '../models/vendedor';
+import Produto from '../models/produto';
+import Cliente from '../models/cliente';
 
 export default class Vendas {
     private vendas: Array<PlanilhaVendas>
@@ -8,6 +12,21 @@ export default class Vendas {
     constructor(vendas: Array<PlanilhaVendas>){
         this.vendas = vendas
         this._meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+    }
+
+    public async recebeArquivo(evento: any) {
+        const arquivo = evento.target.files[0] 
+        const rows = await readXlsxFile(arquivo)
+        const dados = rows[1]
+        const dataVenda = dados[0].toString()
+        const dadosVendedor = [dados[2].toString(), dados[1].toString()]
+        const dadosProduto = [dados[4].toString(), dados[3].toString()]
+        const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
+        const valor = dados[8].toString()
+        const formaPagamento = dados[9].toString()
+        const venda = new PlanilhaVendas(new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento)
+        console.log(venda)
+        this.vendas.push(venda)
     }
 
     public getMes(index: number): string {
