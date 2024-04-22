@@ -49,6 +49,16 @@ export default class Vendas {
         return listaFiltrada
     }
 
+    public fitroPorVendedor(vendedor: Vendedor): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = []
+        this.vendas.forEach((venda => {
+            if(venda.vendedor.cpf === vendedor.cpf) {
+                listaFiltrada.push(venda)
+            }
+        }))
+        return listaFiltrada
+    }
+
     public getMes(index: number): string {
         return this._meses[index]
     }
