@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./sidebar.css";
 
 export default function Sidebar() {
@@ -43,6 +43,7 @@ export default function Sidebar() {
                     </Link>
                 </li>
             </ul>
+            <Outlet />
         </section>
     );
 }

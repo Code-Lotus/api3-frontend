@@ -1,9 +1,12 @@
 .dashboard{
-    background-color: #eff4f7; 
-    display: flex;
+    background-color: #EEE;
     align-items: center;
     justify-content: space-around;
     gap: 1rem;
+    position: relative;
+    width: calc(100% - 17.5rem);
+    left: 17.5rem;
+    transition: .3s ease;
 }
     
 .dashboardBlocosProduto{
@@ -29,6 +32,11 @@
 
 .dashboardBlocos {
     justify-content: space-around;
+    width: 100%;
+	padding: 36px 24px;
+	font-family: var(--poppins);
+	max-height: calc(100vh - 56px);
+	overflow-y: auto;
 }
 
 .h4{
