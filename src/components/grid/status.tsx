@@ -1,6 +1,6 @@
-import "./grid.css";
+import "./status.css";
 
-export default function Grid() {
+export default function Status() {
     return (
             <ul className="box">
                     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
