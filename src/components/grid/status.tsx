@@ -15,7 +15,7 @@ export default function Status() {
                 <li>
                     <i className='bx bxs-group'></i>
                     <span>
-                 <h3>103</h3>
+                    <h3>103</h3>
                     <p>Visitantes</p>
                      </span>
                 </li>
