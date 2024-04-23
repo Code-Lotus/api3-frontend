@@ -25,7 +25,7 @@ export default function Sidebar() {
                 <li>
                     <Link to="/" className="a">
                         <i className='bx bxl-product-hunt'></i> {/* SIMBOLO DE DASHBOARD */}
-                        <span className="text">Produto antigo</span>
+                        <span className="text">Produto Antigo</span>
                     </Link>
                 </li>
             </ul>

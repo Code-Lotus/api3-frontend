@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+.box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 14px;
+    margin-top: 36px;
+    padding: 10px;
+}
+
+li {
+    padding: 24px;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+}
+
+li .bx {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: rgb(224, 224, 224);
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightskyblue;
+    color: white;
+}
