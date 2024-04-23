@@ -1,4 +1,5 @@
 import { Component } from "react"
+import Style from "../grid/status.module.scss"
 
 type Props = {
     classeCss?: string,
@@ -22,7 +23,7 @@ export default class Card extends Component<Props>{
     render() {
         return (
             <>
-                <i className={this.state.classeCss}></i>
+                <i className={this.state.classeCss} id={Style.bx}></i>
                 <span>
                     <h3>{this.state.quantidade}</h3>
                     <p>{this.state.titulo}</p>
