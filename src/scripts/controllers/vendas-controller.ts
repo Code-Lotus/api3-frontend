@@ -14,69 +14,66 @@ export default class Vendas {
         this._meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
     }
 
+    //função para ser colocada no onClick de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
     public async recebeArquivo(evento: any) {
-        const arquivo = evento.target.files[0] 
-        const rows = await readXlsxFile(arquivo)
-        const dados = rows[1]
+        const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
+        const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
+        const dados = rows[1] //pega as linhas com os conteúdos (não são cabeçalhos)
         const dataVenda = dados[0].toString()
         const dadosVendedor = [dados[2].toString(), dados[1].toString()]
         const dadosProduto = [dados[4].toString(), dados[3].toString()]
         const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
         const valor = dados[8].toString()
         const formaPagamento = dados[9].toString()
-        const venda = new PlanilhaVendas(new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento)
+        const venda = new PlanilhaVendas(new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
         console.log(venda)
-        this.vendas.push(venda)
+        this.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas
     }
 
+    //função responsável por filtrar as vendas de um único cliente passado como argumento
     public filtroPorCliente(cliente: Cliente): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = [] 
-        this.vendas.forEach((venda => {
-            if(venda.cliente.cpfcnpj === cliente.cpfcnpj) {
-                listaFiltrada.push(venda)
+        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda => { //percorre a lista completa de vendas
+            if(venda.cliente.cpfcnpj === cliente.cpfcnpj) { 
+                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento 
             }
         }))
-        return listaFiltrada
+        return listaFiltrada //retorna a lista filtrada
     }
 
+    //função responsável por filtrar as vendas de um único produto passado como argumento
     public filtroPorProduto(produto: Produto): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = []
-        this.vendas.forEach((venda => {
+        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda => { //percorre a lista completa de vendas
             if(venda.produto.id === produto.id) {
-                listaFiltrada.push(venda)
+                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
             }
         }))
-        return listaFiltrada
+        return listaFiltrada //retorna a lista filtrada
     }
 
+    //função responsável por filtrar as vendas de um único vendedor passado como argumento
     public fitroPorVendedor(vendedor: Vendedor): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = []
-        this.vendas.forEach((venda => {
+        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda => { //percorre a lista completa de vendas
             if(venda.vendedor.cpf === vendedor.cpf) {
-                listaFiltrada.push(venda)
+                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
             }
         }))
-        return listaFiltrada
+        return listaFiltrada //retorna a lista filtrada
     }
-
+    
+    //função que recebe um index do mês e retorna o nome do mês 
     public getMes(index: number): string {
         return this._meses[index]
     }
-
-    public gerenciaMes(numeroMes: number): number {
-        //console.log(numeroMes)
-        if(numeroMes < 0) {
-            return numeroMes + 12
-        } 
-        return numeroMes
-    }
-
+    
     public pegaUltimosMeses(meses: Array<number>): Array<string> {
         const nomesMeses: Array<string> = []
         meses.forEach((e) => nomesMeses.push(this._meses[e]))
         return nomesMeses
     }
-
+    
     public indexUltimosMeses(index: number, qtdMeses: number): Array<number> {
         const listaMeses = []
         for(let i = 0; i < qtdMeses; i++){
@@ -227,5 +224,13 @@ export default class Vendas {
             }
         })
         return precoComissao
+    }
+    
+    //função que recebe um index de mês maior que 11 (index máximo dos meses) e retorna um index válido (usado em cálculos de outras funções)
+    private gerenciaMes(numeroMes: number): number {
+        if(numeroMes < 0) {
+            return numeroMes + 12
+        } 
+        return numeroMes
     }
 }
