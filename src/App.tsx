@@ -3,6 +3,8 @@ import CliNovoProNovo from './pages/cliNovoProNovo';
 import DashboardVendedor from "./pages/dashboardVendedor";
 import CliNovoProAntigo from "./pages/cliNovoProAntigo";
 import Homepage from "./pages/homepage";
+import CliAntigoProNovo from "./pages/cliAntigoProNovo";
+import CliAntigoProAntigo from "./pages/cliAntigoProAntigo";
 
 export default function App() {
   return (
@@ -12,6 +14,8 @@ export default function App() {
           <Route path="/" element={<DashboardVendedor/>} />
           <Route path="/cliNovoProNovo" element={<CliNovoProNovo />} />
           <Route path="/cliNovoProAntigo" element={<CliNovoProAntigo />} />
+          <Route path="/cliAntigoProNovo" element={<CliAntigoProNovo />} />
+          <Route path="/cliAntigoProAntigo" element={<CliAntigoProAntigo />} />
           <Route path="/homepage" element={<Homepage />}/>
         </Route>
       </Routes>

@@ -16,18 +16,14 @@
     box-sizing: border-box;
 }
 
-section {
+.section {
 	position: relative;
 	width: calc(100% - 17.5rem);
 	left: 17.5rem;
 	transition: .3s ease;
 }
-/* #sidebar.hide ~ #content {
-	width: calc(100% - 60px);
-	left: 60px;
-} */
 
-nav {
+.nav {
 	height: 3.5rem;
 	background: var(--claro);
 	padding: 0 1.5rem;
@@ -41,7 +37,7 @@ nav {
 	z-index: 1000;
 }
 
-nav::before {
+.nav::before {
 	content: '';
 	position: absolute;
 	width: 2.5rem;
@@ -52,37 +48,37 @@ nav::before {
 	box-shadow: -1.25rem -1.25rem 0 var(--claro);
 }
 
-nav a {
+.nav #a {
 	color: var(--preto);
 }
 
-nav .bx.bx-menu {
+.nav #bx {
 	cursor: pointer;
 	color: var(--preto);
 }
 
-nav .nav-link {
+.nav-link {
 	font-size: 1rem;
 	transition: .3s ease;
 }
 
-nav .nav-link:hover {
+.nav-link:hover {
 	color: var(--azul);
 }
 
-nav form {
+.nav .form {
 	max-width: 25rem;
 	width: 100%;
 	margin-right: auto;
 }
 
-nav form .formInput{
-   display: flex;
-   align-items: center;
-   height: 2.25rem;
+.nav .form .formInput{
+    display: flex;
+    align-items: center;
+    height: 2.25rem;
 }
 
-nav form .formInput input {
+.nav .form .formInput .pesquisa {
 	flex-grow: 1;
 	padding: 0 1rem;
 	height: 100%;
@@ -94,7 +90,7 @@ nav form .formInput input {
 	color: var(--preto);
 }
 
-nav form .formInput button {
+.nav .form .formInput .lupa {
 	width: 2.25rem;
 	height: 100%;
 	display: flex;
@@ -109,12 +105,12 @@ nav form .formInput button {
 	cursor: pointer;
 }
 
-nav .notification {
+.nav .notificacao {
 	font-size: 1.25rem;
 	position: relative;
 }
 
-nav .notification .num {
+.nav .notificacao .num {
 	position: absolute;
 	top: -0.375rem;
 	right: -0.375rem;
@@ -131,35 +127,35 @@ nav .notification .num {
 	align-items: center;
 }
 
-nav .profile img {
+.nav .perfil .img {
 	width: 2.25rem;
 	height: 2.25rem;
 	object-fit: cover;
 	border-radius: 50%;
 }
 
-nav .switch-mode {
-	display: block;
-	min-width: 3.125rem;
-	height: 1.56rem;
-	border-radius: 1.56rem;
-	background: var(--cinza);
-	cursor: pointer;
-	position: relative;
-}
+// .nav .trocaModo {
+// 	display: block;
+// 	min-width: 3.125rem;
+// 	height: 1.56rem;
+// 	border-radius: 1.56rem;
+// 	background: var(--cinza);
+// 	cursor: pointer;
+// 	position: relative;
+// }
 
-nav .switch-mode::before {
-	content: '';
-	position: absolute;
-	top: 0.125rem;
-	left: 0.125rem;
-	bottom: 0.125rem;
-	width: calc(1.56rem - 0.25rem);
-	background: var(--azul);
-	border-radius: 50%;
-	transition: all .3s ease;
-}
+// nav .trocaModo::before {
+// 	content: '';
+// 	position: absolute;
+// 	top: 0.125rem;
+// 	left: 0.125rem;
+// 	bottom: 0.125rem;
+// 	width: calc(1.56rem - 0.25rem);
+// 	background: var(--azul);
+// 	border-radius: 50%;
+// 	transition: all .3s ease;
+// }
 
-nav #switch-mode:checked + .switch-mode::before {
-	left: calc(100% - (1.56rem - 0.25rem) - 0.125rem);
-}
+// nav .trocaModo:checked + .trocaModo::before {
+// 	left: calc(100% - (1.56rem - 0.25rem) - 0.125rem);
+// }

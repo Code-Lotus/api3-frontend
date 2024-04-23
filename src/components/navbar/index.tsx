@@ -1,27 +1,27 @@
 import { Component } from "react";
-import "./navbar.css";
+import Style from "./navbar.module.scss";
 
 export default class Navbar extends Component{
     render(){
         return(
-            <section>
-                <nav>
+            <section className={Style.section}>
+                <nav className={Style.nav}>
                     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'></link>
-                    <i className='bx bx-menu'></i>
-                    <form action="#">
-                        <div className="formInput">
-                            <input type="search" placeholder="Pesquisar..."></input>
-                            <button type="submit" className="search-btn"><i className='bx bx-search' ></i></button>
+                    <i className='bx bx-menu' id={Style.bx}></i>
+                    <form action="#" className={Style.form}>
+                        <div className={Style.formInput}>
+                            <input type="search" placeholder="Pesquisar..." className={Style.pesquisa}></input>
+                            <button type="submit" className={Style.lupa}><i className='bx bx-search' ></i></button>
                         </div>
                     </form>
-                    <input type="checkbox" id="switch-mode" hidden></input>
+                    <input type="checkbox" className={Style.trocaModo} hidden></input>
                     <label className="switch-mode"></label>
-                    <a href="#" className="notification">
-                        <i className='bx bxs-bell' ></i>
-                        <span className="num">2</span>
+                    <a href="#" className={Style.notificacao} id={Style.a}>
+                        <i className='bx bxs-bell'></i>
+                        <span className={Style.num}>?</span>
                     </a>
-                    <a href="#" className="profile">
-                        <img></img>
+                    <a href="#" className={Style.perfil} id={Style.a}>
+                        <img className={Style.img}></img>
                     </a>
                 </nav>
             </section>

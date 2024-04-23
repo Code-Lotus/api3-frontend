@@ -1,44 +1,44 @@
 import { Link, Outlet } from "react-router-dom";
-import "./sidebar.css";
+import Style from "./sidebar.module.scss";
 
 export default function Sidebar() {
     return(
-        <section className="sidebar">
+        <section className={Style.sidebar}>
             <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'></link>
-            <a href="/" className="brand">
-                <i className='bx bxs-home'></i> {/* SIMBOLO DE CASINHA */}
+            <a href="/" className={Style.brand}>
+                <i className='bx bxs-home' id={Style.bx}></i> {/* SIMBOLO DE CASINHA */}
                 <span>Home</span>
             </a>
-            <ul className="side-menu top">
-                <li className="active">
-                    <Link to="/" className="a">
-                        <i className='bx bxs-dashboard'></i> {/* SIMBOLO DE DASHBOARD */}
-                        <span className="text">Dashboard</span>
+            <ul className={`${Style.sideMenu} ${Style.top}`}>
+                <li className={Style.active}>
+                    <Link to="/" className={Style.a}>
+                        <i className='bx bxs-dashboard' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
+                        <span className={Style.text}>Dashboard</span>
                     </Link>
                 </li>
                 <li>
-                    <Link to="/cliNovoProNovo" className="a">
-                        <i className='bx bxl-product-hunt'></i> {/* SIMBOLO DE DASHBOARD */}
+                    <Link to="/cliNovoProNovo" className={Style.a}>
+                        <i className='bx bxl-product-hunt' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
                         <span className="text">Produto Novo</span>
-                    </Link>
+                    </Link> 
                 </li>
                 <li>
-                    <Link to="/" className="a">
-                        <i className='bx bxl-product-hunt'></i> {/* SIMBOLO DE DASHBOARD */}
+                    <Link to="/" className={Style.a}>
+                        <i className='bx bxl-product-hunt' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
                         <span className="text">Produto Antigo</span>
                     </Link>
                 </li>
             </ul>
-            <ul className="side-menu">
+            <ul className={Style.sideMenu}>
                 <li>
-                    <Link to="/" className="a">
-                        <i className='bx bxs-cog' ></i> {/* SIMBOLO DE DASHBOARD */}
+                    <Link to="/" className={Style.a}>
+                        <i className='bx bxs-cog'  id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
                         <span className="text">Config</span>
                     </Link>
                 </li>
-                <li>
-                    <Link to="/" className="a">
-                        <i className='bx bxs-log-out-circle'></i> {/* SIMBOLO DE DASHBOARD */}
+                <li className={Style.sair}>
+                    <Link to="/" className={`${Style.a} ${Style.sair}`}>
+                        <i className='bx bxs-log-out-circle' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
                         <span className="text">Sair</span>
                     </Link>
                 </li>
