@@ -32,7 +32,7 @@ export default class Pizza extends Component<Props> {
           options={this.state.options}
           series={this.state.series}
           type="pie"
-          width="400"
+          width="500"
         />
       </div>
     );

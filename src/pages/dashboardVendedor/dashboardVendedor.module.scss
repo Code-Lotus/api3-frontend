@@ -1,0 +1,33 @@
+.cards {
+	position: relative;
+	width: calc(100% - 17.5rem);
+	left: 17.5rem;
+	transition: .3s ease;
+}
+
+.topTitle {
+    width: 100%;
+	padding: 36px 24px;
+	font-family: var(--poppins);
+	max-height: calc(100vh - 56px);
+	overflow-y: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+    font-size: 36px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: var(--dark);
+}
+
+.topTitle h1{
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.grafico{
+    margin-top: 2rem;
+}

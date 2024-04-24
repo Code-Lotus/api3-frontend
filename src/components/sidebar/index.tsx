@@ -12,19 +12,25 @@ export default function Sidebar() {
             <ul className={`${Style.sideMenu} ${Style.top}`}>
                 <li className={Style.active}>
                     <Link to="/" className={Style.a}>
-                        <i className='bx bxs-dashboard' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
+                        <i className='bx bxs-dashboard' id={Style.bx}></i> {/* Símbolo de Dashboard */}
                         <span className={Style.text}>Dashboard</span>
                     </Link>
                 </li>
                 <li>
                     <Link to="/cliNovoProNovo" className={Style.a}>
-                        <i className='bx bxl-product-hunt' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
+                        <i className='bx bxl-product-hunt' id={Style.bx}></i> 
                         <span className="text">Produto Novo</span>
                     </Link> 
                 </li>
                 <li>
-                    <Link to="/" className={Style.a}>
-                        <i className='bx bxl-product-hunt' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
+                    <Link to="/cliNovoProAntigo" className={Style.a}>
+                        <i className='bx bxl-product-hunt' id={Style.bx}></i> 
+                        <span className="text">Produto Antigo</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="" className={Style.a}>
+                        <i className='bx bxl-product-hunt' id={Style.bx}></i>
                         <span className="text">Produto Antigo</span>
                     </Link>
                 </li>

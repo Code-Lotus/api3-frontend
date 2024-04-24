@@ -127,11 +127,12 @@
 	align-items: center;
 }
 
-.nav .perfil .img {
+.nav .perfil #a #img {
 	width: 2.25rem;
 	height: 2.25rem;
 	object-fit: cover;
 	border-radius: 50%;
+	background-color: #3C91E6;
 }
 
 // .nav .trocaModo {

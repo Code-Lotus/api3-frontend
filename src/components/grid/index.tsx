@@ -18,7 +18,7 @@ export default function Status() {
                 </li>
 
                 <li className={Style.li}>
-                    <Card classeCss="bx bxs-group" quantidade={dadosController.mascaraPreco("2001")} titulo="Total em vendas"/>
+                    <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("2001")} titulo="Total em vendas"/>
                 </li>
             </ul>
     );

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CliNovoProNovo from './pages/cliNovoProNovo';
-import DashboardVendedor from "./pages/dashboardVendedor";
+import DashboardVendedor from "./pages/dashboardVendedor/dashboardVendedor";
 import CliNovoProAntigo from "./pages/cliNovoProAntigo";
 import Homepage from "./pages/homepage";
 import CliAntigoProNovo from "./pages/cliAntigoProNovo";

@@ -21,7 +21,7 @@ export default class Navbar extends Component{
                         <span className={Style.num}>?</span>
                     </a>
                     <a href="#" className={Style.perfil} id={Style.a}>
-                        <img className={Style.img}></img>
+                        <i className='bx bxs-user' id={Style.img}></i>
                     </a>
                 </nav>
             </section>
