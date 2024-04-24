@@ -18,7 +18,7 @@ export default class Vendas {
     public async recebeArquivo(evento: any) {
         const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
         const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
-        const dados = rows[1] //pega as linhas com os conteúdos (não são cabeçalhos)
+        const dados = rows[1] //pega as linhas com os conteúdos (não os cabeçalhos)
         const dataVenda = dados[0].toString()
         const dadosVendedor = [dados[2].toString(), dados[1].toString()]
         const dadosProduto = [dados[4].toString(), dados[3].toString()]
