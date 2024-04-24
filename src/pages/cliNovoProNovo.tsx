@@ -6,6 +6,8 @@ import ContainerInsercao from "../components/container-insercao";
 export default function CliNovoProNovo(){
     return(
         <>
+            <Navbar/>
+            <Sidebar></Sidebar>
             <ContainerInsercao />
         </>
     );
