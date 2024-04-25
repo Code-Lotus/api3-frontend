@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
+import Style from "./pie.module.scss"
 // import ApexCharts from "apexcharts";
 
 type Props = {
@@ -28,12 +29,14 @@ export default class Pizza extends Component<Props> {
   render() {
     return (
       <div>
-        <Chart
-          options={this.state.options}
-          series={this.state.series}
-          type="pie"
-          width="500"
-        />
+        <div className={Style.card}>
+          <Chart
+            options={this.state.options}
+            series={this.state.series}
+            type="pie"
+            width="700"
+          />
+        </div>
       </div>
     );
   }
