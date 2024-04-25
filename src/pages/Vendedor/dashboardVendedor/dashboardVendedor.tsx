@@ -1,5 +1,6 @@
 import Pizza from "../../../components/graficos/pie";
 import Grid from "../../../components/grid";
+import Historico from "../../../components/historico";
 import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
 import Style from "./dashboardVendedor.module.scss";
@@ -16,6 +17,7 @@ export default function DashboardVendedor(){
         <Grid />
         <section className={Style.grafico}>
           <Pizza valores={[10,20,30,40]} legenda={['Cliente Novo/Produto Novo', 'Cliente Antigo/Produto Novo', 'Cliente Antigo/Produto Antigo', 'Cliente Novo/Produto Antigo']} />
+          <Historico/>
         </section>
       </div>
     </>
