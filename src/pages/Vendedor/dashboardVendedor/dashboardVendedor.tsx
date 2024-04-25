@@ -12,7 +12,7 @@ export default function DashboardVendedor(){
       <Sidebar />
       <div className={Style.cards}>
         <div className={Style.topTitle}>
-          <h1>Dashboard</h1>
+          <h1>Bem-vindo, vendedor</h1>
         </div>
         <Grid />
         <section className={Style.grafico}>
