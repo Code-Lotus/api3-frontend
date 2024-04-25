@@ -16,7 +16,7 @@ export default function DashboardVendedor(){
         </div>
         <Grid />
         <section className={Style.grafico}>
-          <Pizza valores={[10,20,30,40]} legenda={['Cliente Novo/Produto Novo', 'Cliente Antigo/Produto Novo', 'Cliente Antigo/Produto Antigo', 'Cliente Novo/Produto Antigo']} />
+          <Pizza valores={[10,20,30,40]} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} />
           <Historico/>
         </section>
       </div>
