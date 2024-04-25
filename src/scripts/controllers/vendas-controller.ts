@@ -6,12 +6,16 @@ import Produto from '../models/produto';
 import Cliente from '../models/cliente';
 
 export default class Vendas {
-    private vendas: Array<PlanilhaVendas>
+    private _vendas: Array<PlanilhaVendas>
     private _meses: ReadonlyArray<string>
     
     constructor(vendas: Array<PlanilhaVendas>){
-        this.vendas = vendas
+        this._vendas = vendas
         this._meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+    }
+
+    public get vendas(): Array<PlanilhaVendas> {
+        return this._vendas
     }
 
     //função para ser colocada no onChange de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
