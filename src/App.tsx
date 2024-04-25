@@ -5,6 +5,7 @@ import CliAntigoProNovo from "./pages/Vendedor/cliAntigoProNovo/cliAntigoProNovo
 import CliAntigoProAntigo from "./pages/Vendedor/cliAntigoProAntigo/cliAntigoProAntigo";
 import DashboardVendedor from "./pages/Vendedor/dashboardVendedor/dashboardVendedor";
 import CliNovoProNovo from "./pages/Vendedor/cliNovoProNovo/cliNovoProNovo";
+import InsercaoExcel from "./pages/Administrador/insercaoExcel";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/cliAntigoProNovo" element={<CliAntigoProNovo />} />
           <Route path="/cliAntigoProAntigo" element={<CliAntigoProAntigo />} />
           <Route path="/dashboardAdm" element={<DashboardAdm />}/>
+          <Route path="/insercaoExcel" element={<InsercaoExcel />}/>
         </Route>
       </Routes>
     </BrowserRouter>

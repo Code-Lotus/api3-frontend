@@ -14,7 +14,7 @@ export default class Vendas {
         this._meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
     }
 
-    //função para ser colocada no onClick de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
+    //função para ser colocada no onChange de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
     public async recebeArquivo(evento: any) {
         const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
         const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
