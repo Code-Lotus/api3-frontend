@@ -18,11 +18,10 @@ export default class Pizza extends Component<Props> {
       options: {
         labels: this.props.legenda,
         chart: {
-          id: "pie"
+          id: "pie",
         },
         legend: {
           fontSize: '18px'
-          
         }
       }
   };
@@ -35,7 +34,7 @@ export default class Pizza extends Component<Props> {
             options={this.state.options}
             series={this.state.series}
             type="pie"
-            width="730"
+            width="705"
           />
         </div>
       </div>
