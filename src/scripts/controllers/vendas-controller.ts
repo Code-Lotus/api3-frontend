@@ -44,8 +44,20 @@ export default class Vendas {
     public filtraPorMes(mes: Date): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.data === venda.data) { 
-                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento 
+            if(venda.data.getMonth === venda.data.getMonth) { 
+                listaFiltrada.push(venda) //e adiciona na lista filtrada onde a data da venda do prduto é igual a data da venda pesquisada no argumento 
+            }
+        }))
+        return listaFiltrada //retorna a lista filtrada
+    }
+
+    //----------------------FILTROS DE ANO TESTE--------------------------//
+
+    public filtraPorAno(ano: Date): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda => { //percorre a lista completa de vendas
+            if(venda.data.getFullYear === venda.data.getFullYear) { 
+                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o ano da venda do prduto é igual o ano da venda pesquisada no argumento 
             }
         }))
         return listaFiltrada //retorna a lista filtrada
