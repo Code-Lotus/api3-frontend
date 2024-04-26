@@ -4,6 +4,7 @@ import readXlsxFile from 'read-excel-file';
 import Vendedor from '../models/vendedor';
 import Produto from '../models/produto';
 import Cliente from '../models/cliente';
+import CampoProduto from '../models/campoProduto';
 
 export default class Vendas {
     private _vendas: Array<PlanilhaVendas>
@@ -34,8 +35,14 @@ export default class Vendas {
         this.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas
     }
 
+
+
+
+
+    //----------------------FILTROS--------------------------//
+
     //função responsável por filtrar as vendas de um único cliente passado como argumento
-    public filtroPorCliente(cliente: Cliente): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorCliente(cliente: Cliente): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
             if(venda.cliente.cpfcnpj === cliente.cpfcnpj) { 
@@ -46,7 +53,7 @@ export default class Vendas {
     }
 
     //função responsável por filtrar as vendas de um único produto passado como argumento
-    public filtroPorProduto(produto: Produto): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorProduto(produto: Produto): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
             if(venda.produto.id === produto.id) {
@@ -57,7 +64,7 @@ export default class Vendas {
     }
 
     //função responsável por filtrar as vendas de um único vendedor passado como argumento
-    public fitroPorVendedor(vendedor: Vendedor): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorVendedor(vendedor: Vendedor): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
             if(venda.vendedor.cpf === vendedor.cpf) {
@@ -66,6 +73,54 @@ export default class Vendas {
         }))
         return listaFiltrada //retorna a lista filtrada
     }
+    
+    
+    
+    
+    
+    
+    //--------------------ORDENADORES-----------------------//
+    public ordenaQtd(): ReadonlyArray<CampoProduto> {
+        return this.criaCampos().sort((a, b) => {
+            if(a.qtd > b.qtd){
+                return -1
+            } else if(a.qtd < b.qtd){
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
+
+    public ordenaPrecoUni(): ReadonlyArray<CampoProduto> {
+        return this.criaCampos().sort((a, b) => {
+            if(a.precoUni > b.precoUni){
+                return -1
+            } else if(a.precoUni < b.precoUni){
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
+
+    public ordenaPrecoTotal(): ReadonlyArray<CampoProduto> {
+        return this.criaCampos().sort((a, b) => {
+            if(a.precoTotal > b.precoTotal){
+                return -1
+            } else if(a.precoTotal < b.precoTotal){
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
+    
+
+    
+    
+
+
     
     //função que recebe um index do mês e retorna o nome do mês 
     public getMes(index: number): string {
@@ -85,7 +140,8 @@ export default class Vendas {
         }
         return listaMeses
     }
-
+    
+    //refatorar código
     public calculaQtdPorMes(mes: string): Array<number>{
         const mesAtual = this._meses.indexOf(mes)
         const calculoDosMeses: Array<number> = []
@@ -236,5 +292,20 @@ export default class Vendas {
             return numeroMes + 12
         } 
         return numeroMes
+    }
+
+    private criaCampos(): Array<CampoProduto>{
+        const ids: Array<number> = []
+        const listaProdutos: Array<CampoProduto> = []
+        this._vendas.forEach(venda => {
+            if(!(ids.includes(venda.produto.id))){
+                listaProdutos.push(new CampoProduto(venda.produto, 1, venda.valor))
+            } else {
+                const index = ids.indexOf(venda.produto.id)
+                let qtd = listaProdutos[index].qtd
+                listaProdutos.splice(index, 1, new CampoProduto(venda.produto, qtd+1, venda.valor))
+            }
+        })
+        return listaProdutos
     }
 }
