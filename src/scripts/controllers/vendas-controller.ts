@@ -39,6 +39,19 @@ export default class Vendas {
 
 
 
+    //----------------------FILTROS DE MES TESTE--------------------------//
+
+    public filtraPorMes(mes: Date): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda => { //percorre a lista completa de vendas
+            if(venda.data === venda.data) { 
+                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento 
+            }
+        }))
+        return listaFiltrada //retorna a lista filtrada
+    }
+
+
     //----------------------FILTROS--------------------------//
 
     //função responsável por filtrar as vendas de um único cliente passado como argumento
