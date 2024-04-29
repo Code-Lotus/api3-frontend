@@ -35,34 +35,38 @@ export default class Vendas {
         this.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas
     }
 
+    //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
 
-
-
-
-    //----------------------FILTROS DE MES TESTE--------------------------//
-
-    public filtraPorMes(mes: Date): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorMes(data: Date): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.data.getMonth === venda.data.getMonth) { 
+        this.vendas.forEach(venda => { //percorre a lista completa de vendas
+            if(venda.data.getMonth() === data.getMonth()) { 
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde a data da venda do prduto é igual a data da venda pesquisada no argumento 
             }
-        }))
+        })
         return listaFiltrada //retorna a lista filtrada
     }
 
-    //----------------------FILTROS DE ANO TESTE--------------------------//
+    public filtraPorSemestre(data: Date): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = []
+        const meses = this.indexUltimosMeses(data.getMonth(), 6)
+        this.vendas.forEach(venda => {
+            if(meses.includes(venda.data.getMonth())){
+                listaFiltrada.push(venda)
+            }
+        })
+        return listaFiltrada
+    }
 
-    public filtraPorAno(ano: Date): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorAno(data: Date): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.data.getFullYear === venda.data.getFullYear) { 
+            if(venda.data.getFullYear() === data.getFullYear()) { 
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o ano da venda do prduto é igual o ano da venda pesquisada no argumento 
             }
         }))
         return listaFiltrada //retorna a lista filtrada
     }
-
 
     //----------------------FILTROS--------------------------//
 
@@ -98,11 +102,6 @@ export default class Vendas {
         }))
         return listaFiltrada //retorna a lista filtrada
     }
-    
-    
-    
-    
-    
     
     //--------------------ORDENADORES-----------------------//
     public ordenaQtd(): ReadonlyArray<CampoProduto> {
@@ -140,12 +139,6 @@ export default class Vendas {
             }
         })
     }
-    
-
-    
-    
-
-
     
     //função que recebe um index do mês e retorna o nome do mês 
     public getMes(index: number): string {
