@@ -1,5 +1,5 @@
 .all {
-	position: relative;
+    position: relative;
 	width: calc(100% - 17.5rem);
 	left: 17.5rem;
 	transition: .3s ease;
@@ -21,15 +21,17 @@
 	color: var(--dark);
 }
 
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+    grid-gap: 0.875rem;
+    margin-top: 2.25rem;
+    padding: 0.625rem;
+}
+
 .topTitle h1{
     font-size: 2.25rem;
     font-weight: 600;
     margin-bottom: 0.625rem;
     color: black;
-}
-
-.grafico{
-    margin-top: 2rem;
-	display: flex;
-	justify-content: space-around;
 }

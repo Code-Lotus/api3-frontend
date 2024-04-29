@@ -1,5 +1,5 @@
 import { Component } from "react"
-import Style from "../grid/status.module.scss"
+import Style from "./card.module.scss"
 
 type Props = {
     classeCss?: string,
@@ -23,11 +23,15 @@ export default class Card extends Component<Props>{
     render() {
         return (
             <>
-                <i className={this.state.classeCss} id={Style.bx}></i>
-                <span>
-                    <h3>{this.state.quantidade}</h3>
-                    <p>{this.state.titulo}</p>
-                </span>
+                <ul className={Style.box}>
+                    <li className={Style.li}>
+                        <i className={this.state.classeCss} id={Style.bx}></i>
+                        <span>
+                            <h3>{this.state.quantidade}</h3>
+                            <p>{this.state.titulo}</p>
+                        </span> 
+                    </li>
+                </ul>
             </>
         )
     }

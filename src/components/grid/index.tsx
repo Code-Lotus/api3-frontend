@@ -1,6 +1,5 @@
 import Style from "./status.module.scss"
 import Card from "../card";
-import "./status.css";
 import DadosController from "../../scripts/controllers/dados-controller";
 
 const dadosController = new DadosController()
