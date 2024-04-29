@@ -1,0 +1,79 @@
+#content .main .dateTable {
+	display: flex;
+	flex-wrap: wrap;
+	grid-gap: 24px;
+	// margin-top: 24px;	
+	width: 40.2%;
+	color: var(--dark);
+    
+}
+#content .main .dateTable > div {
+	border-radius: 20px;
+	background: var(--light);
+	padding: 24px;
+    margin-left: 2rem;
+	overflow-x: auto;
+}
+#content .main .dateTable .head {
+	display: flex;
+	align-items: center;
+	grid-gap: 16px;
+	margin-bottom: 24px;
+}
+#content .main .dateTable .head h3 {
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: 600;
+}
+#content .main .dateTable .head .bx {
+	cursor: pointer;
+}
+
+#content .main .dateTable .order {
+	flex-grow: 1;
+	flex-basis: 500px;
+	background-color: #FFF
+}
+#content .main .dateTable .order table {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+	width: 100%;
+	border-collapse: collapse;
+    
+}
+#content .main .dateTable .order table th {
+    padding: 0% 2% 2% 2%;
+    padding-bottom: 12px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--grey);
+}
+
+#content .main .dateTable .order table td {
+    padding: 16px 0;
+}
+
+#content .main .dateTable .order table tr td:first-child,
+#content .main .dateTable .order table tr td:nth-child(2),
+#content .main .dateTable .order table tr td:nth-child(3) {
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 0; /* Removendo espaçamento extra */
+}
+
+#content .main .dateTable .order table tbody tr {
+    display: flex;
+    gap: 10rem;
+}
+
+#content .main .dateTable .order table thead tr {
+    display: flex;
+    gap: 11rem;
+}
+
+#content .main .dateTable .order table tbody tr:hover {
+    background: var(--grey);
+}
+

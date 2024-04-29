@@ -1,0 +1,19 @@
+.box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.875rem;
+    margin-top: 2.25rem;
+    padding: 0.625rem;
+    margin-left: 25rem;
+}
+
+.li {
+    padding: 24px;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 24px;
+}
+

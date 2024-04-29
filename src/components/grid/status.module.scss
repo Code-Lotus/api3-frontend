@@ -17,10 +17,10 @@
     grid-gap: 1.5rem;
 }
 
-.li #bx {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 0.625rem;
+.li:nth-child(1) .bx {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
     background: rgb(224, 224, 224);
     font-size: 2.25rem;
     display: flex;
@@ -29,3 +29,4 @@
     background: lightskyblue;
     color: white;
 }
+

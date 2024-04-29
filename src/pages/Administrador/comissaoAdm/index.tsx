@@ -1,8 +1,8 @@
 import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
 import Style from "../comissaoAdm/comissaoAdm.module.scss"
-import Grid from "../../../components/grid"
-import Comissao from "../../../components/comissao-total";
+import Comissao from "../../../components/grid/index2";
+import HistoricoAdm from "../../../components/historicoAdm";
 
 export default function ComissaoAdm() {
     return (
@@ -14,6 +14,9 @@ export default function ComissaoAdm() {
             <h1>Comissões</h1>
           </div>
           <Comissao />
+          <div className={Style.log}>
+          <HistoricoAdm />
+          </div>
         </div>
       </>
     );
