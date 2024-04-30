@@ -40,6 +40,12 @@ export default function Sidebar() {
                         <span className="text">Produto Antigo / Cliente Antigo</span>
                     </Link>
                 </li>
+                <li>
+                    <Link to="/comissaoDeVendas" className={Style.a}>
+                        <i className='bx bxl-product-hunt' id={Style.bx}></i>
+                        <span className="text">Comissão De Vendas</span>
+                    </Link>
+                </li>
             </ul>
             <ul className={Style.sideMenu}>
                 <li>

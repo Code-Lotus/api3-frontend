@@ -7,6 +7,7 @@ import DashboardVendedor from "./pages/Vendedor/dashboardVendedor/dashboardVende
 import CliNovoProNovo from "./pages/Vendedor/cliNovoProNovo/cliNovoProNovo";
 import InsercaoExcel from "./pages/Administrador/insercaoExcel";
 import ComissaoAdm from "./pages/Administrador/comissaoAdm";
+import ComissaoDeVendas from "./pages/Vendedor/comissaoDeVendas/comissaoDeVendas";
 
 export default function App() {
   return (
