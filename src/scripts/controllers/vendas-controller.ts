@@ -103,6 +103,18 @@ export default class Vendas {
         return listaFiltrada //retorna a lista filtrada
     }
     
+    //função responsável por filtrar as vendas de um único cliente passado como argumento e dentro de uma faixa de valores
+    public filtraPorCliente(cliente: Cliente, valorMin: number, valorMax: number): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = []; //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda) => { //percorre a lista completa de vendas
+            if (venda.cliente.cpfcnpj === cliente.cpfcnpj && venda.valor >= valorMin && venda.valor <= valorMax) { 
+                listaFiltrada.push(venda); //adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento e o valor está dentro da faixa desejada
+        }
+        });
+        return listaFiltrada; //retorna a lista filtrada
+}
+//const clienteFiltrado = empresa.filtraPorCliente(cliente, 100, 10000);
+
     //--------------------ORDENADORES-----------------------//
     public ordenaQtd(): ReadonlyArray<CampoProduto> {
         return this.criaCampos().sort((a, b) => {
