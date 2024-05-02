@@ -3,14 +3,27 @@ import Produto from "./produto";
 import Vendedor from "./vendedor";
 
 export default class PlanilhaVendas {
-    constructor(
-        private _data: Date,
-        private _vendedor: Vendedor,
-        private _produto: Produto,
-        private _cliente: Cliente,
-        private _valor: number,
-        private _formaPagamento: string
-    ) {}
+    private _id: number
+    private _data: Date
+    private _vendedor: Vendedor
+    public _produto: Produto
+    public _cliente: Cliente
+    private _valor: number
+    private _formaPagamento: string
+    
+    constructor(id: number, data: Date, vendedor: Vendedor, produto: Produto, cliente: Cliente, valor: number, formaPagamento: string) {
+        this._id = id
+        this._data = data
+        this._vendedor = vendedor
+        this._produto = produto
+        this._cliente = cliente
+        this._valor = valor
+        this._formaPagamento = formaPagamento
+    }
+
+    get id(): number {
+        return this._id
+    }
 
     get data(): Date {
         const data = new Date(this._data.getTime());

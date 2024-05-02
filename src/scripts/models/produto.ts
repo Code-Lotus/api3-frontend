@@ -2,7 +2,7 @@ export default class Produto {
     constructor(
         private _id: number,
         private _nome: string,
-        private _dataCadastro: Date
+        public _dataCadastro: Date
     ) {}
 
     get id(): number {

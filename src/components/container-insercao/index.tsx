@@ -6,10 +6,11 @@ import PlanilhaVendas from "../../scripts/models/planilhaVendas";
 import Vendedor from "../../scripts/models/vendedor";
 import Produto from "../../scripts/models/produto";
 import Cliente from "../../scripts/models/cliente";
-//import './style.css';
+import {Database} from "../../scripts/controllers/localStorage"
 
 const vendas = new Vendas([])
 let venda: PlanilhaVendas
+let id = 0
 //função para ser colocada no onChange de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
 async function recebeArquivo(evento: any) {
     const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
@@ -21,14 +22,15 @@ async function recebeArquivo(evento: any) {
     const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
     const valor = dados[8].toString()
     const formaPagamento = dados[9].toString()
-    venda = new PlanilhaVendas(new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
+    venda = new PlanilhaVendas(id++, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
 }
 
 function salvaArquivo(venda: PlanilhaVendas) {
 	vendas.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas	
 	console.log(venda)
 	alert("Arquivo enviado!")
-	return (<p> {venda.cliente.cpfcnpj} </p>)
+	Database.addEntry(venda)
+	console.log(Database.getPlanilhaVendas())
 }
 
 export default class ContainerInsercao extends Component {

@@ -2,7 +2,7 @@ export default class Cliente {
     private _cnpjcpf: string
     private _nome: string
     private _segmento: string
-    private _dataCadastro: Date
+    public _dataCadastro: Date
     
     constructor(_cnpjcpf: string, _nome: string, _segmento: string, _dataCadastro: Date) {
         this._cnpjcpf = _cnpjcpf
