@@ -12,9 +12,12 @@ export default function Historico() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Vendedor</th>
                                     <th>Data</th>
-                                    <th>Status</th>
+                                    <th>Produto</th>
+                                    <th>Cliente</th>
+                                    <th>Valor da venda</th>
+                                    <th>Valor da comissão</th>
+                                    
                                 </tr>
                                 <hr/>
                             </thead>
@@ -22,43 +25,95 @@ export default function Historico() {
                                 <tr>
                                     <td>
                                         {/* <img src="img/avatar.png"> */}
-                                        <p>Pedro</p>
+                                        06/10/2024
                                     </td>
-                                    <td>06/10/2024</td>
-                                    <td><span className={Style.statusCompleted}>Completa</span></td>
+                                    <td>
+                                        <p>Sistema de descrição de cargos</p>
+                                    </td>
+                                    <td>
+                                        <p>Pedro de Alcantra</p>
+                                    </td>
+                                    <td>
+                                        <p>10,30</p>
+                                    </td>
+                                    <td>
+                                    <p>10,30</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         {/* <img src="img/avatar.png"> */}
-                                        <p>João</p>
+                                        06/10/2024
                                     </td>
-                                    <td>06/10/2024</td>
-                                    <td><span className={Style.statusPending}>Pendente</span></td>
+                                    <td>
+                                        <p>Sistema de descrição de cargos</p>
+                                    </td>
+                                    <td>
+                                        <p>Pedro de Alcantra</p>
+                                    </td>
+                                    <td>
+                                        <p>10,30</p>
+                                    </td>
+                                    <td>
+                                    <p>10,30</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         {/* <img src="img/avatar.png"> */}
-                                        <p>Lucas</p>
+                                        06/10/2024
                                     </td>
-                                    <td>06/10/2024</td>
-                                    <td><span className={Style.statusProcess}>Em Processamento</span></td>
+                                    <td>
+                                        <p>Sistema de descrição de cargos</p>
+                                    </td>
+                                    <td>
+                                        <p>Pedro de Alcantra</p>
+                                    </td>
+                                    <td>
+                                        <p>10,30</p>
+                                    </td>
+                                    <td>
+                                    <p>10,30</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         {/* <img src="img/avatar.png"> */}
-                                        <p>André</p>
+                                        06/10/2024
                                     </td>
-                                    <td>05/10/2024</td>
-                                    <td><span className={Style.statusPending}>Pendente</span></td>
+                                    <td>
+                                        <p>Sistema de descrição de cargos</p>
+                                    </td>
+                                    <td>
+                                        <p>Pedro de Alcantra</p>
+                                    </td>
+                                    <td>
+                                        <p>10,30</p>
+                                    </td>
+                                    <td>
+                                    <p>10,30</p>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         {/* <img src="img/avatar.png"> */}
-                                        <p>Luiz</p>
+                                        06/10/2024
                                     </td>
-                                    <td>05/10/2024</td>
-                                    <td><span className={Style.statusCompleted}>Completa</span></td>
+                                    <td>
+                                        <p>Sistema de descrição de cargos</p>
+                                    </td>
+                                    <td>
+                                        <p>Pedro de Alcantra</p>
+                                    </td>
+                                    <td>
+                                        <p>10,30</p>
+                                    </td>
+                                    <td>
+                                    <p>10,30</p>
+                                    </td>
                                 </tr>
+                                 
+                                
                             </tbody>
                         </table>
                     </div>

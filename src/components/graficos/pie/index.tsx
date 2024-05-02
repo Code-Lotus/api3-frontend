@@ -30,6 +30,7 @@ export default class Pizza extends Component<Props> {
     return (
       <div>
         <div className={Style.card}>
+          <h1>Grafico</h1>
           <Chart
             options={this.state.options}
             series={this.state.series}
