@@ -6,6 +6,7 @@ import Style from "./pie.module.scss"
 type Props = {
   valores: Array<number>
   legenda: Array<string>
+  // nome: string
 }
 
 export default class Pizza extends Component<Props> {
@@ -26,17 +27,25 @@ export default class Pizza extends Component<Props> {
       }
   };
 
+  // public nome = this.props.nome
+
   render() {
     return (
       <div>
         <div className={Style.card}>
-          <h1>Grafico</h1>
+          <h1>Geral</h1>
           <Chart
             options={this.state.options}
             series={this.state.series}
             type="pie"
             width="705"
           />
+          <select>
+            <option value="mes">Mês</option>
+            <option value="ano">Ano</option>
+            <option value="precoMax">Preço Máximo</option>
+            <option value="precoMin">Preço Mínimo</option>
+          </select>
         </div>
       </div>
     );

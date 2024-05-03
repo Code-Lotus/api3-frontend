@@ -2,7 +2,7 @@ import Card from "../../../components/card";
 import Coluna from "../../../components/graficos/coluna";
 import Linha from "../../../components/graficos/linha";
 import Pizza from "../../../components/graficos/pie";
-import Grid from "../../../components/grid";
+// import Grid from "../../../components/grid";
 import Historico from "../../../components/historico";
 import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
