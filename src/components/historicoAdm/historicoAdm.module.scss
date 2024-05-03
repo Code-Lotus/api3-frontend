@@ -1,10 +1,17 @@
+#content{
+	background-color: yellow;
+	width: 50%;
+	}
+
 #content .main .dateTable {
 	display: flex;
 	flex-wrap: wrap;
 	grid-gap: 24px;
 	// margin-top: 24px;	
-	width: 40.2%;
+	width: 95%;
+	max-width: 95%;
 	color: var(--dark);
+	
     
 }
 #content .main .dateTable > div {
@@ -12,9 +19,9 @@
 	background: var(--light);
 	padding: 24px;
     margin-left: 2rem;
-	overflow-x: auto;
 }
 #content .main .dateTable .head {
+	
 	display: flex;
 	align-items: center;
 	grid-gap: 16px;
@@ -33,17 +40,22 @@
 	flex-grow: 1;
 	flex-basis: 500px;
 	background-color: #FFF
+	
 }
 #content .main .dateTable .order table {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 	width: 100%;
+	padding-bottom: 20%;
 	border-collapse: collapse;
+	overflow-x: auto;
+	overflow-y: auto;
+
     
 }
 #content .main .dateTable .order table th {
-    padding: 0% 2% 2% 2%;
+    padding: auto;
     padding-bottom: 12px;
     font-size: 13px;
     text-align: left;
@@ -65,12 +77,13 @@
 
 #content .main .dateTable .order table tbody tr {
     display: flex;
-    gap: 10rem;
+    gap: 4rem;
+	
 }
 
 #content .main .dateTable .order table thead tr {
     display: flex;
-    gap: 11rem;
+    gap: 5rem;
 }
 
 #content .main .dateTable .order table tbody tr:hover {

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import ReactApexChart from "react-apexcharts";
 
-class LinhaDashed extends Component {
+export class LinhaDashed extends Component {
   constructor(props: any) {
     super(props);
 

@@ -2,8 +2,10 @@ import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
 import Grid from "../../../components/grid";
 import Style from "../dashboardAdm/dashboardAdm.module.scss";
-import Historico from "../../../components/historico";
+
 import Pizza from "../../../components/graficos/pie";
+import HistoricoAdm from "../../../components/historicoAdm";
+
 
 export default function DashboardAdm(){
     return(
@@ -16,9 +18,11 @@ export default function DashboardAdm(){
         </div>
         <Grid />
         <section className={Style.grafico}>
+          <HistoricoAdm/>
+          
           <Pizza valores={[25,25,25,25]} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} />
-          <Historico/>
         </section>
+        
       </div>
     </>
       );
