@@ -17,30 +17,6 @@ export default function Sidebar() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/cliNovoProNovo" className={Style.a}>
-                        <i className='bx bxl-product-hunt' id={Style.bx}></i> 
-                        <span className="text">Produto Novo / Cliente Novo</span>
-                    </Link> 
-                </li>
-                <li>
-                    <Link to="/cliNovoProAntigo" className={Style.a}>
-                        <i className='bx bxl-product-hunt' id={Style.bx}></i> 
-                        <span className="text">Produto Antigo / Cliente Novo</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/cliAntigoProNovo" className={Style.a}>
-                        <i className='bx bxl-product-hunt' id={Style.bx}></i>
-                        <span className="text">Produto Novo / Cliente Antigo</span>
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/cliAntigoProAntigo" className={Style.a}>
-                        <i className='bx bxl-product-hunt' id={Style.bx}></i>
-                        <span className="text">Produto Antigo / Cliente Antigo</span>
-                    </Link>
-                </li>
-                <li>
                     <Link to="/comissaoDeVendas" className={Style.a}>
                         <i className='bx bxl-product-hunt' id={Style.bx}></i>
                         <span className="text">Comissão De Vendas</span>
