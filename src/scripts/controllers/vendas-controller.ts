@@ -74,7 +74,7 @@ export default class Vendas {
     public filtraPorCliente(cliente: Cliente): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.cliente.cpfcnpj === cliente.cpfcnpj) { 
+            if(venda._cliente.cpfcnpj === cliente.cpfcnpj) { 
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento 
             }
         }))
@@ -85,7 +85,7 @@ export default class Vendas {
     public filtraPorProduto(produto: Produto): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.produto.id === produto.id) {
+            if(venda._produto.id === produto.id) {
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
             }
         }))
@@ -104,16 +104,23 @@ export default class Vendas {
     }
     
     //função responsável por filtrar as vendas de um único cliente passado como argumento e dentro de uma faixa de valores
-//     public filtraPorCliente(cliente: Cliente, valorMin: number, valorMax: number): ReadonlyArray<PlanilhaVendas> {
-//         const listaFiltrada: Array<PlanilhaVendas> = []; //cria uma lista para armazenar a lista filtrada
-//         this.vendas.forEach((venda) => { //percorre a lista completa de vendas
-//             if (venda.cliente.cpfcnpj === cliente.cpfcnpj && venda.valor >= valorMin && venda.valor <= valorMax) { 
-//                 listaFiltrada.push(venda); //adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento e o valor está dentro da faixa desejada
-//         }
-//         });
-//         return listaFiltrada; //retorna a lista filtrada
-// }
-//const clienteFiltrado = empresa.filtraPorCliente(cliente, 100, 10000);
+    public filtraPorPreco(min: boolean, preco: number): ReadonlyArray<PlanilhaVendas> {
+        const listaFiltrada: Array<PlanilhaVendas> = []; //cria uma lista para armazenar a lista filtrada
+        this.vendas.forEach((venda) => { //percorre a lista completa de vendas
+            if(min) {
+                if(venda.valor <= preco){
+                    listaFiltrada.push(venda)
+                }
+            }
+            else {
+                if(venda.valor > preco){
+                    listaFiltrada.push(venda)
+                }
+            }
+                 //adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento e o valor está dentro da faixa desejada
+    });
+        return listaFiltrada; //retorna a lista filtrada
+}
 
     //--------------------ORDENADORES-----------------------//
     public ordenaQtd(): ReadonlyArray<CampoProduto> {
