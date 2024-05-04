@@ -1,5 +1,6 @@
 import Chart from "react-apexcharts";
 import Style from "./coluna.module.scss"
+import Select from "../../select";
 
 export default function Coluna({valores, nome, categoria}: {valores: Array<Array<number>>, nome: Array<string>, categoria: Array<string>}) {
   const dados = {
@@ -49,12 +50,7 @@ export default function Coluna({valores, nome, categoria}: {valores: Array<Array
     <>
     <div className={Style.card}>
       <Chart options={dados.options} series={dados.series} type="bar" height={350} />
-      <select>
-        {/* <option value="produto">Produto</option>
-        <option value="cliente">Cliente</option> */}
-        <option value="precoMax">Preço máximo</option>
-        <option value="precoMin">Preço mínimo</option>
-      </select>
+      <Select valores={["Preço Máximo", "Preço Mínimo"]}/>
     </div>
     </>
   );

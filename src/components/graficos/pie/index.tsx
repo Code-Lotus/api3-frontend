@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Style from "./pie.module.scss"
+import Select from "../../select";
+import { Database } from "../../../scripts/controllers/localStorage";
+import Input from "../../input";
 // import ApexCharts from "apexcharts";
 
 type Props = {
@@ -15,6 +18,7 @@ export default class Pizza extends Component<Props> {
     super(props)
   }
   public state = {
+      listaFiltrada: Database.getPlanilhaVendas(),
       series: this.props.valores,
       options: {
         labels: this.props.legenda,
@@ -30,6 +34,7 @@ export default class Pizza extends Component<Props> {
   // public nome = this.props.nome
 
   render() {
+    console.log(typeof(this.state.listaFiltrada))
     return (
       <div>
         <div className={Style.card}>
@@ -40,13 +45,10 @@ export default class Pizza extends Component<Props> {
             type="pie"
             width="705"
           />
-          <select>
-            <option value="mes">Mês</option>
-            <option value="ano">Ano</option>
-            <option value="precoMax">Preço Máximo</option>
-            <option value="precoMin">Preço Mínimo</option>
-          </select>
+          <Select valores={["Mês", "Ano", "Preço Máximo", "Preço Mínimo"]}/>
+          <Input value="" limite=""/>
         </div>
+        {/* <p>{JSON.stringify(this.state.listaFiltrada)}</p> */}
       </div>
     );
   }

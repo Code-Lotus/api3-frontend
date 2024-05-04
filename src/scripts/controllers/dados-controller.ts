@@ -1,4 +1,12 @@
 export default class DadosController {
+    public ajustaData(data: string){
+        const datas = data.split('/')
+        let dia = datas[1]
+        let mes = datas[0]
+        let ano = datas[2]
+        return dia + '/' + mes + '/' + ano
+    }
+
     public mascaraCPF(cpf: string) {
         return cpf
           .replace(/\D/g, "")

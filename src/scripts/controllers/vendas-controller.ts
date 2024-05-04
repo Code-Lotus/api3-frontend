@@ -23,16 +23,18 @@ export default class Vendas {
     public async recebeArquivo(evento: any) {
         const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
         const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
-        const dados = rows[1] //pega as linhas com os conteúdos (não os cabeçalhos)
-        const dataVenda = dados[0].toString()
-        const dadosVendedor = [dados[2].toString(), dados[1].toString()]
-        const dadosProduto = [dados[4].toString(), dados[3].toString()]
-        const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
-        const valor = dados[8].toString()
-        const formaPagamento = dados[9].toString()
-        const venda = new PlanilhaVendas(0, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
-        console.log(venda)
-        this.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas
+        for(let i = 1; i < rows.length; i++){
+            const dados = rows[i] //pega as linhas com os conteúdos (não os cabeçalhos)
+            const dataVenda = dados[0].toString()
+            const dadosVendedor = [dados[2].toString(), dados[1].toString()]
+            const dadosProduto = [dados[4].toString(), dados[3].toString()]
+            const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
+            const valor = dados[8].toString()
+            const formaPagamento = dados[9].toString()
+            const venda = new PlanilhaVendas(0, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
+            console.log(venda)
+            this.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas
+        }
     }
 
     //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
