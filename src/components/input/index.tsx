@@ -6,6 +6,7 @@ type State = {
 }
 
 export default class Input extends Component<State> {
+    
     state = {
         value: '',
         limite: ''
@@ -16,12 +17,22 @@ export default class Input extends Component<State> {
     }
 
     render(){
-    const {value, limite} = this.state
+    const {limite} = this.state
+    let minimo = 1
+    let maximo = 999999999
+
+    if(limite.includes("Mês")){
+        maximo = 12
+    }
+    
+    if(limite.includes("Ano")){
+        maximo = new Date().getFullYear()
+        minimo = 2000
+    }
 
         return (
             <>
-                <input type="number" onChange={this.handleValueChange}/>
-                {/*Fazer coisas relacionadas a passar tipo de função de um pro outro pra reduzir o limite do input number*/}
+                <input type="number" onChange={this.handleValueChange} max={maximo} min={minimo}/>
             </>
         )
     }
