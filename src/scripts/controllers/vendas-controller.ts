@@ -39,10 +39,10 @@ export default class Vendas {
 
     //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
 
-    public filtraPorMes(data: Date): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorMes(mes: number): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach(venda => { //percorre a lista completa de vendas
-            if(venda.data.getMonth() === data.getMonth()) { 
+            if(new Date(venda._data).getMonth() === mes) { 
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde a data da venda do prduto é igual a data da venda pesquisada no argumento 
             }
         })
@@ -60,10 +60,10 @@ export default class Vendas {
         return listaFiltrada
     }
 
-    public filtraPorAno(data: Date): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorAno(ano: number): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.data.getFullYear() === data.getFullYear()) { 
+            if(new Date(venda._data).getFullYear() === ano) { 
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o ano da venda do prduto é igual o ano da venda pesquisada no argumento 
             }
         }))
@@ -110,12 +110,12 @@ export default class Vendas {
         const listaFiltrada: Array<PlanilhaVendas> = []; //cria uma lista para armazenar a lista filtrada
         this.vendas.forEach((venda) => { //percorre a lista completa de vendas
             if(min) {
-                if(venda.valor <= preco){
+                if(venda._valor >= preco){
                     listaFiltrada.push(venda)
                 }
             }
             else {
-                if(venda.valor > preco){
+                if(venda._valor <= preco){
                     listaFiltrada.push(venda)
                 }
             }
@@ -186,7 +186,7 @@ export default class Vendas {
         const calculoDosMeses: Array<number> = []
         let graficoMeses = [0, 0, 0, 0, 0]
         this.vendas.forEach((venda) => {
-            switch(venda.data.getMonth()) {
+            switch(new Date(venda._data).getMonth()) {
                 case mesAtual:
                     graficoMeses[4]++
                     break;
@@ -306,6 +306,154 @@ export default class Vendas {
             }
         })
     return qtdComissao
+    }
+
+    public calculaQtdPorComissaoPorMes(mes: number): Array<number>{
+        let achaTipo = new Comissao()
+        let qtdComissao = [0, 0, 0, 0]
+        this.vendas.forEach((venda) => {
+            if(new Date(venda._data).getMonth() === mes-1){
+                const cliente = venda._cliente
+                const produto = venda._produto
+                let tipo = achaTipo.acharTipo(cliente, produto)
+                console.log(tipo)
+                switch(tipo){
+                    case 'cnpn':
+                        qtdComissao[0]++
+                        break;
+                    case 'capn':
+                        qtdComissao[1]++
+                        break;
+                    case 'capa':
+                        qtdComissao[2]++
+                        break;
+                    case 'cnpa':
+                        qtdComissao[3]++
+                        break;
+                }    
+            }
+        })
+    return qtdComissao
+    }
+
+    public calculaQtdPorComissaoPorAno(ano: number): Array<number> {
+        let listaFiltrada = this.filtraPorAno(ano)
+        let achaTipo = new Comissao()
+        let qtdComissao = [0, 0, 0, 0]
+        listaFiltrada.forEach((venda) => {
+            if(new Date(venda._data).getFullYear() === ano){
+                const cliente = venda._cliente
+                const produto = venda._produto
+                let tipo = achaTipo.acharTipo(cliente, produto)
+                switch(tipo){
+                    case 'cnpn':
+                        qtdComissao[0]++
+                        break;
+                    case 'capn':
+                        qtdComissao[1]++
+                        break;
+                    case 'capa':
+                        qtdComissao[2]++
+                        break;
+                    case 'cnpa':
+                        qtdComissao[3]++
+                        break;
+                }    
+            }
+        })
+    return qtdComissao
+    }
+
+    calculaQtdPorComissaoPorPreco(min: boolean, preco: number): Array<number>{
+        let listaFiltrada = this.filtraPorPreco(min, preco)
+        let achaTipo = new Comissao()
+        let qtdComissao = [0, 0, 0, 0]
+        listaFiltrada.forEach((venda) => {
+            const cliente = venda._cliente
+            const produto = venda._produto
+            let tipo = achaTipo.acharTipo(cliente, produto)
+            switch(tipo){
+                case 'cnpn':
+                    qtdComissao[0]++
+                    break;
+                case 'capn':
+                    qtdComissao[1]++
+                    break;
+                case 'capa':
+                    qtdComissao[2]++
+                    break;
+                case 'cnpa':
+                    qtdComissao[3]++
+                    break;
+                } 
+        })
+        return qtdComissao
+    }
+
+    public calculaQtdTodosMeses(): Array<number>{
+        const qtdDosMeses: Array<number> = []
+        let graficoMeses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        this.vendas.forEach((venda) => {
+            switch(new Date(venda._data).getMonth()) {
+                case 0:
+                    graficoMeses[0]++
+                    break;
+                case 1:
+                    graficoMeses[1]++
+                    break;
+                case 2:
+                    graficoMeses[2]++
+                    break;
+                case 3:
+                    graficoMeses[3]++
+                    break;
+                case 4:
+                    graficoMeses[4]++
+                    break;
+                case 5:
+                    graficoMeses[5]++
+                    break;
+                case 6:
+                    graficoMeses[6]++
+                    break;
+                case 7:
+                    graficoMeses[7]++
+                    break;
+                case 8:
+                    graficoMeses[8]++
+                    break;
+                case 9:
+                    graficoMeses[9]++
+                    break;
+                case 10:
+                    graficoMeses[10]++
+                    break;
+                case 11:
+                    graficoMeses[11]++
+                    break;
+            }
+        })
+        graficoMeses.forEach(n => qtdDosMeses.push(n))
+        return qtdDosMeses
+    }
+
+    public calculaQtdDiasDeUmMes(mes: number): Array<number> {
+        const listaFiltrada = this.filtraPorMes(mes)
+        const qtdDoMes: Array<number> = []
+        let graficoMeses = [0, 0, 0, 0]
+        listaFiltrada.forEach(venda => {
+            if(new Date(venda._data).getDate() <= 7){
+                graficoMeses[0]++
+            } else if(new Date(venda._data).getDate() <= 15){
+                graficoMeses[1]++
+            } else if(new Date(venda._data).getDate() <= 22){
+                graficoMeses[2]++
+            } else {
+                graficoMeses[3]++
+            }
+        })
+        graficoMeses.forEach(n => qtdDoMes.push(n))
+        return qtdDoMes
     }
 
     public calculaPrecoComissoes(comissao: Comissao): Array<number> {

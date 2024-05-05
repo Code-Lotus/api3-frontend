@@ -6,26 +6,34 @@ type ContextoDashboardPropsType = {
 }
 
 type State = {
-    valorInput: string,
-    opcaoSelecionada: string
+    valorInputPizza: string,
+    opcaoSelecionadaPizza: string,
+    valorInputLinha: string,
+    opcaoSelecionadaLinha: string,
+    valorInputColuna: string,
+    opcaoSelecionadaColuna: string
 }
 
 export default class ComponenteContextoDashboard extends Component<ContextoDashboardPropsType, State>{
     constructor(props: any){
         super(props)
-        this.state = {valorInput: '', opcaoSelecionada: ''}
+        this.state = {valorInputPizza: '', opcaoSelecionadaPizza: '', valorInputLinha: '', opcaoSelecionadaLinha: '', valorInputColuna: '', opcaoSelecionadaColuna: ''}
         this.setData = this.setData.bind(this)
     }
 
-    setData(newValorInput: string, newOpcaoSelecionada: string){
-        let state = { valorInput: newValorInput, opcaoSelecionada: newOpcaoSelecionada }
+    setData(newValorInputPizza: string, newOpcaoSelecionadaPizza: string, newValorInputLinha: string, newOpcaoSelecionadaLinha: string, newValorInputColuna: string, newOpcaoSelecionadaColuna: string){
+        let state = { valorInputPizza: newValorInputPizza, opcaoSelecionadaPizza: newOpcaoSelecionadaPizza, valorInputLinha: newValorInputLinha, opcaoSelecionadaLinha: newOpcaoSelecionadaLinha, valorInputColuna: newValorInputColuna, opcaoSelecionadaColuna: newOpcaoSelecionadaColuna, }
         this.setState(state)
     }
 
     render() {
         let contextData = {
-            valorInput: this.state.valorInput,
-            opcaoSelecionada: this.state.opcaoSelecionada,
+            valorInputPizza: this.state.valorInputPizza,
+            opcaoSelecionadaPizza: this.state.opcaoSelecionadaPizza,
+            valorInputLinha: this.state.valorInputLinha,
+            opcaoSelecionadaLinha: this.state.opcaoSelecionadaLinha,
+            valorInputColuna: this.state.valorInputColuna,
+            opcaoSelecionadaColuna: this.state.opcaoSelecionadaColuna,
             setData: this.setData
         }
 

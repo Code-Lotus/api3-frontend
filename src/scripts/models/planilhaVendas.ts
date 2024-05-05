@@ -4,11 +4,11 @@ import Vendedor from "./vendedor";
 
 export default class PlanilhaVendas {
     private _id: number
-    private _data: Date
-    private _vendedor: Vendedor
+    public _data: Date
+    public _vendedor: Vendedor
     public _produto: Produto
     public _cliente: Cliente
-    private _valor: number
+    public _valor: number
     private _formaPagamento: string
     
     constructor(id: number, data: Date, vendedor: Vendedor, produto: Produto, cliente: Cliente, valor: number, formaPagamento: string) {

@@ -42,11 +42,9 @@ export default class Comissao {
 
         const hoje = new Date() 
         // const anoMileSeg =  365 * 24 * 60 * 60 * 1000
-        console.log(cliente)
-        console.log(typeof(cliente._dataCadastro))   
-        const clienteNovo = hoje.getFullYear() - new Date(cliente._dataCadastro).getFullYear() <= 1  // só q se ele for maior que 1 ano por meses ainda retorna 1
-        const produtoNovo = hoje.getFullYear() - new Date(produto._dataCadastro).getFullYear() <= 1
-        
+        const clienteNovo = hoje.getFullYear() - new Date(cliente._dataCadastro).getFullYear() < 1  // só q se ele for maior que 1 ano por meses ainda retorna 1
+        const produtoNovo = hoje.getFullYear() - new Date(produto._dataCadastro).getFullYear() < 1
+
         if (clienteNovo && produtoNovo) {
             return 'cnpn' //cliente novo - produto novo
         }

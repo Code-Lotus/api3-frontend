@@ -1,6 +1,6 @@
 import Chart from "react-apexcharts";
 import Style from "./coluna.module.scss"
-import Select from "../../select";
+import Select from "../../selectPizza";
 
 export default function Coluna({valores, nome, categoria}: {valores: Array<Array<number>>, nome: Array<string>, categoria: Array<string>}) {
   const dados = {

@@ -13,15 +13,16 @@ const vendas = new Vendas([])
 const dadosController = new DadosController()
 const listaAuxiliar: PlanilhaVendas[] = []
 let venda: PlanilhaVendas
-let id = 0
+let id = 1
 
 //função para ser colocada no onChange de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
 async function recebeArquivo(evento: any) {
     const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
     const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
     for(let i = 1; i < rows.length; i++){
-		const dados = rows[1] //pega as linhas com os conteúdos (não os cabeçalhos)
+		const dados = rows[i] //pega as linhas com os conteúdos (não os cabeçalhos)
 		const dataVenda = dadosController.ajustaData(dados[0].toString())
+		console.log(dataVenda)
 		const dadosVendedor = [dados[2].toString(), dados[1].toString()]
 		const dadosProduto = [dados[4].toString(), dados[3].toString()]
 		const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
@@ -32,10 +33,10 @@ async function recebeArquivo(evento: any) {
 	}
 }
 
-function salvaArquivo(venda: PlanilhaVendas) {
+function salvaArquivo() {
 	listaAuxiliar.forEach(item => {
 		vendas.vendas.push(item)
-		Database.addEntry(venda)
+		Database.addEntry(item)
 	}) //adiciona o objeto planilha vendas na lista de vendas
 	alert("Arquivo enviado!")
 }
@@ -56,7 +57,7 @@ export default class ContainerInsercao extends Component {
 							<p> Insira o arquivo excel para armazenar: </p>
 							<input type="file" onChange={(e) => {recebeArquivo(e)}}/>
 						</div>
-						<input type="button" value="Carregar" className={Style.buttonSubmit} onClick={(e) => {salvaArquivo(venda)}} />
+						<input type="button" value="Carregar" className={Style.buttonSubmit} onClick={(e) => {salvaArquivo()}} />
 					</div>
 				</div>
 	

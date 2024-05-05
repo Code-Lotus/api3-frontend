@@ -9,7 +9,7 @@ type State = {
     selectedOption: string
 }
 
-export default class Select extends Component<Props, State>{
+export default class SelectLinha extends Component<Props, State>{
     static contextType = ContextoDashboard
     constructor(props: Props){
         super(props)
@@ -22,7 +22,7 @@ export default class Select extends Component<Props, State>{
         this.setState({selectedOption: event.target.value})
 
         const contexto: any = this.context
-        contexto.setData(contexto.valorInput, event.target.value)
+        contexto.setData(contexto.valorInputPizza, contexto.opcaoSelecionadaPizza, contexto.valorInputLinha, event.target.value, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna)
     }
 
     render(){
@@ -39,8 +39,6 @@ export default class Select extends Component<Props, State>{
                         </option>
                     ))}
                 </select>
-                <p>{contexto.opcaoSelecionada}</p>
-                <p>{contexto.valorInput}</p>
             </>
         )
     }

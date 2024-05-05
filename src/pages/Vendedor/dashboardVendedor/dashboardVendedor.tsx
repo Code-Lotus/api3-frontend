@@ -6,36 +6,106 @@ import Pizza from "../../../components/graficos/pie";
 import Historico from "../../../components/historico";
 import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
+import ContextoDashboardPizza from "../../../contexts/contextoDashboard";
 import DadosController from "../../../scripts/controllers/dados-controller";
+import Vendas from "../../../scripts/controllers/vendas-controller";
 import Style from "./dashboardVendedor.module.scss";
+import { Database } from "../../../scripts/controllers/localStorage";
+import { Component } from "react";
 
-const dadosController=new DadosController()
+const dadosController = new DadosController()
+const vendasController = new Vendas(Database.getPlanilhaVendas())
 
-export default function DashboardVendedor(){
-    return(
-    <>
-      <Navbar />
-      <Sidebar />
-      <div className={Style.all}>
-        <div className={Style.topTitle}>
-          <h1>Bem-vindo, vendedor</h1>
+export default class DashboardVendedor extends Component {
+  static contextType = ContextoDashboardPizza;
+  state = {
+    valoresPizza: [1, 1, 1, 1], // Valores iniciais
+    newPizzaValues: [1, 2, 3, 4], // Valores para o componente Pizza (inicialmente diferentes)
+    valoresLinha: [1, 1, 1, 1, 1],
+    categoriasLinha: ["Dia 1", "Dia 7", "Dia 15", "Dia 22", "Dia 30"],
+    newLinhaValues: [2, 1, 1, 2, 1, 3, 2, 4, 6, 7, 2, 5],
+    newLinhaCategories: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+    valoresColuna: [[2,3,7],[4,9,3],[2,4,6]],
+    nomesColuna: ["Produto5", "Produto6","Produto7"],
+    newColunaValues: [[1,2,3,5,7],[4,5,6,9,1], [2,4,6,1,7]],
+    newColunaNames: ["Produto1", "Produto2","Produto3"]
+  };
+
+  handleValoresPizzaChange = () => {
+    let contexto: any = this.context;
+    let opcaoPizza = contexto.opcaoSelecionadaPizza;
+    let inputPizza = contexto.valorInputPizza;
+
+    // Atualizar valores de acordo com a opção selecionada
+    this.mudaGraficoPizza(opcaoPizza, inputPizza);
+
+    // Atualizar 'newPizzaValues' com os novos valores
+    this.setState({ newPizzaValues: this.state.valoresPizza });
+  };
+
+  handleValoresLinhaChange = () => {
+    let contexto: any = this.context;
+    let opcaoLinha = contexto.opcaoSelecionadaLinha;
+    let inputLinha = contexto.valorInputLinha;
+
+    this.mudaGraficoLinha(opcaoLinha, inputLinha);
+
+    this.setState({newLinhaCategories: this.state.categoriasLinha, newLinhaValues: this.state.valoresLinha})
+  }
+
+  mudaGraficoPizza(opcao: any, input: any) {
+    if (opcao === "Mês") {
+      this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(parseInt(input))});
+    } else if (opcao === "Ano") {
+      this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(parseInt(input)) }); // Exemplo de valoresPizza para Ano
+    } else if (opcao === "Preço Máximo") {
+      this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorPreco(false, parseInt(input)) }); // Exemplo de valoresPizza para Preço Máximo
+    } else if (opcao === "Preço Mínimo") {
+      this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorPreco(true, parseInt(input)) }); // Exemplo de valoresPizza para Preço Mínimo
+    }
+  }
+
+  mudaGraficoLinha(opcao: any, input: any){
+    if(opcao === "Mês"){
+      this.setState({categoriasLinha: ["Dia 7", "Dia 15", "Dia 22", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(parseInt(input))})
+    } else if(opcao === "Ano"){
+      this.setState({categoriasLinha: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], valoresLinha: vendasController.calculaQtdTodosMeses()})
+    }
+  }
+
+  mudaGraficoColuna(opcao: any, input: any){
+    
+  }
+
+  render() {
+    const { newPizzaValues, newLinhaValues, newLinhaCategories, newColunaValues, newColunaNames} = this.state;
+
+    return (
+      <>
+        <Navbar />
+        <Sidebar />
+        <div className={Style.all}>
+          <div className={Style.topTitle}>
+            <h1>Bem-vindo, vendedor</h1>
+          </div>
+          <div className={Style.cards}>
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade("100000")} titulo={"Vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("40000")} titulo={"Valor das vendas"} />
+          </div>
+          <section className={Style.grafico}>
+            <Historico />
+            <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
+            <button onClick={this.handleValoresPizzaChange}>Atualizar</button>
+          </section>
+          <section className={Style.cards}>
+            {/* por enquanto vamos usar pizza, depois sera de coluna */}
+            <Coluna valores={newColunaValues} nome={newColunaNames} categoria={["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]} />       
+            <Linha categoria={newLinhaCategories} nome="Vendas" valor={newLinhaValues} key={this.state.newLinhaValues.join('')}/>
+            <button onClick={this.handleValoresLinhaChange}>Atualizar</button>   
+          </section>
         </div>
-        <div className={Style.cards}>
-          <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade("100000")} titulo={"Vendas"} />
-          <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} />
-          <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("40000")} titulo={"Valor das vendas"} />
-        </div>
-        <section className={Style.grafico}>
-          <Historico/>
-          <Pizza valores={[20,20,30,30]} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} />
-        </section>
-        <section className={Style.cards}>
-          {/* por enquanto vamos usar pizza, depois sera de coluna */}
-          <Coluna valores={[[1,2,3],[4,5,6]]} nome={["produto1", "produto2","produto3" ]} categoria={["jan", "fev"]} />       
-          <Linha categoria={["oiii","aaaaaa"]} nome="SAbo" valor={[1,2]}/>   
-        </section>
-
-      </div>
-    </>
+      </>
     );
+  }
 }

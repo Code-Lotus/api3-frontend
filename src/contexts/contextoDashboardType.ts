@@ -1,7 +1,11 @@
 type ContextoDashboardType = {
-    valorInput: string,
-    opcaoSelecionada: string,
-    setData: (valorInput: string, opcaoSelecionada: string) => void
+    valorInputPizza: string,
+    opcaoSelecionadaPizza: string,
+    valorInputLinha: string,
+    opcaoSelecionadaLinha: string,
+    valorInputColuna: string,
+    opcaoSelecionadaColuna: string,
+    setData: (valorInputPizza: string, opcaoSelecionadaPizza: string, valorInputLinha: string, opcaoSelecionadaLinha: string, valorInputColuna: string, opcaoSelecionadaColuna: string) => void
 }
 
 export default ContextoDashboardType
