@@ -1,6 +1,11 @@
 import Chart from "react-apexcharts";
 import Style from "./coluna.module.scss"
-import Select from "../../selectPizza";
+import SelectColuna from "../../selectColuna";
+import InputColuna from "../../inputColuna";
+import { Database } from "../../../scripts/controllers/localStorage";
+import Vendas from "../../../scripts/controllers/vendas-controller";
+
+const vendasController = new Vendas(Database.getPlanilhaVendas())
 
 export default function Coluna({valores, nome, categoria}: {valores: Array<Array<number>>, nome: Array<string>, categoria: Array<string>}) {
   const dados = {
@@ -13,6 +18,9 @@ export default function Coluna({valores, nome, categoria}: {valores: Array<Array
     }, {
       name: nome[2],
       data: valores[2]
+    }, {
+      name: nome[3],
+      data: valores[3]
     }],
     options: {
       chart: {
@@ -50,7 +58,9 @@ export default function Coluna({valores, nome, categoria}: {valores: Array<Array
     <>
     <div className={Style.card}>
       <Chart options={dados.options} series={dados.series} type="bar" height={350} />
-      <Select valores={["Preço Máximo", "Preço Mínimo"]}/>
+      <SelectColuna valores={["Preço Máximo", "Preço Mínimo"]}/>
+      <InputColuna value=""/>
+      {/* <SelectProduto valores={vendasController.listaProdutos()}/> */}
     </div>
     </>
   );

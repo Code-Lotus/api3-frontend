@@ -8,6 +8,9 @@ const ContextoDashboard = createContext<ContextoDashboardType>({
     opcaoSelecionadaLinha: '',
     valorInputColuna: '',
     opcaoSelecionadaColuna: '',
+    prod1: '',
+    prod2: '',
+    prod3: '',
     setData: () => {}
 })
 

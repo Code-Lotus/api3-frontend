@@ -25,10 +25,8 @@ export default class DashboardVendedor extends Component {
     categoriasLinha: ["Dia 1", "Dia 7", "Dia 15", "Dia 22", "Dia 30"],
     newLinhaValues: [2, 1, 1, 2, 1, 3, 2, 4, 6, 7, 2, 5],
     newLinhaCategories: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-    valoresColuna: [[2,3,7],[4,9,3],[2,4,6]],
-    nomesColuna: ["Produto5", "Produto6","Produto7"],
-    newColunaValues: [[1,2,3,5,7],[4,5,6,9,1], [2,4,6,1,7]],
-    newColunaNames: ["Produto1", "Produto2","Produto3"]
+    valoresColuna: [[2,3,7]],
+    newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
   };
 
   handleValoresPizzaChange = () => {
@@ -53,6 +51,16 @@ export default class DashboardVendedor extends Component {
     this.setState({newLinhaCategories: this.state.categoriasLinha, newLinhaValues: this.state.valoresLinha})
   }
 
+  handleValoresColunaChange = () => {
+    let contexto: any = this.context;
+    let opcaoColuna = contexto.opcaoSelecionadaColuna;
+    let inputColuna = contexto.valorInputColuna;
+
+    this.mudaGraficoColuna(opcaoColuna, inputColuna);
+
+    this.setState({newColunaValues: this.state.valoresColuna})
+  }
+
   mudaGraficoPizza(opcao: any, input: any) {
     if (opcao === "Mês") {
       this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(parseInt(input))});
@@ -74,11 +82,15 @@ export default class DashboardVendedor extends Component {
   }
 
   mudaGraficoColuna(opcao: any, input: any){
-    
+    if(opcao === "Preço Máximo"){
+      this.setState({valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, input)})
+    } else if(opcao === "Preço Mínimo"){
+      this.setState({valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(true, input)})
+    }
   }
 
   render() {
-    const { newPizzaValues, newLinhaValues, newLinhaCategories, newColunaValues, newColunaNames} = this.state;
+    const { newPizzaValues, newLinhaValues, newLinhaCategories, newColunaValues } = this.state;
 
     return (
       <>
@@ -89,7 +101,7 @@ export default class DashboardVendedor extends Component {
             <h1>Bem-vindo, vendedor</h1>
           </div>
           <div className={Style.cards}>
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade("100000")} titulo={"Vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("40000")} titulo={"Valor das vendas"} />
           </div>
@@ -100,7 +112,8 @@ export default class DashboardVendedor extends Component {
           </section>
           <section className={Style.cards}>
             {/* por enquanto vamos usar pizza, depois sera de coluna */}
-            <Coluna valores={newColunaValues} nome={newColunaNames} categoria={["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]} />       
+            <Coluna valores={newColunaValues} nome={["Cliente Novo/Produto Novo", "Cliente Novo/Produto Antigo", "Cliente Antigo/Produto Novo", "Cliente Antigo/Produto Antigo"]} categoria={["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]} />       
+            <button onClick={this.handleValoresColunaChange}></button>
             <Linha categoria={newLinhaCategories} nome="Vendas" valor={newLinhaValues} key={this.state.newLinhaValues.join('')}/>
             <button onClick={this.handleValoresLinhaChange}>Atualizar</button>   
           </section>

@@ -22,7 +22,7 @@ export default class SelectPizza extends Component<Props, State>{
         this.setState({selectedOption: event.target.value})
 
         const contexto: any = this.context
-        contexto.setData(contexto.valorInputPizza, event.target.value, contexto.valorInputLinha, contexto.opcaoSelecionadaLinha, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna)
+        contexto.setData(contexto.valorInputPizza, event.target.value, contexto.valorInputLinha, contexto.opcaoSelecionadaLinha, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna, contexto.prod1, contexto.prod2, contexto.prod3)
     }
 
     render(){

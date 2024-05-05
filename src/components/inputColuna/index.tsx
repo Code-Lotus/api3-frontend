@@ -5,7 +5,7 @@ type State = {
     value: string,
 }
 
-export default class InputPizza extends Component<State> {
+export default class InputColuna extends Component<State> {
     static contextType = ContextoDashboard;
     state = {
         value: ''
@@ -15,7 +15,7 @@ export default class InputPizza extends Component<State> {
         this.setState({value: event.target.value})
 
         const contexto: any = this.context
-        contexto.setData(event.target.value, contexto.opcaoSelecionadaPizza, contexto.valorInputLinha, contexto.opcaoSelecionadaLinha, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna, contexto.prod1, contexto.prod2, contexto.prod3)
+        contexto.setData(contexto.valorInputPizza, contexto.opcaoSelecionadaPizza, contexto.valorInputLinha, contexto.opcaoSelecionadaLinha, event.target.value, contexto.opcaoSelecionadaColuna)
     }
 
     render(){
@@ -23,16 +23,7 @@ export default class InputPizza extends Component<State> {
     let minimo = 1
     let maximo = 99999999
 
-    if(contexto.opcaoSelecionadaPizza.includes("Mês")){
-        maximo = 12
-    }
-    
-    if(contexto.opcaoSelecionadaPizza.includes("Ano")){
-        maximo = new Date().getFullYear()
-        minimo = 2000
-    }
-
-    let padrao = contexto.valorInputPizza
+    let padrao = contexto.valorInputColuna
 
         return (
             <>

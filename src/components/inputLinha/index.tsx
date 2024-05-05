@@ -15,7 +15,7 @@ export default class InputLinha extends Component<State> {
         this.setState({value: event.target.value})
 
         const contexto: any = this.context
-        contexto.setData(contexto.valorInputPizza, contexto.opcaoSelecionadaPizza, event.target.value, contexto.opcaoSelecionadaLinha, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna)
+        contexto.setData(contexto.valorInputPizza, contexto.opcaoSelecionadaPizza, event.target.value, contexto.opcaoSelecionadaLinha, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna, contexto.prod1, contexto.prod2, contexto.prod3)
     }
 
     render(){
@@ -32,9 +32,11 @@ export default class InputLinha extends Component<State> {
         minimo = 2000
     }
 
+    let padrao = contexto.valorInputLinha
+
         return (
             <>
-                <input type="number" onChange={this.handleValueChange} max={maximo} min={minimo} defaultValue={1} />
+                <input type="number" onChange={this.handleValueChange} max={maximo} min={minimo} defaultValue={padrao} />
             </>
         )
     }

@@ -9,7 +9,7 @@ type State = {
     selectedOption: string
 }
 
-export default class SelectLinha extends Component<Props, State>{
+export default class SelectColuna extends Component<Props, State>{
     static contextType = ContextoDashboard
     constructor(props: Props){
         super(props)
@@ -22,17 +22,19 @@ export default class SelectLinha extends Component<Props, State>{
         this.setState({selectedOption: event.target.value})
 
         const contexto: any = this.context
-        contexto.setData(contexto.valorInputPizza, contexto.opcaoSelecionadaPizza, contexto.valorInputLinha, event.target.value, contexto.valorInputColuna, contexto.opcaoSelecionadaColuna, contexto.prod1, contexto.prod2, contexto.prod3)
+        contexto.setData(contexto.valorInputPizza, contexto.opcaoSelecionadaPizza, contexto.valorInputLinha, contexto.opcaoSelecionadaLinha, contexto.valorInputColuna, event.target.value, contexto.prod1, contexto.prod2, contexto.prod3)
     }
 
     render(){
         const {valores} = this.props
         const {selectedOption} = this.state
         let contexto: any = this.context
-        
+
+        let padrao = contexto.opcaoSelecionadaColuna
+
         return (
             <>
-                <select value={selectedOption} onChange={this.handleSelectChange}>
+                <select value={selectedOption} onChange={this.handleSelectChange} defaultValue={padrao}>
                     {valores.map((option, index) => (
                         <option key={index} value={option}>
                             {option}
