@@ -4,16 +4,16 @@ import DashboardVendedor from "./pages/Vendedor/dashboardVendedor/dashboardVende
 import InsercaoExcel from "./pages/Administrador/insercaoExcel";
 import ComissaoAdm from "./pages/Administrador/comissaoAdm";
 import ComponenteContextoDashboard from "./contexts/componenteContextoDashboard";
-import ComissaoDeVendas from "./pages/Vendedor/comissaoDeVendas/comissaoDeVendas";
+import Login from "./pages/login";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route path="/" element={<ComponenteContextoDashboard child={<DashboardVendedor/>} />} />
-          <Route path="/comissaoDeVendas" element={<ComissaoDeVendas />} />
-          <Route path="/dashboardAdm" element={<DashboardAdm />}/>
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboardVendedor" element={<ComponenteContextoDashboard child={<DashboardVendedor/>} />} />
+          <Route path="/dashboardAdm" element={<ComponenteContextoDashboard child={<DashboardAdm />} />}/>
           <Route path="/comissaoAdm" element={<ComissaoAdm />}/>
           <Route path="/insercaoExcel" element={<InsercaoExcel />}/>
         </Route>

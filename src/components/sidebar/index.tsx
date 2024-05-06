@@ -26,13 +26,13 @@ export default function Sidebar() {
             <ul className={Style.sideMenu}>
                 <li>
                     <Link to="/" className={Style.a}>
-                        <i className='bx bxs-cog'  id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
+                        <i className='bx bxs-cog'  id={Style.bx}></i> 
                         <span className="text">Config</span>
                     </Link>
                 </li>
                 <li className={Style.sair}>
                     <Link to="/" className={`${Style.a} ${Style.sair}`}>
-                        <i className='bx bxs-log-out-circle' id={Style.bx}></i> {/* SIMBOLO DE DASHBOARD */}
+                        <i className='bx bxs-log-out-circle' id={Style.bx}></i> 
                         <span className="text">Sair</span>
                     </Link>
                 </li>
