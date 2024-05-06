@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Style from "./ComissaoDeVendasComponent.module.scss";
+import Style from "./comisssaoVendidos.module.scss";
 
 type Props = {
     comissao: Array<{ nome: string; porcentagem: number }>;

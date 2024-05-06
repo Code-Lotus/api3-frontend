@@ -13,3 +13,10 @@
 .apexcharts-legend-series{
     font-size: large;
 }
+
+.all {
+	position: relative;
+	width: calc(100% - 17.5rem);
+	left: 19.5rem;
+	transition: .3s ease;
+}

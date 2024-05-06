@@ -1,8 +1,6 @@
 import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
-import Grid from "../../../components/grid";
 import Style from "../dashboardAdm/dashboardAdm.module.scss";
-
 import Pizza from "../../../components/graficos/pie";
 import HistoricoAdm from "../../../components/historicoAdm";
 
@@ -16,7 +14,6 @@ export default function DashboardAdm(){
         <div className={Style.topTitle}>
           <h1>Bem-vindo, administrador</h1>
         </div>
-        <Grid />
         <section className={Style.grafico}>
           <HistoricoAdm/>
           
