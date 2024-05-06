@@ -1,6 +1,6 @@
 export default class Produto {
     constructor(
-        private _id: number,
+        public _id: number,
         public _nome: string,
         public _dataCadastro: Date
     ) {}

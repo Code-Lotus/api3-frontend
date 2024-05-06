@@ -552,16 +552,30 @@ export default class Vendas {
         return numeroMes
     }
 
-    private criaCampos(): Array<CampoProduto>{
+    public criaCampos(): Array<CampoProduto>{
         const ids: Array<number> = []
         const listaProdutos: Array<CampoProduto> = []
         this._vendas.forEach(venda => {
-            if(!(ids.includes(venda.produto.id))){
-                listaProdutos.push(new CampoProduto(venda.produto, 1, venda.valor))
+            if(!(ids.includes(venda._produto._id))){
+                let campo = new CampoProduto(venda._produto, 1, venda._valor, venda)
+                listaProdutos.push(campo)
+                ids.push(venda._produto._id)
             } else {
-                const index = ids.indexOf(venda.produto.id)
+                const index = ids.indexOf(venda._produto._id)
                 let qtd = listaProdutos[index].qtd
-                listaProdutos.splice(index, 1, new CampoProduto(venda.produto, qtd+1, venda.valor))
+                let ultimaVenda = listaProdutos[index].ultimaVenda
+                
+                let campo;
+
+                if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
+                    campo = new CampoProduto(venda._produto, qtd+1, venda._valor, venda)
+                    campo.ultimaVenda = venda
+                    console.log("Entrei")
+                }
+                else {
+                    campo = new CampoProduto(venda._produto, qtd+1, venda._valor, ultimaVenda)
+                }
+                listaProdutos.splice(index, 1, campo)
             }
         })
         return listaProdutos
