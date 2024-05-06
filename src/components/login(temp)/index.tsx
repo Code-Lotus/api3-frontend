@@ -13,12 +13,12 @@ export default class LoginEscolha extends Component {
                 <div className={Style.divGeral2}>
                     <div className={Style.divDentro}>
                         <div className={Style.card}>
-                            <Link to="/dashboardVendedor">
+                            <Link to="/dashboardVendedor" className={Style.link}>
                             <span>Vendedor</span></Link>
                         </div>
                     
                         <div className={Style.card}>
-                            <Link to="/dashboardAdm">
+                            <Link to="/dashboardAdm" className={Style.link}>
                             <span>Administrador</span></Link>
                         </div>
                     </div>
