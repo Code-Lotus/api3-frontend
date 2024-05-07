@@ -14,22 +14,24 @@ export default function HistoricoAdm() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th className={Style.autoWidth}>Cliente</th>
-                                    <th>Data</th>
-                                    <th>Valor</th>
-                                    <th>Tipo Comissão</th>
-                                    <th>Comissão gerada</th>
+                                    <th className={Style.autoWidth}>Data</th>
+                                    <th>Vendedor</th>
+                                    <th>Produto</th>
+                                    <th>Cliente</th>
+                                    <th>Valor venda</th>
+                                    <th>Tipo comissão</th>
                                 </tr>
                                 <hr/>
                             </thead>
 
                             <tbody>
                                 <tr>
-                                    <td>Pedroa</td>
-                                    <td>06/10/2024</td>
-                                    <td><span className={Style.statusCompleted}>R$ 201,51</span></td>
+                                    <td><span className={Style.statusCompleted}>06/10/2024</span></td>
+                                    <td>Pedro</td>
+                                    <td></td>
+                                    <td>Hello World!</td>
                                     <td>cn -Pv </td>
-                                    <td>650,00</td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -53,9 +55,6 @@ export default function HistoricoAdm() {
                                     <td><span className={Style.statusPending}>R$305,79</span></td>
                                 </tr>
                             
-                      
-                      
-                                
                             </tbody>
                         </table>
                     </div>

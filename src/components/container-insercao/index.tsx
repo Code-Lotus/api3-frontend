@@ -50,8 +50,6 @@ export default class ContainerInsercao extends Component {
 					<div className={Style.order}>
 						<div className={Style.head}>
 							<h3>Inserção de Arquivo</h3>
-							{/* <i className='bx bx-search' ></i>
-							<i className='bx bx-filter' ></i> */}
 						</div>
 						<div>
 							<p> Insira o arquivo excel para armazenar: </p>
