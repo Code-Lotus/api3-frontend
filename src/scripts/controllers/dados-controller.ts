@@ -7,6 +7,13 @@ export default class DadosController {
         return dia + '/' + mes + '/' + ano
     }
 
+    public ajustaDate(data: Date){
+        const dia = data.getDate()
+        const mes = data.getMonth()
+        const ano = data.getFullYear()
+        return dia + '/' + mes + '/' + ano
+    }
+
     public mascaraCPF(cpf: string) {
         return cpf
           .replace(/\D/g, "")

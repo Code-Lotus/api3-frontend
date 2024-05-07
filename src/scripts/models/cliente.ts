@@ -1,6 +1,6 @@
 export default class Cliente {
     private _cnpjcpf: string
-    private _nome: string
+    public _nome: string
     private _segmento: string
     public _dataCadastro: Date
     

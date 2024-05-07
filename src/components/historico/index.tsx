@@ -1,124 +1,57 @@
+import { Component } from 'react';
 import Style from './historico.module.scss';
+import CampoProduto from '../../scripts/models/campoProduto';
+import DadosController from '../../scripts/controllers/dados-controller';
 
-export default function Historico() {
-    return (
-        <div id={Style.content}>
-            <div className={Style.main}>
-                <div className={Style.dateTable}>
-                    <div className={Style.order}>
-                        <div className={Style.head}>
-                            <h3>Últimas Vendas</h3>
+const dadosController = new DadosController()
+
+type Props = {
+    campos: Array<CampoProduto>,
+    cabecalho: Array<string>
+}
+
+export default class Historico extends Component<Props> {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+    constructor(props: Props){
+        super(props)
+    }
+
+    render(){
+        const {campos, cabecalho} = this.props
+        return (
+            <div id={Style.content}>
+                <div className={Style.main}>
+                    <div className={Style.dateTable}>
+                        <div className={Style.order}>
+                            <div className={Style.head}>
+                                <h3>Últimas Vendas</h3>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        {cabecalho.map((titulo, index) => (
+                                            <th key={index}>{
+                                                titulo}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                    <hr/>
+                                </thead>
+                                <tbody>
+                                    {campos.map((colunas, index) => (
+                                        <tr key={index}>
+                                            <td> {dadosController.ajustaDate(new Date(colunas.ultimaVenda._data))} </td>
+                                            <td> {colunas.produto._nome} </td>
+                                            <td> {colunas.ultimaVenda._cliente._nome} </td>
+                                            <td> {dadosController.mascaraPreco(colunas.precoUni.toString())} </td>
+                                        </tr>
+                                    ))}                                    
+                                </tbody>
+                            </table>
                         </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Produto</th>
-                                    <th>Cliente</th>
-                                    <th>Valor da venda</th>
-                                    <th>Valor da comissão</th>
-                                    
-                                </tr>
-                                <hr/>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        {/* <img src="img/avatar.png"> */}
-                                        06/10/2024
-                                    </td>
-                                    <td>
-                                        <p>Sistema de descrição de cargos</p>
-                                    </td>
-                                    <td>
-                                        <p>Pedro de Alcantra</p>
-                                    </td>
-                                    <td>
-                                        <p>10,30</p>
-                                    </td>
-                                    <td>
-                                    <p>10,30</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {/* <img src="img/avatar.png"> */}
-                                        06/10/2024
-                                    </td>
-                                    <td>
-                                        <p>Sistema de descrição de cargos</p>
-                                    </td>
-                                    <td>
-                                        <p>Pedro de Alcantra</p>
-                                    </td>
-                                    <td>
-                                        <p>10,30</p>
-                                    </td>
-                                    <td>
-                                    <p>10,30</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {/* <img src="img/avatar.png"> */}
-                                        06/10/2024
-                                    </td>
-                                    <td>
-                                        <p>Sistema de descrição de cargos</p>
-                                    </td>
-                                    <td>
-                                        <p>Pedro de Alcantra</p>
-                                    </td>
-                                    <td>
-                                        <p>10,30</p>
-                                    </td>
-                                    <td>
-                                    <p>10,30</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {/* <img src="img/avatar.png"> */}
-                                        06/10/2024
-                                    </td>
-                                    <td>
-                                        <p>Sistema de descrição de cargos</p>
-                                    </td>
-                                    <td>
-                                        <p>Pedro de Alcantra</p>
-                                    </td>
-                                    <td>
-                                        <p>10,30</p>
-                                    </td>
-                                    <td>
-                                    <p>10,30</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {/* <img src="img/avatar.png"> */}
-                                        06/10/2024
-                                    </td>
-                                    <td>
-                                        <p>Sistema de descrição de cargos</p>
-                                    </td>
-                                    <td>
-                                        <p>Pedro de Alcantra</p>
-                                    </td>
-                                    <td>
-                                        <p>10,30</p>
-                                    </td>
-                                    <td>
-                                    <p>10,30</p>
-                                    </td>
-                                </tr>
-                                 
-                                
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }

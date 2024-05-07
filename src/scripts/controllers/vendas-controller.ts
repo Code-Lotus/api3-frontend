@@ -580,4 +580,24 @@ export default class Vendas {
         })
         return listaProdutos
     }
+
+    public mostraUltimasVendas(linhas: number): Array<CampoProduto>{
+        const ultimasVendas = []
+        for(let i = 0; i < linhas; i++){
+            ultimasVendas.push(this.ordenaCampoData()[i])
+        }
+        return ultimasVendas
+    }
+
+    public ordenaCampoData() {
+        return this.criaCampos().sort((a, b) => {
+            if(new Date(a.ultimaVenda._data).getTime() > new Date(b.ultimaVenda._data).getTime()){
+                return -1
+            } else if(new Date(b.ultimaVenda._data).getTime() > new Date(a.ultimaVenda._data).getTime()){
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
 }

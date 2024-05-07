@@ -106,7 +106,7 @@ export default class DashboardVendedor extends Component {
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("40000")} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
-            <Historico />
+            <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={vendasController.mostraUltimasVendas(5)}/>
             <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
               <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button>
