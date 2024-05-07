@@ -30,8 +30,8 @@ export default class Historico extends Component<Props> {
                                 <thead>
                                     <tr>
                                         {cabecalho.map((titulo, index) => (
-                                            <th key={index}>{
-                                                titulo}
+                                            <th key={index}>
+                                                {titulo}
                                             </th>
                                         ))}
                                     </tr>
