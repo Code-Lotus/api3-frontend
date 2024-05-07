@@ -249,34 +249,9 @@ export default class Vendas {
         return calculoDosMeses
     }
 
-    public calculaGanhoPorMes(mes: string): Array<number>{
-        const mesAtual = this._meses.indexOf(mes)
-        const calculoDosMeses: Array<number> = []
-        let graficoMeses = [0, 0, 0, 0, 0]
-        this.vendas.forEach((venda) => {
-            switch(venda.data.getMonth()) {
-                case mesAtual:
-                    graficoMeses[0]+=venda.valor
-                    break;
-                case mesAtual - 1:
-                    graficoMeses[1]+=venda.valor
-                    break;
-                case mesAtual - 2:
-                    graficoMeses[2]+=venda.valor
-                    break;
-                case mesAtual - 3:
-                    graficoMeses[3]+=venda.valor
-                    break;
-                case mesAtual - 4:
-                    graficoMeses[4]+=venda.valor
-                    break;
-            }
-        })
-        calculoDosMeses.push(graficoMeses[0])
-        calculoDosMeses.push(graficoMeses[1])
-        calculoDosMeses.push(graficoMeses[2])
-        calculoDosMeses.push(graficoMeses[3])
-        calculoDosMeses.push(graficoMeses[4])
+    public calculaGanho(): number{
+        let calculoDosMeses = 0
+        this.vendas.forEach((venda) => calculoDosMeses += venda._valor)
 
         return calculoDosMeses
     }
@@ -525,20 +500,20 @@ export default class Vendas {
 
     public calculaPrecoComissoes(comissao: Comissao): Array<number> {
         let precoComissao = [0, 0, 0, 0]
-        this.vendas.forEach((venda) => {
-            let tipo = comissao.acharTipo(venda.cliente, venda.produto)
+        this._vendas.forEach((venda) => {
+            let tipo = comissao.acharTipo(venda._cliente, venda._produto)
             switch(tipo) {
                 case 'cnpn':
-                    precoComissao[0]+= comissao.calcComissao(venda.valor, 'cnpn')
+                    precoComissao[0]+= comissao.calcComissao(venda._valor, 'cnpn')
                     break;
                 case 'capn':
-                    precoComissao[1]+= comissao.calcComissao(venda.valor, 'capn')
+                    precoComissao[1]+= comissao.calcComissao(venda._valor, 'capn')
                     break;
                 case 'capa':
-                    precoComissao[2]+= comissao.calcComissao(venda.valor, 'capa')
+                    precoComissao[2]+= comissao.calcComissao(venda._valor, 'capa')
                     break;
                 case 'cnpa':
-                    precoComissao[3]+= comissao.calcComissao(venda.valor, 'cnpa')
+                    precoComissao[3]+= comissao.calcComissao(venda._valor, 'cnpa')
                     break;
             }
         })
