@@ -6,21 +6,18 @@ export default class LoginEscolha extends Component {
     render() {
         return(
             <>
-                
                 <div className={Style.divGeral}>
-                <h1>Quem esta logando?</h1> 
+                    <h1>Quem esta logando?</h1> 
                 </div>
                 <div className={Style.divGeral2}>
                     <div className={Style.divDentro}>
-                        <div className={Style.card}>
-                            <Link to="/dashboardVendedor" className={Style.link}>
-                            <span>Vendedor</span></Link>
-                        </div>
-                    
-                        <div className={Style.card}>
-                            <Link to="/dashboardAdm" className={Style.link}>
-                            <span>Administrador</span></Link>
-                        </div>
+                        <Link to="/dashboardVendedor" className={Style.card}>
+                            <span className={Style.letra}>Vendedor</span>
+                        </Link>
+
+                        <Link to="/dashboardAdm" className={Style.card}>
+                            <span className={Style.letra}>Administrador</span>
+                        </Link>
                     </div>
                 </div>
             </>

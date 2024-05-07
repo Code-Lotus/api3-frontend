@@ -1,11 +1,11 @@
 import ContainerInsercao from "../../../components/container-insercao";
 import Navbar from "../../../components/navbar";
-import Sidebar from "../../../components/sidebar";
+import SidebarAdm from "../../../components/sidebar/adm";
 
 export default function InsercaoExcel() {
     return (
         <>
-            <Sidebar />
+            <SidebarAdm />
             <Navbar />
             <ContainerInsercao />
         </>

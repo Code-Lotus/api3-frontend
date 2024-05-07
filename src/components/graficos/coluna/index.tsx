@@ -46,7 +46,7 @@ export default function Coluna({valores, nome, categoria}: {valores: Array<Array
       },
       yaxis: {
         title: {
-          text: '$ (thousands)'
+          text: 'Quantidade'
         }
       },
       fill: {
