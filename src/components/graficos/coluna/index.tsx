@@ -7,7 +7,7 @@ import Vendas from "../../../scripts/controllers/vendas-controller";
 
 const vendasController = new Vendas(Database.getPlanilhaVendas())
 
-export default function Coluna({valores, nome, categoria}: {valores: Array<Array<number>>, nome: Array<string>, categoria: Array<string>}) {
+export default function Coluna(this: any, {valores, nome, categoria}: {valores: Array<Array<number>>, nome: Array<string>, categoria: Array<string>}) {
   const dados = {
     series: [{
       name: nome[0],
@@ -60,6 +60,7 @@ export default function Coluna({valores, nome, categoria}: {valores: Array<Array
       <Chart options={dados.options} series={dados.series} type="bar" height={350} />
       <SelectColuna valores={["Preço Máximo", "Preço Mínimo"]}/>
       <InputColuna value=""/>
+      {/* <button onClick={this.handleValoresLinhaChange}>Atualizar</button>   */}
       {/* <SelectProduto valores={vendasController.listaProdutos()}/> */}
     </div>
     </>

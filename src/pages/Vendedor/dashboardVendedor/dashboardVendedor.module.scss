@@ -47,3 +47,46 @@
     margin-top: 2.25rem;
     padding: 0.625rem;
 }
+
+
+
+
+.cardGeral{
+	background-color: #FFF;
+    // color: #eff4f7;
+    align-items: center;
+    // margin-top: ;
+    // height: 4%;
+    border-radius: 20px; 
+    font-weight: 600; 
+    font-size: 2rem;
+    padding: 15px;
+    width: 46rem;
+	
+}
+
+.cardGeralColuna{
+	margin-bottom: 2rem;
+	background-color: #FFF;
+    // color: #eff4f7;
+    align-items: center;
+    // margin-top: ;
+    // height: 4%;
+    border-radius: 20px; 
+    font-weight: 600; 
+    font-size: 2rem;
+    padding: 15px;
+    // width: 46rem;
+}
+
+.botao{
+    padding: 5px 10px; /* Adiciona um pequeno preenchimento interno */
+    font-size: 14px; /* Define o tamanho da fonte */
+    border: 1px solid #ccc; /* Adiciona uma borda sólida */
+    border-radius: 4px; /* Adiciona cantos arredondados */
+    background-color: #f0f0f0; /* Define a cor de fundo */
+    color: #333; /* Define a cor do texto */
+    cursor: pointer; /* Altera o cursor ao passar por cima */
+    text-decoration: none; /* Remove sublinhado padrão para links */
+
+}

@@ -107,20 +107,20 @@ export default class DashboardVendedor extends Component {
           </div>
           <section className={Style.grafico}>
             <Historico />
-            <div>
+            <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
-              <button onClick={this.handleValoresPizzaChange}>Atualizar</button>
+              <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button>
             </div>
           </section>
           <section className={Style.graficos}>
             {/* por enquanto vamos usar pizza, depois sera de coluna */}
-            <div>
+            <div className={Style.cardGeralColuna}>
               <Coluna valores={newColunaValues} nome={["Cliente Novo/Produto Novo", "Cliente Novo/Produto Antigo", "Cliente Antigo/Produto Novo", "Cliente Antigo/Produto Antigo"]} categoria={["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]} />       
-              <button onClick={this.handleValoresColunaChange}>Atualizar</button>
+              <button className={Style.botao} onClick={this.handleValoresColunaChange}>Atualizar</button>
             </div>
-            <div>
+            <div className={Style.cardGeral}>
               <Linha categoria={newLinhaCategories} nome="Vendas" valor={newLinhaValues} key={this.state.newLinhaValues.join('')}/>
-              <button onClick={this.handleValoresLinhaChange}>Atualizar</button>  
+              <button className={Style.botao} onClick={this.handleValoresLinhaChange}>Atualizar</button>  
             </div>
           </section>
         </div>

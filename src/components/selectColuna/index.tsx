@@ -1,5 +1,6 @@
 import { Component } from "react";
 import ContextoDashboard from "../../contexts/contextoDashboard";
+import Style from "./select.module.scss"
 
 type Props = {
     valores: Array<string>
@@ -34,7 +35,7 @@ export default class SelectColuna extends Component<Props, State>{
 
         return (
             <>
-                <select value={selectedOption} onChange={this.handleSelectChange} defaultValue={padrao}>
+                <select className={Style.select} value={selectedOption} onChange={this.handleSelectChange} defaultValue={padrao}>
                     {valores.map((option, index) => (
                         <option key={index} value={option}>
                             {option}

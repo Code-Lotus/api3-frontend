@@ -1,5 +1,7 @@
 import { Component } from "react";
 import ContextoDashboard from "../../contexts/contextoDashboard";
+import Style from "./input.module.scss"
+
 
 type State = {
     value: string,
@@ -36,7 +38,7 @@ export default class InputLinha extends Component<State> {
 
         return (
             <>
-                <input type="number" onChange={this.handleValueChange} max={maximo} min={minimo} defaultValue={padrao} />
+                <input className={Style.input} type="number" onChange={this.handleValueChange} max={maximo} min={minimo} defaultValue={padrao} />
             </>
         )
     }
