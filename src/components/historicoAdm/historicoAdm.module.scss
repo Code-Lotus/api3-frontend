@@ -1,91 +1,152 @@
-#content{
-	background-color: white;
-	width: 50%;
-	border-radius: 1rem;
-	}
+
+
+
 
 #content .main .dateTable {
-	display: flex;
-	flex-wrap: wrap;
-	grid-gap: 24px;
-	// margin-top: 24px;	
-	width: 95%;
-	max-width: 95%;
-	color: var(--dark);
-	
-    
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 1.5rem;
+    width: 100%;
+    color: var(--dark);
 }
+
 #content .main .dateTable > div {
-	border-radius: 20px;
-	background: var(--light);
-	padding: 24px;
-    margin-left: 2rem;
+    border-radius: 1.25rem;
+    background: var(--light);
+    padding: 1.5rem;
+    overflow-x: auto;
 }
+
 #content .main .dateTable .head {
-	
-	display: flex;
-	align-items: center;
-	grid-gap: 16px;
-	margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    grid-gap: 1rem;
+    margin-bottom: 1.5rem;
 }
+
 #content .main .dateTable .head h3 {
-	margin-right: auto;
-	font-size: 24px;
-	font-weight: 600;
+    margin-right: auto;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
+
 #content .main .dateTable .head .bx {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #content .main .dateTable .order {
-	flex-grow: 1;
-	flex-basis: 500px;
-	background-color: #FFF
-	
+    flex-grow: 1;
+    flex-basis: 31.25rem;
+    background-color: #FFF;
+    min-height: 400px; /* Define uma altura mínima para a tabela */
 }
+
 #content .main .dateTable .order table {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-	width: 100%;
-	padding-bottom: 20%;
-	border-collapse: collapse;
-	overflow-x: auto;
-	overflow-y: auto;
+    width: 100%;
+    border-collapse: collapse;
+    height: 100%; /* Garante que a tabela ocupe toda a altura do contêiner */
 }
+
 #content .main .dateTable .order table th {
-    padding: auto;
-    padding-bottom: 12px;
-    font-size: 13px;
+    padding: 0.5rem 1rem; /* Ajuste no espaçamento interno dos cabeçalhos */
+    font-size: 0.8125rem;
     text-align: left;
     border-bottom: 1px solid var(--grey);
+    display: flex;
+    gap: 5rem;
 }
 
 #content .main .dateTable .order table td {
-    padding: 16px 0;
+    padding: 2rem 1.5rem; /* Ajuste no espaçamento interno das células */
+    text-align: center; /* Ajuste para centralizar o texto */
+    width: 8rem; /* Tamanho igual ao dos cabeçalhos */
 }
 
-#content .main .dateTable .order table tr td:first-child,
-#content .main .dateTable .order table tr td:nth-child(2),
-#content .main .dateTable .order table tr td:nth-child(3) {
+
+
+#content .main .dateTable .order table th:nth-child(1){
+    width: 8rem;
+}
+#content .main .dateTable .order table th:nth-child(2){
+    width: 14rem;
+}
+#content .main .dateTable .order table th:nth-child(3){
+    width: 9rem;
+}
+#content .main .dateTable .order table th:nth-child(4) {
+    width: rem; /* Tamanho maior para "Cliente" e "Produto" */
+}
+
+#content .main .dateTable .order table td:nth-child(2),
+#content .main .dateTable .order table td:nth-child(3) {
+    width: 15rem; /* Tamanho maior para "Cliente" e "Produto" */
+}
+
+#content .main .dateTable .order table td:first-child {
     display: flex;
     align-items: center;
-    grid-gap: 12px;
-    padding-left: 0; /* Removendo espaçamento extra */
+    gap: 0.75rem;
+    padding-left: 0.375rem;
+    width: 4rem; /* Tamanho menor para a primeira coluna */
+}
+
+#content .main .dateTable .order table tbody {
+    flex-grow: 1;
+    overflow-y: auto; /* Permite rolagem se necessário */
 }
 
 #content .main .dateTable .order table tbody tr {
     display: flex;
-    gap: 4rem;
-	
-}
-
-#content .main .dateTable .order table thead tr {
-    display: flex;
-    gap: 5rem;
+    gap: 1rem; /* Espaçamento entre as linhas */
+    min-height: 5.2rem; /* Aumenta a altura mínima das linhas */
 }
 
 #content .main .dateTable .order table tbody tr:hover {
     background: var(--grey);
 }
 
+#content .main .dateTable .order table thead tr {
+    display: flex;
+    gap: 2rem; /* Ajuste no espaçamento entre os cabeçalhos */
+}
+
+
+
+
+
+#content .main .dateTable {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 1.5rem;
+    width: 100%;
+    color: var(--dark);
+    overflow: hidden; /* Removendo a rolagem geral */
+}
+
+#content .main .dateTable > div {
+    border-radius: 1.25rem;
+    background: var(--light);
+    padding: 1.5rem 0rem ;
+    overflow-x: hidden; /* Removendo rolagem horizontal do div */
+}
+
+#content .main .dateTable .order {
+    flex-grow: 1;
+    flex-basis: 31.25rem;
+    background-color: #FFF;
+    min-height: 400px;
+    overflow-y: hidden; /* Removendo rolagem vertical do order */
+}
+
+#content .main .dateTable .order table {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    border-collapse: collapse;
+    height: 100%;
+    overflow-y: hidden; /* Garante que não há rolagem na tabela */
+}

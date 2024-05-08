@@ -127,6 +127,106 @@
 
 
 
+// #content .main .dateTable {
+//     display: flex;
+//     flex-wrap: wrap;
+//     grid-gap: 1.5rem;
+//     width: 100%;
+//     color: var(--dark);
+// }
+
+// #content .main .dateTable > div {
+//     border-radius: 1.25rem;
+//     background: var(--light);
+//     padding: 1.5rem;
+//     overflow-x: auto;
+// }
+
+// #content .main .dateTable .head {
+//     display: flex;
+//     align-items: center;
+//     grid-gap: 1rem;
+//     margin-bottom: 1.5rem;
+// }
+
+// #content .main .dateTable .head h3 {
+//     margin-right: auto;
+//     font-size: 1.5rem;
+//     font-weight: 600;
+// }
+
+// #content .main .dateTable .head .bx {
+//     cursor: pointer;
+// }
+
+// #content .main .dateTable .order {
+//     flex-grow: 1;
+//     flex-basis: 31.25rem;
+//     background-color: #FFF;
+// }
+
+// #content .main .dateTable .order table {
+//     display: flex;
+//     justify-content: space-between;
+//     flex-direction: column;
+//     width: 100%;
+//     border-collapse: collapse;
+// }
+
+// #content .main .dateTable .order table th {
+//     padding: 0.5rem 1rem; /* Ajuste no espaçamento interno dos cabeçalhos */
+//     font-size: 0.8125rem;
+//     text-align: left;
+//     border-bottom: 1px solid var(--grey);
+//     display: flex;
+//     gap: 5rem;
+//     // width: 3rem;
+// }
+
+// #content .main .dateTable .order table td {
+//     padding: 0.75rem 1rem; /* Ajuste no espaçamento interno das células */
+//     text-align: left; /* Alinhar texto no centro */
+//     width: 8rem; /* Tamanho igual ao dos cabeçalhos */
+// 	text-align: center;
+// }
+
+// #content .main .dateTable .order table th:nth-child(2),
+// #content .main .dateTable .order table th:nth-child(3) {
+//     width: 12rem; /* Tamanho maior para "Cliente" e "Produto" */
+// }
+
+// #content .main .dateTable .order table td:nth-child(2),
+// #content .main .dateTable .order table td:nth-child(3) {
+//     width: 12rem; /* Tamanho maior para "Cliente" e "Produto" */
+// }
+
+// #content .main .dateTable .order table td:first-child {
+//     display: flex;
+//     align-items: center;
+//     gap: 0.75rem;
+//     padding-left: 0.375rem;
+//     width: 4rem; /* Tamanho menor para a primeira coluna */
+// }
+
+// #content .main .dateTable .order table tbody tr {
+//     display: flex;
+//     gap: 1rem; /* Ajuste no espaçamento entre as linhas */
+// }
+
+// #content .main .dateTable .order table thead tr {
+//     display: flex;
+//     gap: 1rem; /* Ajuste no espaçamento entre os cabeçalhos */
+// }
+
+// #content .main .dateTable .order table tbody tr:hover {
+//     background: var(--grey);
+// }
+
+
+
+
+
+
 #content .main .dateTable {
     display: flex;
     flex-wrap: wrap;
@@ -163,6 +263,7 @@
     flex-grow: 1;
     flex-basis: 31.25rem;
     background-color: #FFF;
+    min-height: 400px; /* Define uma altura mínima para a tabela */
 }
 
 #content .main .dateTable .order table {
@@ -171,6 +272,7 @@
     flex-direction: column;
     width: 100%;
     border-collapse: collapse;
+    height: 100%; /* Garante que a tabela ocupe toda a altura do contêiner */
 }
 
 #content .main .dateTable .order table th {
@@ -180,24 +282,32 @@
     border-bottom: 1px solid var(--grey);
     display: flex;
     gap: 5rem;
-    // width: 3rem;
 }
 
 #content .main .dateTable .order table td {
-    padding: 0.75rem 1rem; /* Ajuste no espaçamento interno das células */
-    text-align: left; /* Alinhar texto no centro */
+    padding: 2rem 1.5rem; /* Ajuste no espaçamento interno das células */
+    text-align: center; /* Ajuste para centralizar o texto */
     width: 8rem; /* Tamanho igual ao dos cabeçalhos */
-	text-align: center;
 }
 
-#content .main .dateTable .order table th:nth-child(2),
-#content .main .dateTable .order table th:nth-child(3) {
-    width: 12rem; /* Tamanho maior para "Cliente" e "Produto" */
+
+
+#content .main .dateTable .order table th:nth-child(1){
+    width: 8rem;
 }
+#content .main .dateTable .order table th:nth-child(2){
+    width: 14rem;
+}
+#content .main .dateTable .order table th:nth-child(3){
+    width: 9rem;
+}
+// #content .main .dateTable .order table th:nth-child(4) {
+//     width: 14rem; /* Tamanho maior para "Cliente" e "Produto" */
+// }
 
 #content .main .dateTable .order table td:nth-child(2),
 #content .main .dateTable .order table td:nth-child(3) {
-    width: 12rem; /* Tamanho maior para "Cliente" e "Produto" */
+    width: 15rem; /* Tamanho maior para "Cliente" e "Produto" */
 }
 
 #content .main .dateTable .order table td:first-child {
@@ -208,16 +318,60 @@
     width: 4rem; /* Tamanho menor para a primeira coluna */
 }
 
-#content .main .dateTable .order table tbody tr {
-    display: flex;
-    gap: 1rem; /* Ajuste no espaçamento entre as linhas */
+#content .main .dateTable .order table tbody {
+    flex-grow: 1;
+    overflow-y: auto; /* Permite rolagem se necessário */
 }
 
-#content .main .dateTable .order table thead tr {
+#content .main .dateTable .order table tbody tr {
     display: flex;
-    gap: 1rem; /* Ajuste no espaçamento entre os cabeçalhos */
+    gap: 1rem; /* Espaçamento entre as linhas */
+    min-height: 5.2rem; /* Aumenta a altura mínima das linhas */
 }
 
 #content .main .dateTable .order table tbody tr:hover {
     background: var(--grey);
+}
+
+#content .main .dateTable .order table thead tr {
+    display: flex;
+    gap: 2rem; /* Ajuste no espaçamento entre os cabeçalhos */
+}
+
+
+
+
+
+#content .main .dateTable {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 1.5rem;
+    width: 100%;
+    color: var(--dark);
+    overflow: hidden; /* Removendo a rolagem geral */
+}
+
+#content .main .dateTable > div {
+    border-radius: 1.25rem;
+    background: var(--light);
+    padding: 1.5rem 3.7rem;
+    overflow-x: hidden; /* Removendo rolagem horizontal do div */
+}
+
+#content .main .dateTable .order {
+    flex-grow: 1;
+    flex-basis: 31.25rem;
+    background-color: #FFF;
+    min-height: 400px;
+    overflow-y: hidden; /* Removendo rolagem vertical do order */
+}
+
+#content .main .dateTable .order table {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    border-collapse: collapse;
+    height: 100%;
+    overflow-y: hidden; /* Garante que não há rolagem na tabela */
 }
