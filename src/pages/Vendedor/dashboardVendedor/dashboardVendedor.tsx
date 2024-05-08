@@ -17,7 +17,10 @@ import Comissao from "../../../scripts/models/comissao";
 const dadosController = new DadosController()
 const vendasController = new Vendas(Database.getPlanilhaVendas())
 const comissao = new Comissao()
-comissao.defineValComissao(10, 'cnpn')
+comissao.defineValComissao(4.5, 'cnpn')
+comissao.defineValComissao(3.5, 'cnpa')
+comissao.defineValComissao(2.5, 'capn')
+comissao.defineValComissao(2.0, 'capa')
 const lista = vendasController.calculaPrecoComissoes(comissao)
 const total = vendasController.calculaGanho()
 
