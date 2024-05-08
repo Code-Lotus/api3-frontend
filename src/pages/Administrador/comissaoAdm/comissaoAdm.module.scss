@@ -77,7 +77,7 @@
 	width: 25%;
 	padding-top: 3%;
 	color: var(--dark);
-	margin-left: 45%;
+	margin-left: 35%;
 	
 }
 .dateTable > div {
@@ -169,12 +169,12 @@
 	color: #F9F9F9;
 }
 
-.buttonSubmit:hover {
-	box-shadow: 0 12px 0.5rem 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
+// .buttonSubmit:hover {
+// 	box-shadow: 0 12px 0.5rem 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+// }
 
 .buttonSubmit:active {
 	background-color: #2b71b8;
-	box-shadow: 0 12px 0.3rem 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-	transform: translateY(4px);
+	// box-shadow: 0 12px 0.3rem 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+	transform: translateY(1px);
   }

@@ -15,7 +15,7 @@ export default class LoginEscolha extends Component {
                             <span className={Style.letra}>Vendedor</span>
                         </Link>
 
-                        <Link to="/dashboardAdm" className={Style.card}>
+                        <Link to="/insercaoExcel" className={Style.card}>
                             <span className={Style.letra}>Administrador</span>
                         </Link>
                     </div>
