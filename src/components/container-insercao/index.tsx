@@ -28,9 +28,32 @@ async function recebeArquivo(evento: any) {
 		const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
 		const valor = dados[8].toString()
 		const formaPagamento = dados[9].toString()
-		venda = new PlanilhaVendas(id++, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
+		let dia = aleatoriza(29).toString()
+		let mes = aleatoriza(13).toString()
+		let ano = anoAleatorio().toString()
+		const dataProduto = `${mes}/${dia}/${ano}`    //APAGAR!!!!!!!
+		let dia1 = aleatoriza(29).toString()
+		let mes1 = aleatoriza(13).toString()
+		let ano1 = anoAleatorio().toString()
+		const dataCliente = `${mes1}/${dia1}/${ano1}`
+		venda = new PlanilhaVendas(id++, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date(dataProduto)), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date(dataCliente)), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
 		listaAuxiliar.push(venda)
 	}
+}
+
+// APAGAR FUTURAMENTE
+function aleatoriza(max :number) {
+	let num = Math.floor(Math.random() * max);
+	if(num === 0) {
+		num++
+	}
+	return num
+}
+
+// APAGAR FUTURAMENTE MAIS AINDA
+function anoAleatorio() {
+	let num = Math.floor(Math.random() * 3); 
+	return (2022 + num)
 }
 
 function salvaArquivo() {

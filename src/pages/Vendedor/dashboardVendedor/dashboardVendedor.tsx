@@ -12,9 +12,18 @@ import Vendas from "../../../scripts/controllers/vendas-controller";
 import Style from "./dashboardVendedor.module.scss";
 import { Database } from "../../../scripts/controllers/localStorage";
 import { Component } from "react";
+import Comissao from "../../../scripts/models/comissao";
 
 const dadosController = new DadosController()
 const vendasController = new Vendas(Database.getPlanilhaVendas())
+const comissao = new Comissao()
+comissao.defineValComissao(4.5, 'cnpn')
+comissao.defineValComissao(3.5, 'cnpa')
+comissao.defineValComissao(2.5, 'capn')
+comissao.defineValComissao(2.0, 'capa')
+const lista = vendasController.calculaPrecoComissoes(comissao)
+const total = vendasController.calculaGanho()
+
 
 export default class DashboardVendedor extends Component {
   static contextType = ContextoDashboardPizza;
@@ -102,8 +111,8 @@ export default class DashboardVendedor extends Component {
           </div>
           <div className={Style.cards}>
             <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} />
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("40000")} titulo={"Valor das vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco((lista[0]+lista[1]+lista[2]+lista[3]).toString())} titulo={"Valor em comissão"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(total.toString())} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
             <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={vendasController.mostraUltimasVendas(5)}/>
