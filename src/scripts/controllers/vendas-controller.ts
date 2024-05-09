@@ -1,6 +1,5 @@
 import Comissao from '../models/comissao';
 import PlanilhaVendas from '../models/planilhaVendas';
-import readXlsxFile from 'read-excel-file';
 import Vendedor from '../models/vendedor';
 import Produto from '../models/produto';
 import Cliente from '../models/cliente';
@@ -20,24 +19,6 @@ export default class Vendas {
         return this._vendas
     }
 
-    //função para ser colocada no onChange de um input type file, a função recebe um parâmetro do próprio input que é uma lista de arquivos
-    public async recebeArquivo(evento: any) {
-        const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
-        const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
-        for(let i = 1; i < rows.length; i++){
-            const dados = rows[i] //pega as linhas com os conteúdos (não os cabeçalhos)
-            const dataVenda = dados[0].toString()
-            const dadosVendedor = [dados[2].toString(), dados[1].toString()]
-            const dadosProduto = [dados[4].toString(), dados[3].toString()]
-            const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
-            const valor = dados[8].toString()
-            const formaPagamento = dados[9].toString()
-            const venda = new PlanilhaVendas(0, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
-            console.log(venda)
-            this.vendas.push(venda)//adiciona o objeto planilha vendas na lista de vendas
-        }
-    }
-
     //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
 
     public filtraPorMes(mes: number): Array<PlanilhaVendas> {
@@ -50,10 +31,10 @@ export default class Vendas {
         return listaFiltrada //retorna a lista filtrada
     }
 
-    public filtraPorSemestre(data: Date): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorSemestre(data: Date, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = []
         const meses = this.indexUltimosMeses(data.getMonth(), 6)
-        this.vendas.forEach(venda => {
+        lista.forEach(venda => {
             if(meses.includes(venda.data.getMonth())){
                 listaFiltrada.push(venda)
             }
@@ -74,9 +55,9 @@ export default class Vendas {
     //----------------------FILTROS--------------------------//
 
     //função responsável por filtrar as vendas de um único cliente passado como argumento
-    public filtraPorCliente(cliente: Cliente): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorCliente(cliente: Cliente, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach((venda => { //percorre a lista completa de vendas
+        lista.forEach((venda => { //percorre a lista completa de vendas
             if(venda._cliente.cpfcnpj === cliente.cpfcnpj) { 
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento 
             }
@@ -85,9 +66,9 @@ export default class Vendas {
     }
 
     //função responsável por filtrar as vendas de um único produto passado como argumento
-    public filtraPorProduto(produto: Produto): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorProduto(produto: Produto, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach((venda => { //percorre a lista completa de vendas
+        lista.forEach((venda => { //percorre a lista completa de vendas
             if(venda._produto.id === produto.id) {
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
             }
@@ -96,9 +77,9 @@ export default class Vendas {
     }
 
     //função responsável por filtrar as vendas de um único vendedor passado como argumento
-    public filtraPorVendedor(vendedor: Vendedor): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorVendedor(vendedor: Vendedor, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach((venda => { //percorre a lista completa de vendas
+        lista.forEach((venda => { //percorre a lista completa de vendas
             if(venda.vendedor.cpf === vendedor.cpf) {
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
             }
@@ -123,7 +104,7 @@ export default class Vendas {
                  //adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento e o valor está dentro da faixa desejada
     });
         return listaFiltrada; //retorna a lista filtrada
-}
+    }
 
     //--------------------ORDENADORES-----------------------//
     public ordenaQtd(): ReadonlyArray<CampoProduto> {
@@ -180,108 +161,12 @@ export default class Vendas {
         }
         return listaMeses
     }
-    
-    //refatorar código
-    public calculaQtdPorMes(mes: string): Array<number>{
-        const mesAtual = this._meses.indexOf(mes)
-        const calculoDosMeses: Array<number> = []
-        let graficoMeses = [0, 0, 0, 0, 0]
-        this.vendas.forEach((venda) => {
-            switch(new Date(venda._data).getMonth()) {
-                case mesAtual:
-                    graficoMeses[4]++
-                    break;
-                case this.gerenciaMes(mesAtual - 1):
-                    graficoMeses[3]++
-                    break;
-                case this.gerenciaMes(mesAtual - 2):
-                    graficoMeses[2]++
-                    break;
-                case this.gerenciaMes(mesAtual - 3):
-                    graficoMeses[1]++
-                    break;
-                case this.gerenciaMes(mesAtual - 4):
-                    graficoMeses[0]++
-                    break;
-            }
-        })
-
-        calculoDosMeses.push(graficoMeses[0])
-        calculoDosMeses.push(graficoMeses[1])
-        calculoDosMeses.push(graficoMeses[2])
-        calculoDosMeses.push(graficoMeses[3])
-        calculoDosMeses.push(graficoMeses[4])
-        return calculoDosMeses
-    }
-    
-    public calculaQtdPorMesComissao(mes: string, tipo: string): Array<number>{
-        const mesAtual = this._meses.indexOf(mes)
-        const comissao = new Comissao()
-        const calculoDosMeses: Array<number> = []
-        let graficoMeses = [0, 0, 0, 0, 0]
-        this.vendas.forEach((venda) => {
-            if(comissao.acharTipo(venda.cliente, venda.produto) === tipo){
-                switch(venda.data.getMonth()) {
-                    case mesAtual:
-                        graficoMeses[4]++
-                        break;
-                    case this.gerenciaMes(mesAtual - 1):
-                        graficoMeses[3]++
-                        break;
-                    case this.gerenciaMes(mesAtual - 2):
-                        graficoMeses[2]++
-                        break;
-                    case this.gerenciaMes(mesAtual - 3):
-                        graficoMeses[1]++
-                        break;
-                    case this.gerenciaMes(mesAtual - 4):
-                        graficoMeses[0]++
-                        break;
-                }
-            }
-        })
-
-        calculoDosMeses.push(graficoMeses[0])
-        calculoDosMeses.push(graficoMeses[1])
-        calculoDosMeses.push(graficoMeses[2])
-        calculoDosMeses.push(graficoMeses[3])
-        calculoDosMeses.push(graficoMeses[4])
-        return calculoDosMeses
-    }
 
     public calculaGanho(): number{
         let calculoDosMeses = 0
         this.vendas.forEach((venda) => calculoDosMeses += venda._valor)
 
         return calculoDosMeses
-    }
-
-    public calculaQtdPorComissao(): Array<number>{
-        let achaTipo = new Comissao()
-        let qtdComissao = [0, 0, 0, 0]
-        this.vendas.forEach((venda) => {
-            console.log(venda)
-            const cliente = venda._cliente
-            const produto = venda._produto
-            console.log(cliente)
-            console.log(produto)
-            let tipo = achaTipo.acharTipo(cliente, produto)
-            switch(tipo){
-                case 'cnpn':
-                    qtdComissao[0]++
-                    break;
-                case 'capn':
-                    qtdComissao[1]++
-                    break;
-                case 'capa':
-                    qtdComissao[2]++
-                    break;
-                case 'cnpa':
-                    qtdComissao[3]++
-                    break;
-            }
-        })
-    return qtdComissao
     }
 
     public calculaQtdPorComissaoPorMes(mes: number): Array<number>{
@@ -485,17 +370,6 @@ export default class Vendas {
         qtdDosMeses.push(capn)
         qtdDosMeses.push(capa)
         return qtdDosMeses
-    }
-
-    public listaProdutos(){
-        const produtos: Array<string> = []
-        this._vendas.forEach(venda => {
-            let nome = venda._produto._nome
-            if(!produtos.includes(nome)){
-                produtos.push(nome)
-            }
-        })
-        return produtos
     }
 
     public calculaPrecoComissoes(comissao: Comissao): Array<number> {
