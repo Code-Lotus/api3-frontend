@@ -24,7 +24,6 @@ comissao.defineValComissao(2.0, 'capa')
 const lista = vendasController.calculaPrecoComissoes(comissao)
 const total = vendasController.calculaGanho()
 
-
 export default class DashboardVendedor extends Component {
   static contextType = ContextoDashboardPizza;
   state = {

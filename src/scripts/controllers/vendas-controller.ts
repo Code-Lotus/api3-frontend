@@ -5,6 +5,9 @@ import Produto from '../models/produto';
 import Cliente from '../models/cliente';
 import CampoProduto from '../models/campoProduto';
 import CampoProdutoAdm from '../models/campoProdutoAdm';
+import Filtros from './filtros';
+
+const filtro = new Filtros();
 
 export default class Vendas {
     private _vendas: Array<PlanilhaVendas>
@@ -20,27 +23,6 @@ export default class Vendas {
     }
 
     //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
-
-    public filtraPorMes(mes: number): Array<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach(venda => { //percorre a lista completa de vendas
-            if(new Date(venda._data).getMonth() === mes) { 
-                listaFiltrada.push(venda) //e adiciona na lista filtrada onde a data da venda do prduto é igual a data da venda pesquisada no argumento 
-            }
-        })
-        return listaFiltrada //retorna a lista filtrada
-    }
-
-    public filtraPorSemestre(data: Date, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = []
-        const meses = this.indexUltimosMeses(data.getMonth(), 6)
-        lista.forEach(venda => {
-            if(meses.includes(venda.data.getMonth())){
-                listaFiltrada.push(venda)
-            }
-        })
-        return listaFiltrada
-    }
 
     public filtraPorAno(ano: number): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
@@ -153,14 +135,6 @@ export default class Vendas {
         meses.forEach((e) => nomesMeses.push(this._meses[e]))
         return nomesMeses
     }
-    
-    public indexUltimosMeses(index: number, qtdMeses: number): Array<number> {
-        const listaMeses = []
-        for(let i = 0; i < qtdMeses; i++){
-            listaMeses.push(this.gerenciaMes(index - 4 + i))
-        }
-        return listaMeses
-    }
 
     public calculaGanho(): number{
         let calculoDosMeses = 0
@@ -177,7 +151,6 @@ export default class Vendas {
                 const cliente = venda._cliente
                 const produto = venda._produto
                 let tipo = achaTipo.acharTipo(cliente, produto)
-                console.log(tipo)
                 switch(tipo){
                     case 'cnpn':
                         qtdComissao[0]++
@@ -300,7 +273,7 @@ export default class Vendas {
     }
 
     public calculaQtdDiasDeUmMes(mes: number): Array<number> {
-        const listaFiltrada = this.filtraPorMes(mes)
+        const listaFiltrada = filtro.filtraPorMes(mes, this.vendas)
         const qtdDoMes: Array<number> = []
         let graficoMeses = [0, 0, 0, 0]
         listaFiltrada.forEach(venda => {
@@ -392,14 +365,6 @@ export default class Vendas {
             }
         })
         return precoComissao
-    }
-    
-    //função que recebe um index de mês maior que 11 (index máximo dos meses) e retorna um index válido (usado em cálculos de outras funções)
-    private gerenciaMes(numeroMes: number): number {
-        if(numeroMes < 0) {
-            return numeroMes + 12
-        } 
-        return numeroMes
     }
 
     public criaCampos(): Array<CampoProduto>{
