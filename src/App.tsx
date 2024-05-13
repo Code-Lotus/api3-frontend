@@ -4,7 +4,8 @@ import DashboardVendedor from "./pages/Vendedor/dashboardVendedor/dashboardVende
 import InsercaoExcel from "./pages/Administrador/insercaoExcel";
 import ComissaoAdm from "./pages/Administrador/comissaoAdm";
 import ComponenteContextoDashboard from "./contexts/componenteContextoDashboard";
-import Login from "./pages/login";
+import Login from "./pages/Usuário/login/login";
+import Cadastro from "./pages/Usuário/cadastro/cadastro";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Routes>
         <Route path="/">
           <Route path="/" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/dashboardVendedor" element={<ComponenteContextoDashboard child={<DashboardVendedor/>} />} />
           <Route path="/dashboardAdm" element={<ComponenteContextoDashboard child={<DashboardAdm />} />}/>
           <Route path="/comissaoAdm" element={<ComissaoAdm />}/>
