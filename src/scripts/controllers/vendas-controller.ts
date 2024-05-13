@@ -1,8 +1,5 @@
 import Comissao from '../models/comissao';
 import PlanilhaVendas from '../models/planilhaVendas';
-import Vendedor from '../models/vendedor';
-import Produto from '../models/produto';
-import Cliente from '../models/cliente';
 import CampoProduto from '../models/campoProduto';
 import CampoProdutoAdm from '../models/campoProdutoAdm';
 import Filtros from './filtros';
@@ -20,110 +17,7 @@ export default class Vendas {
 
     public get vendas(): Array<PlanilhaVendas> {
         return this._vendas
-    }
-
-    //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
-
-    public filtraPorAno(ano: number): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach((venda => { //percorre a lista completa de vendas
-            if(new Date(venda._data).getFullYear() === ano) { 
-                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o ano da venda do prduto é igual o ano da venda pesquisada no argumento 
-            }
-        }))
-        return listaFiltrada //retorna a lista filtrada
-    }
-
-    //----------------------FILTROS--------------------------//
-
-    //função responsável por filtrar as vendas de um único cliente passado como argumento
-    public filtraPorCliente(cliente: Cliente, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        lista.forEach((venda => { //percorre a lista completa de vendas
-            if(venda._cliente.cpfcnpj === cliente.cpfcnpj) { 
-                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento 
-            }
-        }))
-        return listaFiltrada //retorna a lista filtrada
-    }
-
-    //função responsável por filtrar as vendas de um único produto passado como argumento
-    public filtraPorProduto(produto: Produto, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        lista.forEach((venda => { //percorre a lista completa de vendas
-            if(venda._produto.id === produto.id) {
-                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
-            }
-        }))
-        return listaFiltrada //retorna a lista filtrada
-    }
-
-    //função responsável por filtrar as vendas de um único vendedor passado como argumento
-    public filtraPorVendedor(vendedor: Vendedor, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
-        lista.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.vendedor.cpf === vendedor.cpf) {
-                listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
-            }
-        }))
-        return listaFiltrada //retorna a lista filtrada
-    }
-    
-    //função responsável por filtrar as vendas de um único cliente passado como argumento e dentro de uma faixa de valores
-    public filtraPorPreco(min: boolean, preco: number): ReadonlyArray<PlanilhaVendas> {
-        const listaFiltrada: Array<PlanilhaVendas> = []; //cria uma lista para armazenar a lista filtrada
-        this.vendas.forEach((venda) => { //percorre a lista completa de vendas
-            if(min) {
-                if(venda._valor >= preco){
-                    listaFiltrada.push(venda)
-                }
-            }
-            else {
-                if(venda._valor <= preco){
-                    listaFiltrada.push(venda)
-                }
-            }
-                 //adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento e o valor está dentro da faixa desejada
-    });
-        return listaFiltrada; //retorna a lista filtrada
-    }
-
-    //--------------------ORDENADORES-----------------------//
-    public ordenaQtd(): ReadonlyArray<CampoProduto> {
-        return this.criaCampos().sort((a, b) => {
-            if(a.qtd > b.qtd){
-                return -1
-            } else if(a.qtd < b.qtd){
-                return 1
-            } else {
-                return 0
-            }
-        })
-    }
-
-    public ordenaPrecoUni(): ReadonlyArray<CampoProduto> {
-        return this.criaCampos().sort((a, b) => {
-            if(a.precoUni > b.precoUni){
-                return -1
-            } else if(a.precoUni < b.precoUni){
-                return 1
-            } else {
-                return 0
-            }
-        })
-    }
-
-    public ordenaPrecoTotal(): ReadonlyArray<CampoProduto> {
-        return this.criaCampos().sort((a, b) => {
-            if(a.precoTotal > b.precoTotal){
-                return -1
-            } else if(a.precoTotal < b.precoTotal){
-                return 1
-            } else {
-                return 0
-            }
-        })
-    }
+    }    
     
     //função que recebe um index do mês e retorna o nome do mês 
     public getMes(index: number): string {
@@ -171,7 +65,7 @@ export default class Vendas {
     }
 
     public calculaQtdPorComissaoPorAno(ano: number): Array<number> {
-        let listaFiltrada = this.filtraPorAno(ano)
+        let listaFiltrada = filtro.filtraPorAno(ano, this._vendas)
         let achaTipo = new Comissao()
         let qtdComissao = [0, 0, 0, 0]
         listaFiltrada.forEach((venda) => {
@@ -199,7 +93,7 @@ export default class Vendas {
     }
 
     calculaQtdPorComissaoPorPreco(min: boolean, preco: number): Array<number>{
-        let listaFiltrada = this.filtraPorPreco(min, preco)
+        let listaFiltrada = filtro.filtraPorPreco(min, preco, this._vendas)
         let achaTipo = new Comissao()
         let qtdComissao = [0, 0, 0, 0]
         listaFiltrada.forEach((venda) => {
@@ -273,7 +167,7 @@ export default class Vendas {
     }
 
     public calculaQtdDiasDeUmMes(mes: number): Array<number> {
-        const listaFiltrada = filtro.filtraPorMes(mes, this.vendas)
+        const listaFiltrada = filtro.filtraPorMes(mes, this._vendas)
         const qtdDoMes: Array<number> = []
         let graficoMeses = [0, 0, 0, 0]
         listaFiltrada.forEach(venda => {

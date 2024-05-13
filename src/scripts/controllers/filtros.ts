@@ -6,6 +6,7 @@ import Vendedor from "../models/vendedor"
 export default class Filtros {
     constructor(){}
 
+    //----------------------FILTROS DE FAIXA TEMPORAL--------------------------//
     public filtraPorMes(mes: number, lista: PlanilhaVendas[]): Array<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         lista.forEach(venda => { //percorre a lista completa de vendas
@@ -37,6 +38,7 @@ export default class Filtros {
         return listaFiltrada //retorna a lista filtrada
     }
 
+    //função responsável por filtrar as vendas de um único cliente passado como argumento
     public filtraPorCliente(cliente: Cliente, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         lista.forEach((venda => { //percorre a lista completa de vendas
@@ -47,6 +49,9 @@ export default class Filtros {
         return listaFiltrada //retorna a lista filtrada
     }
 
+    //----------------------OUTROS FILTROS--------------------------//
+
+    //função responsável por filtrar as vendas de um único produto passado como argumento
     public filtraPorProduto(produto: Produto, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         lista.forEach((venda => { //percorre a lista completa de vendas
@@ -57,6 +62,7 @@ export default class Filtros {
         return listaFiltrada //retorna a lista filtrada
     }
     
+    //função responsável por filtrar as vendas de um único vendedor passado como argumento
     public filtraPorVendedor(vendedor: Vendedor, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         lista.forEach((venda => { //percorre a lista completa de vendas
@@ -67,6 +73,7 @@ export default class Filtros {
         return listaFiltrada //retorna a lista filtrada
     }
 
+    //função responsável por filtrar as vendas de um único cliente passado como argumento e dentro de uma faixa de valores
     public filtraPorPreco(min: boolean, preco: number, lista: PlanilhaVendas[]): ReadonlyArray<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = []; //cria uma lista para armazenar a lista filtrada
         lista.forEach((venda) => { //percorre a lista completa de vendas
