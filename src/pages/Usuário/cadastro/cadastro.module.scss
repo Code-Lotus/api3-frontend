@@ -1,13 +1,51 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+
 .register {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: auto;
-    border: solid 1px black;
+    grid-template-rows: repeat(5, 25px);
     background-color: white;
-    padding: 10px;
+    max-width: 430px;
+    text-align: center;
+    width: 100%;
+    padding: 7px;
     gap: 50px;
     margin: 20rem;
     margin-left: 45rem;
     margin-right: 45rem;
     border-radius: 20px;
 }
+
+input {
+    width: 100%;
+    border: none;
+    padding: 10px 35px;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+
+i {
+    position: absolute;
+    left: 38.5%;
+    margin-top: 5px;
+    height: fit-content;
+    color: rgb(0, 98, 209);
+    font-size: 23px;
+}
+
+
+button {
+    background-color: rgb(114, 187, 247);
+    color: white;
+    width: 25rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: 0.5px;
+}
+
+
