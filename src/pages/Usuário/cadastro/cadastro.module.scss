@@ -2,6 +2,7 @@ body {
     height: 100vh;
     display: flex;
     align-items: center;
+    font-family: var(--poppins);
 }
 
 
@@ -23,14 +24,19 @@ body {
 
 input {
     width: 100%;
-    border: none;
+    border: 0px solid;
     padding: 10px 35px;
-    border-bottom: 1px solid black;
+    border-bottom: 1.5px solid black;
     position: relative;
 }
 
+input:focus {
+    border-bottom-color:rgb(0, 98, 209);
+    outline: none;
+}
+
 i {
-    position: absolute;
+    position: fixed;
     left: 38.5%;
     margin-top: 5px;
     height: fit-content;
@@ -38,6 +44,17 @@ i {
     font-size: 23px;
 }
 
+span {
+    position: absolute;
+    left: 58.6%;
+    top: 56.3%;
+    color: rgb(0, 98, 209);
+    font-size: 23px;
+}
+
+span:hover {
+    background-color: rgba(87, 178, 253, 0.2);
+}
 
 button {
     background-color: rgb(114, 187, 247);
@@ -47,5 +64,17 @@ button {
     border-radius: 1rem;
     border: 0.5px;
 }
+
+button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+
 
 

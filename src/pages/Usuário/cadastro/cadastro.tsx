@@ -4,12 +4,17 @@ import DadosController from "../../../scripts/controllers/dados-controller";
 
 export default function Cadastro() {
     const [cpf, setCpf] = useState<string>('');
+    const [showPassword, setShowPassword] = useState<boolean>(false);
     const dadosController = new DadosController();
 
     const ajustarCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputCPF = event.target.value;
         const maskCPF = dadosController.mascaraCPF(inputCPF);
         setCpf(maskCPF);
+    }
+    
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     }
 
     return (
@@ -35,9 +40,12 @@ export default function Cadastro() {
                     <i className='bx bx-envelope' ></i> &nbsp;
                     </div>
 
-                    <div className="password-container">
-                        <input type='password' placeholder="Senha"></input>
+                    <div>
+                        <input type={showPassword ? 'text' : 'password'} placeholder="Senha"></input>
                         <i className='bx bx-lock-alt'></i>
+                        <div className="showPass">
+                        <span className={showPassword ? 'bx bxs-show' : 'bx bxs-low-vision'} onClick={togglePasswordVisibility}></span>
+                        </div>
                     </div>
 
             <div>
@@ -45,7 +53,7 @@ export default function Cadastro() {
             </div>
 
                     <div className="login">
-                        Já é um usuário?<a href="#"> Faça login aqui</a>
+                        Já é um usuário?<a href="#"><b> Faça login aqui</b></a>
                     </div>
         </div>
         </>
