@@ -1,10 +1,4 @@
-body {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    font-family: var(--poppins);
-}
-
+/* cadastro.module.scss */
 
 .register {
     display: grid;
@@ -12,17 +6,16 @@ body {
     grid-template-rows: repeat(5, 25px);
     background-color: white;
     max-width: 430px;
+    margin: 0 auto;
+    margin-top: 200px;
     text-align: center;
     width: 100%;
     padding: 7px;
     gap: 50px;
-    margin: 20rem;
-    margin-left: 45rem;
-    margin-right: 45rem;
     border-radius: 20px;
 }
 
-input {
+.register input {
     width: 100%;
     border: 0px solid;
     padding: 10px 35px;
@@ -30,33 +23,34 @@ input {
     position: relative;
 }
 
-input:focus {
+.register input:focus {
     border-bottom-color:rgb(0, 98, 209);
     outline: none;
 }
 
-i {
+.register i {
     position: fixed;
-    left: 38.5%;
+    left: 39.5%;
     margin-top: 5px;
     height: fit-content;
     color: rgb(0, 98, 209);
     font-size: 23px;
 }
 
-span {
+.register span {
     position: absolute;
-    left: 58.6%;
-    top: 56.3%;
+    left: 59.6%;
+    top: 54.3%;
     color: rgb(0, 98, 209);
     font-size: 23px;
 }
 
-span:hover {
+.register span:hover {
     background-color: rgba(87, 178, 253, 0.2);
+    border-radius: 5px;
 }
 
-button {
+.register button {
     background-color: rgb(114, 187, 247);
     color: white;
     width: 25rem;
@@ -65,16 +59,11 @@ button {
     border: 0.5px;
 }
 
-button:hover {
+.register button:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-a:hover {
+.register a:hover {
     text-decoration: underline;
 }
-
-
-
-
-
