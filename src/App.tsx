@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardAdm from "./pages/Administrador/dashboardAdm";
-import DashboardVendedor from "./pages/Vendedor/dashboardVendedor/dashboardVendedor";
+import DashboardVendedor from "./pages/Vendedor/dashboardVendedor";
 import InsercaoExcel from "./pages/Administrador/insercaoExcel";
 import ComissaoAdm from "./pages/Administrador/comissaoAdm";
 import ComponenteContextoDashboard from "./contexts/componenteContextoDashboard";
