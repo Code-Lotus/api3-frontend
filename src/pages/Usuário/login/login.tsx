@@ -1,4 +1,4 @@
-import LoginEscolha from "../components/login(temp)";
+import LoginEscolha from "../../../components/login(temp)";
 
 export default function Login() {
     return(
