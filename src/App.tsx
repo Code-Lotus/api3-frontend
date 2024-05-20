@@ -12,7 +12,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/dashboardVendedor" element={<ComponenteContextoDashboard child={<DashboardVendedor/>} />} />
           <Route path="/dashboardAdm" element={<ComponenteContextoDashboard child={<DashboardAdm />} />}/>

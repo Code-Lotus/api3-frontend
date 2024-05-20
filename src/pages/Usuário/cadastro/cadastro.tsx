@@ -20,7 +20,7 @@ export default function Cadastro() {
     return (
         <>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
-        <div className={Style.register}>
+        <div className={Style.box}>
             <div className={Style.topTitle}>
             <h1>Cadastro</h1>
             </div>
@@ -53,7 +53,7 @@ export default function Cadastro() {
             </div>
 
                     <div className="login">
-                        Já é um usuário?<a href="#"><b> Faça login aqui</b></a>
+                        Já é um usuário?<a href="/"><b> Faça login aqui</b></a>
                     </div>
         </div>
         </>
