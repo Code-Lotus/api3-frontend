@@ -40,7 +40,7 @@ export default function Login() {
                     </div>
 
             <div>
-                <a href="#"><button><h3>Entrar</h3></button></a> 
+                <a href="/insercaoExcel"><button><h3>Entrar</h3></button></a> 
             </div>
 
                     <div className="registro">
