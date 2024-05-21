@@ -32,21 +32,25 @@ export default class DadosController {
           .replace(/(\d{4})(\d)/, "$1")
       }
 
-    public mascaraPreco(preco: string) {
-        let temVirgula = preco.includes('.')
-        if(temVirgula) {
-            preco = preco.replace('.', ',')
-            return `R$${preco}`
+      public mascaraPreco(preco: string) {
+        let temVirgula = preco.includes('.');
+        if (temVirgula) {
+            preco = preco.replace('.', ',');
         } else {
-            return `R$${preco},00`
+            preco += ',00';
         }
+        preco = preco.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    
+        return `R$${preco}`;
     }
 
     public mascaraQuantidade(qtd: string) {
         if(qtd.length < 4) {
             return qtd
         } else {
-            return qtd //arrumar com regex
+            qtd = qtd.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+
+            return qtd
         }
     }
 }
