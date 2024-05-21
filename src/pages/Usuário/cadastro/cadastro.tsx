@@ -1,12 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Style from "../cadastro/cadastro.module.scss";
 import DadosController from "../../../scripts/controllers/dados-controller";
 // import CreateUsuarioService from "../../../../api3-backend/src/services/usuario/createUsuarioService";
+import { api } from "../../../services/api"
+
+interface usuarioProps {
+    usuario_id: number,
+    usuario_nome: string,
+    usuario_cpf: string,
+    usuario_email: string,
+    usuario_senha: string,
+    administrador: boolean
+}
 
 export default function Cadastro() {
     const [cpf, setCpf] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const dadosController = new DadosController();
+
+    const [usuarios, setUsuarios] = useState<usuarioProps[]>([]);
+    const nomeRef = useRef<HTMLInputElement | null>(null)
+    const cpfRef = useRef<HTMLInputElement | null>(null)
+    const emailRef = useRef<HTMLInputElement | null>(null)
+    const senhaRef = useRef<HTMLInputElement | null>(null)
+
+    useEffect(() => {
+        carregaUsuarios();
+    }, [])
+
+    async function carregaUsuarios() {
+        const response = await api.get("/usuarios");
+        setUsuarios(response.data)
+    }
+
+    async function criaUsuario() {
+        if(!nomeRef.current?.value || !cpfRef.current?.value || !emailRef.current?.value || !senhaRef.current?.value) return;
+
+        const response = await api.post("/usuario", {
+            usuario_nome: nomeRef.current?.value,
+            usuario_cpf: cpfRef.current?.value,
+            usuario_email: emailRef.current?.value,
+            usuario_senha: senhaRef.current?.value,
+            administrador: true
+        })
+    }
 
     const ajustarCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputCPF = event.target.value;
@@ -60,23 +97,23 @@ export default function Cadastro() {
             <h1>Cadastro</h1>
             </div>
                     <div>
-                    <input type='text' name="nome" placeholder="Nome"></input>
+                    <input type='text' name="nome" placeholder="Nome" ref={nomeRef}></input>
                     <i className='bx bx-user-circle'></i> &nbsp;
                     </div>
 
                     <div>
                     <input type='text' id='cpf' value={cpf} onChange={ajustarCpf}
-                    placeholder="CPF"/>
+                    placeholder="CPF" ref={cpfRef}/>
                     <i className='bx bx-id-card'></i> &nbsp;
                     </div>
 
                     <div>
-                    <input type='email' name="email" placeholder="E-mail"></input>
+                    <input type='email' name="email" placeholder="E-mail" ref={emailRef}></input>
                     <i className='bx bx-envelope' ></i> &nbsp;
                     </div>
 
                     <div>
-                        <input type={showPassword ? 'text' : 'password'} name="senha" placeholder="Senha"></input>
+                        <input type={showPassword ? 'text' : 'password'} name="senha" placeholder="Senha" ref={senhaRef}></input>
                         <i className='bx bx-lock-alt'></i>
                         <div className="showPass">
                         <span className={showPassword ? 'bx bxs-show' : 'bx bxs-low-vision'} onClick={togglePasswordVisibility}></span>
@@ -84,7 +121,7 @@ export default function Cadastro() {
                     </div>
 
             <div>
-                <button /*onClick={handleRegistrarClick} */><h3>Registrar</h3></button>
+                <button onClick={criaUsuario}><h3>Registrar</h3></button>
             </div>
 
                     <div className="login">
