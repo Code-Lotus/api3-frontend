@@ -43,6 +43,11 @@ export default function Cadastro() {
             usuario_senha: senhaRef.current?.value,
             administrador: true
         })
+
+        nomeRef.current.value = "";
+        cpfRef.current.value = "";
+        emailRef.current.value = "";
+        senhaRef.current.value = "";
     }
 
     const ajustarCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
