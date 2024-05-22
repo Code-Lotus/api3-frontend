@@ -8,7 +8,6 @@ import SelectPizza from "../../selectPizza";
 type Props = {
   valores: Array<number>
   legenda: Array<string>
-  // nome: string
 }
 
 export default class Pizza extends Component<Props> {
