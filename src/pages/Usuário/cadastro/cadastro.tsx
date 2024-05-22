@@ -3,6 +3,7 @@ import Style from "../cadastro/cadastro.module.scss";
 import DadosController from "../../../scripts/controllers/dados-controller";
 // import CreateUsuarioService from "../../../../api3-backend/src/services/usuario/createUsuarioService";
 import { api } from "../../../services/api"
+import swal from 'sweetalert';
 
 interface usuarioProps {
     usuario_id: number,
@@ -48,6 +49,12 @@ export default function Cadastro() {
         cpfRef.current.value = "";
         emailRef.current.value = "";
         senhaRef.current.value = "";
+        
+        swal({
+            title: "Usuário cadastrado",
+            text: "Cadastro realizado com sucesso!",
+            icon: "success"
+        })
     }
 
     const ajustarCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
