@@ -59,8 +59,11 @@
 }
 
 .box button:hover {
-    text-decoration: underline;
+    background-color: white;
+    color: rgb(114, 187, 247);
+    border: 2px solid rgb(114, 187, 247);
     cursor: pointer;
+    transition-duration: 0.3s;
 }
 
 .register a:hover {

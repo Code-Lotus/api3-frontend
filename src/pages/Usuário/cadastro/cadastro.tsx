@@ -63,39 +63,6 @@ export default function Cadastro() {
         setCpf(maskCPF);
     }
 
-    /*  const handleRegistrarClick = async () => { 
-        try {
-            const nomeInput = document.querySelector("input[name=nome]");
-            const cpfInput = document.querySelector("input[name=cpf]");
-            const emailInput = document.querySelector("input[name=email]");
-            const senhaInput = document.querySelector("input[name=senha]");
-
-            if (!nomeInput || !cpfInput || !emailInput || !senhaInput) {
-                throw new Error("Preencha todos os campos");
-            }
-
-            const nome = (nomeInput as HTMLInputElement).value;
-            const cpf = (cpfInput as HTMLInputElement).value;
-            const email = (emailInput as HTMLInputElement).value;
-            const senha = (senhaInput as HTMLInputElement).value;
-
-            const usuarioService = new CreateUsuarioService();
-            await usuarioService.execute({
-                usuario_nome: nome,
-                usuario_cpf: cpf,
-                usuario_email: email,
-                usuario_senha: senha,
-                administrador: false // ou true, dependendo da lógica de administração
-            });
-
-            // Redirecionar para outra página ou fornecer feedback de sucesso
-            alert("Usuário cadastrado com sucesso!");
-        } catch (error) {
-            console.error("Erro ao cadastrar usuário:", (error as Error).message);
-            // Exibir mensagem de erro para o usuário
-            alert("Erro ao cadastrar usuário: " + (error as Error).message);
-        }
-    } */
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -128,8 +95,16 @@ export default function Cadastro() {
                         <input type={showPassword ? 'text' : 'password'} name="senha" placeholder="Senha" ref={senhaRef}></input>
                         <i className='bx bx-lock-alt'></i>
                         <div className="showPass">
-                        <span className={showPassword ? 'bx bxs-show' : 'bx bxs-low-vision'} onClick={togglePasswordVisibility}></span>
+                        <span className={showPassword ? 'bx bxs-show' : 'bx bxs-low-vision'} onClick={togglePasswordVisibility} id="showpass"></span>
                         </div>
+                    </div>
+
+                    <div>
+                        <h4>Registrar-se como administrador?</h4>
+                        <label className={Style.switch}>
+                        <input type= 'checkbox' className={Style.checkbox}/>
+                        <span className={Style.slider}/>
+                        </label>
                     </div>
 
             <div>

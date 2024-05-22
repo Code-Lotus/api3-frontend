@@ -91,6 +91,10 @@ export default function Login() {
             <div>
                 <a href="/insercaoExcel"><button onClick={verificaCredenciais}><h3>Entrar</h3></button></a> 
             </div>
+            
+            <div className="registro">
+                        Não tem uma conta?<a href="/cadastro"><b> Crie aqui</b></a>
+                    </div>
         </div>
         </>
     )
