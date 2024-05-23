@@ -15,7 +15,9 @@ interface UsuarioProps {
 export default function Login() {
     const [cpf, setCpf] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    
+    const [logado, setLogado] = useState<boolean>(false)
+    const [naoLogou, setNaoLogou] = useState<string>('')
+
     const [usuarios, setUsuarios] = useState<UsuarioProps[]>([]);
     const cpfRef = useRef<HTMLInputElement | null>(null);
     const senhaRef = useRef<HTMLInputElement | null>(null);
@@ -29,7 +31,7 @@ export default function Login() {
         setUsuarios(response.data);
     }
 
-    function verificaCredenciais(){
+    const handleLogin = () => {
         let achouCpf = false; 
         const cpf = cpfRef.current?.value;
         const senha = senhaRef.current?.value;
@@ -38,20 +40,21 @@ export default function Login() {
             if(cpf === usuario.usuario_cpf){
                 achouCpf = true;
                 if(senha === usuarios[index].usuario_senha){
-                    trocaPagina() //mudar página
+                    console.log("senha certa")
+                    setLogado(true)
                 } else {
                     console.log("Senha incorreta!")
+                    setNaoLogou("senha")
+                    setLogado(false)
                 }
             }
         }))
 
         if(!achouCpf) {
             console.log("CPF não encontrado!")
+            setNaoLogou("cpf")
+            setLogado(false)
         }
-    }
-
-    function trocaPagina() {
-        return //mudar página
     }
 
     const dadosController = new DadosController();
@@ -89,12 +92,8 @@ export default function Login() {
                     </div>
 
             <div>
-                <a href="/insercaoExcel"><button onClick={verificaCredenciais}><h3>Entrar</h3></button></a> 
+                {logado ? <a href="/insercaoExcel" ><button onClick={handleLogin}><h3>Entrar</h3></button></a> : <a><button onClick={handleLogin}><h3>Entrar</h3></button></a>}
             </div>
-            
-            <div className="registro">
-                        Não tem uma conta?<a href="/cadastro"><b> Crie aqui</b></a>
-                    </div>
         </div>
         </>
     )

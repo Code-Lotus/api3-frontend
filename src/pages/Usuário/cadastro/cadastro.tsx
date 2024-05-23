@@ -20,10 +20,11 @@ export default function Cadastro() {
     const dadosController = new DadosController();
 
     const [usuarios, setUsuarios] = useState<usuarioProps[]>([]);
-    const nomeRef = useRef<HTMLInputElement | null>(null)
-    const cpfRef = useRef<HTMLInputElement | null>(null)
-    const emailRef = useRef<HTMLInputElement | null>(null)
-    const senhaRef = useRef<HTMLInputElement | null>(null)
+    const nomeRef = useRef<HTMLInputElement | null>(null);
+    const cpfRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const senhaRef = useRef<HTMLInputElement | null>(null);
+    const [adm, setAdm] = useState<boolean>(false);
 
     useEffect(() => {
         carregaUsuarios();
@@ -42,7 +43,7 @@ export default function Cadastro() {
             usuario_cpf: cpfRef.current?.value,
             usuario_email: emailRef.current?.value,
             usuario_senha: senhaRef.current?.value,
-            administrador: true
+            administrador: adm
         })
 
         nomeRef.current.value = "";
@@ -55,6 +56,10 @@ export default function Cadastro() {
             text: "Cadastro realizado com sucesso!",
             icon: "success"
         })
+    }
+
+    const handleAdm = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAdm(e.target.checked)
     }
 
     const ajustarCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,9 +105,9 @@ export default function Cadastro() {
                     </div>
 
                     <div>
-                        <h4>Registrar-se como administrador?</h4>
+                        <h4>Administrador</h4>
                         <label className={Style.switch}>
-                        <input type= 'checkbox' className={Style.checkbox}/>
+                        <input type='checkbox' className={Style.checkbox} onChange={handleAdm}/>
                         <span className={Style.slider}/>
                         </label>
                     </div>
@@ -110,10 +115,6 @@ export default function Cadastro() {
             <div>
                 <button onClick={criaUsuario}><h3>Registrar</h3></button>
             </div>
-
-                    <div className="login">
-                        Já é um usuário?<a href="/"><b> Faça login aqui</b></a>
-                    </div>
         </div>
         </>
     )
