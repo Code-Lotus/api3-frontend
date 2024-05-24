@@ -118,11 +118,11 @@ export default class Vendas {
         return qtdComissao
     }
 
-    public calculaQtdTodosMeses(): Array<number>{
-        //let listaFiltrada = this.filtraPorPreco(min, preco)
+    public calculaQtdTodosMeses(ano: number, min: boolean, preco: number): Array<number>{
+        const listaFiltrada = this.filtraPorAnoPreco(ano, min, preco)
         const qtdDosMeses: Array<number> = []
         let graficoMeses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        this._vendas.forEach((venda) => {
+        listaFiltrada.forEach((venda) => {
             switch(new Date(venda._data).getMonth()) {
                 case 0:
                     graficoMeses[0]++
@@ -166,19 +166,22 @@ export default class Vendas {
         return qtdDosMeses
     }
 
-    public calculaQtdDiasDeUmMes(mes: number): Array<number> {
-        const listaFiltrada = filtro.filtraPorMes(mes, this._vendas)
+    public calculaQtdDiasDeUmMes(lista: PlanilhaVendas[], mes: number): Array<number> {
         const qtdDoMes: Array<number> = []
-        let graficoMeses = [0, 0, 0, 0]
-        listaFiltrada.forEach(venda => {
-            if(new Date(venda._data).getDate() <= 7){
+        let graficoMeses = [0, 0, 0, 0, 0, 0]
+        lista.forEach(venda => {
+            if(new Date(venda._data).getDate() <= 5){
                 graficoMeses[0]++
-            } else if(new Date(venda._data).getDate() <= 15){
+            } else if(new Date(venda._data).getDate() <= 10){
                 graficoMeses[1]++
-            } else if(new Date(venda._data).getDate() <= 22){
+            } else if(new Date(venda._data).getDate() <= 15){
                 graficoMeses[2]++
-            } else {
+            } else if(new Date(venda._data).getDate() <= 20){
                 graficoMeses[3]++
+            } else if(new Date(venda._data).getDate() <= 25){
+                graficoMeses[4]++
+            } else {
+                graficoMeses[5]++
             }
         })
         graficoMeses.forEach(n => qtdDoMes.push(n))
@@ -203,12 +206,29 @@ export default class Vendas {
         const listaFiltrada: Array<PlanilhaVendas> = []
         this.vendas.forEach(venda => {
             if(min){
-                if(new Date(venda._data).getMonth() === mes && venda._valor >= preco) {
+                if(new Date(venda._data).getMonth() === mes-1 && venda._valor >= preco) {
                     listaFiltrada.push(venda)
                 }
             }
             else {
-                if(new Date(venda._data).getMonth() === mes && venda._valor <= preco){
+                if(new Date(venda._data).getMonth() === mes-1 && venda._valor <= preco){
+                    listaFiltrada.push(venda)
+                }
+            }
+        })
+        return listaFiltrada
+    }
+
+    public filtraPorAnoPreco(ano: number, min: boolean, preco: number){
+        const listaFiltrada: Array<PlanilhaVendas> = []
+        this.vendas.forEach(venda => {
+            if(min){
+                if(new Date(venda._data).getFullYear() == ano && venda._valor >= preco) {
+                    listaFiltrada.push(venda)
+                }
+            }
+            else {
+                if(new Date(venda._data).getFullYear() == ano && venda._valor <= preco){
                     listaFiltrada.push(venda)
                 }
             }
@@ -238,6 +258,48 @@ export default class Vendas {
         qtdDosMeses.push(capa)
         return qtdDosMeses
     }
+
+    private filtraCada5Dias(lista: PlanilhaVendas[]){
+        const listaFiltrada: PlanilhaVendas[][] = [[],[],[],[],[],[]]
+        lista.forEach(venda => {
+            if(new Date(venda._data).getDate() <= 5){
+                listaFiltrada[0].push(venda)
+            } else if(new Date(venda._data).getDate() <= 10){
+                listaFiltrada[1].push(venda)
+            } else if(new Date(venda._data).getDate() <= 15){
+                listaFiltrada[2].push(venda)
+            } else if(new Date(venda._data).getDate() <= 20){
+                listaFiltrada[3].push(venda)
+            } else if(new Date(venda._data).getDate() <= 25){
+                listaFiltrada[4].push(venda)
+            } else {
+                listaFiltrada[5].push(venda)
+            }
+        })
+        return listaFiltrada
+    }
+
+    public calculaQtdDiasDoMesComissao(mes: number, min: boolean, preco: number){
+        const qtdDosDias: Array<number[]> = []
+        let listaFiltrada = this.filtraCada5Dias(this.filtraPorMesPreco(mes-1, min, preco))
+        let cnpn: number[] = []
+        let cnpa: number[] = []
+        let capn: number[] = []
+        let capa: number[] = []
+
+        listaFiltrada.forEach(lista => {
+            cnpn.push(this.calculaUmaComissaoPorMes('cnpn', lista))
+            cnpa.push(this.calculaUmaComissaoPorMes('cnpa', lista))
+            capn.push(this.calculaUmaComissaoPorMes('capn', lista))
+            capa.push(this.calculaUmaComissaoPorMes('capa', lista))
+        })
+
+        qtdDosDias.push(cnpn)
+        qtdDosDias.push(cnpa)
+        qtdDosDias.push(capn)
+        qtdDosDias.push(capa)
+        return qtdDosDias
+}
 
     public calculaPrecoComissoes(comissao: Comissao): Array<number> {
         let precoComissao = [0, 0, 0, 0]
@@ -279,7 +341,6 @@ export default class Vendas {
                 if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
                     campo = new CampoProduto(venda._produto, qtd+1, venda._valor, venda)
                     campo.ultimaVenda = venda
-                    console.log("Entrei")
                 }
                 else {
                     campo = new CampoProduto(venda._produto, qtd+1, venda._valor, ultimaVenda)
@@ -308,7 +369,6 @@ export default class Vendas {
                 if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
                     campo = new CampoProdutoAdm(venda._produto, qtd+1, venda._valor, venda._vendedor, venda)
                     campo.ultimaVenda = venda
-                    console.log("Entrei")
                 }
                 else {
                     campo = new CampoProdutoAdm(venda._produto, qtd+1, venda._valor, venda._vendedor, ultimaVenda)

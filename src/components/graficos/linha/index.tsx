@@ -21,8 +21,6 @@ export default function Linha({categoria, nome, valor}: {categoria: Array<string
   <div>
     <div className={Style.card}>
       <Chart options={dados.options} series={dados.series} type="line" width={700} height={220} />
-      <SelectLinha valores={["Mês", "Ano"]}/>
-      <InputLinha value=''/>
     </div>
   </div>
   );

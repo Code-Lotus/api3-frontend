@@ -83,9 +83,9 @@ export default class DashboardVendedor extends Component {
 
   mudaGraficoLinha(opcao: any, input: any){
     if(opcao === "Mês"){
-      this.setState({categoriasLinha: ["Dia 7", "Dia 15", "Dia 22", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(parseInt(input))})
+      // this.setState({categoriasLinha: ["Dia 7", "Dia 15", "Dia 22", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(parseInt(input))})
     } else if(opcao === "Ano"){
-      this.setState({categoriasLinha: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], valoresLinha: vendasController.calculaQtdTodosMeses()})
+      // this.setState({categoriasLinha: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], valoresLinha: vendasController.calculaQtdTodosMeses()})
     }
   }
 
