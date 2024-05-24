@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { api } from "../../../services/api";
-import Style from "./usuarios.module.scss";
+import Style from "../usuarios/usuarios.module.scss";
+import Navbar from "../../../components/navbar";
+import SidebarAdm from "../../../components/sidebar/adm";
 
 interface ClienteProps {
     cliente_id: number,
@@ -23,7 +25,11 @@ export default function Clientes() {
     }
 
     return (
-        <table>
+        <>
+        <Navbar/>
+        <SidebarAdm/>
+        <div className={Style.usuariosTableContainer}>
+            <table className={Style.usuariosTable}>
             <thead>
                 <tr>
                     {titulos.map(titulo => (
@@ -42,5 +48,7 @@ export default function Clientes() {
                 ))}
             </tbody>
         </table>
+        </div>
+        </>
     )
 }

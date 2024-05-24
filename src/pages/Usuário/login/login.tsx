@@ -94,6 +94,10 @@ export default function Login() {
             <div>
                 {logado ? <a href="/insercaoExcel" ><button onClick={handleLogin}><h3>Entrar</h3></button></a> : <a><button onClick={handleLogin}><h3>Entrar</h3></button></a>}
             </div>
+
+            <div className="registro">
+                        Não tem uma conta?<a href="/cadastro"><b> Crie aqui</b></a>
+                    </div>
         </div>
         </>
     )
