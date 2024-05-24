@@ -71,9 +71,9 @@ export default class DashboardVendedor extends Component {
 
   mudaGraficoPizza(opcao: any, input: any) {
     if (opcao === "Mês") {
-      this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(parseInt(input))});
+      // this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(parseInt(input))});
     } else if (opcao === "Ano") {
-      this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(parseInt(input)) }); // Exemplo de valoresPizza para Ano
+      // this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(parseInt(input)) }); // Exemplo de valoresPizza para Ano
     } else if (opcao === "Preço Máximo") {
       this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorPreco(false, parseInt(input)) }); // Exemplo de valoresPizza para Preço Máximo
     } else if (opcao === "Preço Mínimo") {

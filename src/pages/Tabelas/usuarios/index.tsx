@@ -5,12 +5,12 @@ import Navbar from "../../../components/navbar";
 import SidebarAdm from "../../../components/sidebar/adm";
 
 interface UsuarioProps {
-    usuario_id: number;
-    usuario_nome: string;
-    usuario_cpf: string;
-    usuario_email: string;
-    usuario_senha: string;
-    administrador: boolean;
+    usuario_id: number,
+    usuario_nome: string,
+    usuario_cpf: string,
+    usuario_email: string,
+    usuario_senha: string,
+    administrador: boolean
 }
 
 export default function Usuarios() {

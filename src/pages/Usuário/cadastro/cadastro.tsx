@@ -115,10 +115,6 @@ export default function Cadastro() {
             <div>
                 <button onClick={criaUsuario}><h3>Registrar</h3></button>
             </div>
-
-            <div className="login">
-                        Já é um usuário?<a href="/"><b> Faça login aqui</b></a>
-                    </div>
         </div>
         </>
     )

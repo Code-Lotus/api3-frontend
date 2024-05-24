@@ -37,10 +37,10 @@ export default class Vendas {
         return calculoDosMeses
     }
 
-    public calculaQtdPorComissaoPorMes(mes: number): Array<number>{
+    public calculaQtdPorComissaoPorMes(lista: PlanilhaVendas[], mes: number): Array<number>{
         let achaTipo = new Comissao()
         let qtdComissao = [0, 0, 0, 0]
-        this.vendas.forEach((venda) => {
+        lista.forEach((venda) => {
             if(new Date(venda._data).getMonth() === mes-1){
                 const cliente = venda._cliente
                 const produto = venda._produto
@@ -64,12 +64,11 @@ export default class Vendas {
     return qtdComissao
     }
 
-    public calculaQtdPorComissaoPorAno(ano: number): Array<number> {
-        let listaFiltrada = filtro.filtraPorAno(ano, this._vendas)
+    public calculaQtdPorComissaoPorAno(lista: PlanilhaVendas[], ano: number): Array<number> {
         let achaTipo = new Comissao()
         let qtdComissao = [0, 0, 0, 0]
-        listaFiltrada.forEach((venda) => {
-            if(new Date(venda._data).getFullYear() === ano){
+        lista.forEach((venda) => {
+            if(new Date(venda._data).getFullYear() == ano){
                 const cliente = venda._cliente
                 const produto = venda._produto
                 let tipo = achaTipo.acharTipo(cliente, produto)

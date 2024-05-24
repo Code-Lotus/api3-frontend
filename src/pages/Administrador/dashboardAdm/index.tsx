@@ -15,7 +15,7 @@ import Select from "../../../components/select";
 import Input from "../../../components/input";
 
 const dadosController = new DadosController()
-const vendasController = new Vendas(Database.getPlanilhaVendas())
+const vendasController = new Vendas(Database.getPlanilhaVendas()) //Puxar do banco
 
 export default class DashboardAdm extends Component{
   static contextType = ContextoDashboardPizza;
@@ -32,19 +32,23 @@ export default class DashboardAdm extends Component{
     newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"]
   };
 
-  // handleValoresPizzaChange = () => {
-  //   let contexto: any = this.context;
-  //   let opcaoPizza = contexto.opcaoSelecionada;
-  //   let inputPizza = contexto.valorInput;
+  handleValoresPizzaChange = () => {
+    console.log("Mudou pizza")
+    let contexto: any = this.context;
+    let opcaoTempo = contexto.opcaoSelecionadaTempo;
+    let inputTempo = contexto.valorInputTempo;
+    let opcaoValor = contexto.opcaoSelecionadaValor;
+    let inputValor = contexto.valorInputValor;
 
-  //   // Atualizar valores de acordo com a opção selecionada
-  //   this.mudaGraficoPizza(opcaoPizza, inputPizza);
+    // Atualizar valores de acordo com a opção selecionada
+    this.mudaGraficoPizza(opcaoTempo, inputTempo, opcaoValor, inputValor);
 
-  //   // Atualizar 'newPizzaValues' com os novos valores
-  //   this.setState({ newPizzaValues: this.state.valoresPizza });
-  // };
+    // Atualizar 'newPizzaValues' com os novos valores
+    this.setState({ newPizzaValues: this.state.valoresPizza });
+  };
 
   handleValoresLinhaChange = () => {
+    console.log("Mudou linha")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -57,6 +61,7 @@ export default class DashboardAdm extends Component{
   }
 
   handleValoresColunaChange = () => {
+    console.log("Mudou coluna")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -66,17 +71,27 @@ export default class DashboardAdm extends Component{
     this.setState({newColunaCategories: this.state.categoriasColuna, newColunaValues: this.state.valoresColuna})
   }
 
-  // mudaGraficoPizza(opcao: any, input: any) {
-  //   if (opcao === "Mês") {
-  //     this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(parseInt(input))});
-  //   } else if (opcao === "Ano") {
-  //     this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(parseInt(input)) }); // Exemplo de valoresPizza para Ano
-  //   } else if (opcao === "Preço Máximo") {
-  //     this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorPreco(false, parseInt(input)) }); // Exemplo de valoresPizza para Preço Máximo
-  //   } else if (opcao === "Preço Mínimo") {
-  //     this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorPreco(true, parseInt(input)) }); // Exemplo de valoresPizza para Preço Mínimo
-  //   }
-  // }
+  handleAllChanges = () => {
+    this.handleValoresPizzaChange();
+    this.handleValoresColunaChange();
+    this.handleValoresLinhaChange();
+  }
+
+  mudaGraficoPizza(opcaoT: string, inputT: number, opcaoV: string, inputV: number) {
+    if (opcaoT === "Mês") {
+      if(opcaoV === "Preço Máximo"){
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(vendasController.filtraPorMesPreco(inputT, false, inputV), inputT)});
+      } else if(opcaoV === "Preço Mínimo"){
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(vendasController.filtraPorMesPreco(inputT, true, inputV), inputT)});
+      }
+    } else if (opcaoT === "Ano") {
+      if (opcaoV === "Preço Máximo") {
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, false, inputV), inputT) }); // Exemplo de valoresPizza para Ano
+      } else if (opcaoV === "Preço Mínimo") {
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, true, inputV), inputT) });
+      }
+    }
+  }
 
   mudaGraficoLinha(opcaoT: string, inputT: number, opcaoV: string, inputV: number){
     if(opcaoT === "Mês"){
@@ -131,6 +146,7 @@ export default class DashboardAdm extends Component{
           <Select valores={["Preço Máximo", "Preço Mínimo"]} tipo="valor"/>
           <Input tipo="tempo"/>
           <Input tipo="valor"/>
+          <button onClick={this.handleAllChanges}>Filtrar</button>
           <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
           <div className={Style.cards}>
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
@@ -140,8 +156,8 @@ export default class DashboardAdm extends Component{
           <section className={Style.grafico}>
             <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={vendasController.mostraUltimasVendasAdm(5)}/>
             <div className={Style.cardGeral}>
-              {/* <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} /> */}
-              {/* <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button> */}
+              <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
+              <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button>
             </div>
           </section>
           <section className={Style.graficos}>

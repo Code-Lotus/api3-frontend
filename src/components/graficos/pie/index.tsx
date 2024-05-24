@@ -41,8 +41,6 @@ export default class Pizza extends Component<Props> {
             type="pie"
             width="705"
           />
-          <SelectPizza valores={["Mês", "Ano", "Preço Máximo", "Preço Mínimo"]}/>
-          <InputPizza value=""/>
         </div>
       </div>
     );
