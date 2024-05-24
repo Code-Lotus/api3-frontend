@@ -157,17 +157,17 @@ export default class DashboardAdm extends Component{
             <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={vendasController.mostraUltimasVendasAdm(5)}/>
             <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
-              <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button>
+              {/* <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button> */}
             </div>
           </section>
           <section className={Style.graficos}>
             <div className={Style.cardGeralColuna}>
               <Coluna valores={valoresColuna} nome={["Cliente Novo/Produto Novo", "Cliente Novo/Produto Antigo", "Cliente Antigo/Produto Novo", "Cliente Antigo/Produto Antigo"]} categoria={categoriasColuna} />
-              <button className={Style.botao} onClick={this.handleValoresColunaChange}>Atualizar</button>
+              {/* <button className={Style.botao} onClick={this.handleValoresColunaChange}>Atualizar</button> */}
             </div>
             <div className={Style.cardGeral}>
               <Linha categoria={newLinhaCategories} nome="Vendas" valor={newLinhaValues} key={this.state.newLinhaValues.join('')}/>
-              <button className={Style.botao} onClick={this.handleValoresLinhaChange}>Atualizar</button>
+              {/* <button className={Style.botao} onClick={this.handleValoresLinhaChange}>Atualizar</button> */}
             </div>
           </section>
         </div>

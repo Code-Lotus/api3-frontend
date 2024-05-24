@@ -8,6 +8,7 @@ import Produto from "../../scripts/models/produto";
 import Cliente from "../../scripts/models/cliente";
 import {Database} from "../../scripts/controllers/localStorage"
 import DadosController from "../../scripts/controllers/dados-controller";
+import swal from "sweetalert";
 
 const vendas = new Vendas([])
 const dadosController = new DadosController()
@@ -61,7 +62,11 @@ function salvaArquivo() {
 		vendas.vendas.push(item)
 		Database.addEntry(item)
 	}) //adiciona o objeto planilha vendas na lista de vendas
-	alert("Arquivo enviado!")
+	swal({
+		title: "Arquivo inserido",
+		text: "Arquivo inserido com sucesso!",
+		icon: "success"
+	})
 }
 
 export default class ContainerInsercao extends Component {
