@@ -17,7 +17,7 @@ import Select from "../../../components/select";
 import Input from "../../../components/input";
 
 const dadosController = new DadosController()
-const vendasController = new Vendas(Database.getPlanilhaVendas())
+const vendasController = new Vendas([]) //puxar do banco
 const comissao = new Comissao()
 comissao.defineValComissao(4.5, 'cnpn')
 comissao.defineValComissao(3.5, 'cnpa')

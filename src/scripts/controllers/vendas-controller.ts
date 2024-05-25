@@ -3,6 +3,10 @@ import PlanilhaVendas from '../models/planilhaVendas';
 import CampoProduto from '../models/campoProduto';
 import CampoProdutoAdm from '../models/campoProdutoAdm';
 import Filtros from './filtros';
+import Vendedor from '../models/vendedor';
+import Produto from '../models/produto';
+import Cliente from '../models/cliente';
+import { api } from '../../services/api';
 
 const filtro = new Filtros();
 
@@ -15,6 +19,9 @@ export default class Vendas {
         this._meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
     }
 
+    public set vendas(vendas: PlanilhaVendas[]) {
+        this._vendas = vendas;
+    }
     public get vendas(): Array<PlanilhaVendas> {
         return this._vendas
     }    
@@ -417,4 +424,20 @@ export default class Vendas {
             }
         })
     }
+
+    // async geraVendas(data: any[]) {
+    //     const listaVendas: PlanilhaVendas[] = []
+    //     data.forEach(vendaBanco => {
+    //         const vendedor = new Vendedor();
+    //         const produto = new Produto();
+    //         const cliente = new Cliente();
+    //         const valor = ;
+    //         const venda = new PlanilhaVendas(vendaBanco.venda_id, vendaBanco.venda_data, vendedor, produto, cliente, valor, vendaBanco.forma_pagamento)
+    //     })
+    // }
+
+    // async puxaVendas() {
+    //     const response = await api.get("/vendas")
+    //     return response.data;
+    // } 
 }

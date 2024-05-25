@@ -9,6 +9,7 @@ import Cliente from "../../scripts/models/cliente";
 import {Database} from "../../scripts/controllers/localStorage"
 import DadosController from "../../scripts/controllers/dados-controller";
 import swal from "sweetalert";
+import { api } from "../../services/api";
 
 const vendas = new Vendas([])
 const dadosController = new DadosController()
@@ -23,7 +24,6 @@ async function recebeArquivo(evento: any) {
     for(let i = 1; i < rows.length; i++){
 		const dados = rows[i] //pega as linhas com os conteúdos (não os cabeçalhos)
 		const dataVenda = dadosController.ajustaData(dados[0].toString())
-		console.log(dataVenda)
 		const dadosVendedor = [dados[2].toString(), dados[1].toString()]
 		const dadosProduto = [dados[4].toString(), dados[3].toString()]
 		const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
@@ -61,11 +61,21 @@ function salvaArquivo() {
 	listaAuxiliar.forEach(item => {
 		vendas.vendas.push(item)
 		Database.addEntry(item)
+		// adicionaVenda(new Date(item._data), )
 	}) //adiciona o objeto planilha vendas na lista de vendas
 	swal({
 		title: "Arquivo inserido",
 		text: "Arquivo inserido com sucesso!",
 		icon: "success"
+	})
+}
+
+async function adicionaVenda(data: Date, cid: number, pid: number, uid: number){
+	const response = await api.post("/venda", {
+		venda_data: data,
+		cliente_id: cid,
+		produto_id: pid,
+		usuario_id: uid
 	})
 }
 

@@ -2,7 +2,7 @@ import Navbar from "../../../components/navbar";
 import Style from "../dashboardAdm/dashboardAdm.module.scss";
 import Pizza from "../../../components/graficos/pie";
 import SidebarAdm from "../../../components/sidebar/adm";
-import { Component } from "react";
+import { Component} from "react";
 import ContextoDashboardPizza from "../../../contexts/contextoDashboard";
 import Coluna from "../../../components/graficos/coluna";
 import Linha from "../../../components/graficos/linha";
@@ -13,9 +13,11 @@ import Card from "../../../components/card";
 import HistoricoAdm from "../../../components/historicoAdm";
 import Select from "../../../components/select";
 import Input from "../../../components/input";
+import { api } from "../../../services/api";
 
 const dadosController = new DadosController()
-const vendasController = new Vendas(Database.getPlanilhaVendas()) //Puxar do banco
+const vendasController = new Vendas([]) //Puxar do banco (tentar separar os geradores de campo e ordenadores pra ver se funfa)
+//comissao
 
 export default class DashboardAdm extends Component{
   static contextType = ContextoDashboardPizza;
@@ -29,9 +31,27 @@ export default class DashboardAdm extends Component{
     valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
     newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-    newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"]
+    newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
+    vendas: []
   };
+  
+  // vendasController: Vendas | null = null
 
+  // componentDidMount(): void {
+  //   this.carregaVendas();
+  // }
+
+  // async carregaVendas() {
+  //   const response = await api.get("/vendas");
+  //   this.vendasController = new Vendas(response.data) //não funciona, não é o mesmo modelo
+  //   this.setState({
+  //     vendas: response.data,
+  //     valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
+  //     newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0)
+  //   })
+  //   vendasController.vendas = response.data //não funciona, não é o mesmo modelo
+  // }
+  
   handleValoresPizzaChange = () => {
     console.log("Mudou pizza")
     let contexto: any = this.context;
@@ -131,8 +151,9 @@ export default class DashboardAdm extends Component{
 
 
   render() {
-    const { newPizzaValues, newLinhaValues, newLinhaCategories, valoresColuna, categoriasColuna } = this.state;
+    const { newPizzaValues, newLinhaValues, newLinhaCategories, valoresColuna, categoriasColuna, vendas } = this.state;
     let contexto: any = this.context;
+    vendasController.vendas = Database.getPlanilhaVendas(); //resolução para parte dos problemas
 
     return(
       <>
@@ -148,6 +169,7 @@ export default class DashboardAdm extends Component{
           <Input tipo="valor"/>
           <button onClick={this.handleAllChanges}>Filtrar</button>
           <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
+          <p>{vendas.length}</p>
           <div className={Style.cards}>
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
             {/* <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} /> */}
