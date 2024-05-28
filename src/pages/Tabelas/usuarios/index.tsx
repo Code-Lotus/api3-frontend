@@ -47,7 +47,7 @@ export default function Usuarios() {
                                     <td>{usuario.usuario_nome}</td>
                                     <td>{usuario.usuario_cpf}</td>
                                     <td>{usuario.usuario_email}</td>
-                                    <td>{usuario.administrador ? "True" : "False"}</td>
+                                    <td>{usuario.administrador == false ? "False" : "True"}</td>
                                 </tr>
                             ))}
                         </tbody>

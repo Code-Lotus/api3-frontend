@@ -4,6 +4,9 @@ import DadosController from "../../../scripts/controllers/dados-controller";
 // import CreateUsuarioService from "../../../../api3-backend/src/services/usuario/createUsuarioService";
 import { api } from "../../../services/api"
 import swal from 'sweetalert';
+import Sidebar from "../../../components/sidebar";
+import SidebarAdm from "../../../components/sidebar/adm";
+import Navbar from "../../../components/navbar";
 
 interface usuarioProps {
     usuario_id: number,
@@ -75,6 +78,8 @@ export default function Cadastro() {
 
     return (
         <>
+        <SidebarAdm />
+        <Navbar />
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
         <div className={Style.box}>
             <div className={Style.topTitle}>

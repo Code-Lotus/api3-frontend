@@ -38,7 +38,7 @@ export default class ModelsController {
             // console.log(usuario.usuario_id)
             // console.log(id)
             if(usuario.usuario_id == id){
-                console.log("SODA!!!!")
+                // console.log("SODA!!!!")
                 retorno = usuario
             }
         })
@@ -49,7 +49,7 @@ export default class ModelsController {
         let retorno: any;
         usuarios.forEach((usuario: { cliente_id: number; }) => {
             if(usuario.cliente_id == id){
-                console.log("SODA!!!!")
+                // console.log("SODA!!!!")
                 retorno = usuario
             }
         })
@@ -60,7 +60,7 @@ export default class ModelsController {
         let retorno: any;
         usuarios.forEach((usuario: { produto_id: number}) => {
             if(usuario.produto_id == id){
-                console.log("SODA!!!!")
+                // console.log("SODA!!!!")
                 retorno = usuario
             }
         })

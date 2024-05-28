@@ -15,8 +15,8 @@ interface UsuarioProps {
 export default function Login() {
     const [cpf, setCpf] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [logado, setLogado] = useState<boolean>(false)
-    const [naoLogou, setNaoLogou] = useState<string>('')
+    const [logado, setLogado] = useState<boolean>(false);
+    const [naoLogou, setNaoLogou] = useState<string>('');
 
     const [usuarios, setUsuarios] = useState<UsuarioProps[]>([]);
     const cpfRef = useRef<HTMLInputElement | null>(null);
