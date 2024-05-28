@@ -14,10 +14,11 @@ import HistoricoAdm from "../../../components/historicoAdm";
 import Select from "../../../components/select";
 import Input from "../../../components/input";
 import { api } from "../../../services/api";
+import CamposController from "../../../scripts/controllers/camposController";
 
 const dadosController = new DadosController()
 const vendasController = new Vendas([]) //Puxar do banco (tentar separar os geradores de campo e ordenadores pra ver se funfa)
-//comissao
+const camposController = new CamposController(Database.getPlanilhaVendas());
 
 export default class DashboardAdm extends Component{
   static contextType = ContextoDashboardPizza;
@@ -176,7 +177,7 @@ export default class DashboardAdm extends Component{
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(vendasController.calculaGanho().toString())} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
-            <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={vendasController.mostraUltimasVendasAdm(5)}/>
+            <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={camposController.mostraUltimasVendasAdm(5)}/>
             <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
               {/* <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button> */}
