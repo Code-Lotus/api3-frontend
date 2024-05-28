@@ -18,10 +18,7 @@ import CamposController from "../../../scripts/controllers/camposController";
 
 const dadosController = new DadosController()
 const vendasController = new Vendas([]) //Puxar do banco (tentar separar os geradores de campo e ordenadores pra ver se funfa)
-<<<<<<< HEAD
-=======
 const camposController = new CamposController(Database.getPlanilhaVendas());
->>>>>>> 4e9e2cb65e83a4dea6b1a5aa6a23286b07d91c20
 
 export default class DashboardAdm extends Component{
   static contextType = ContextoDashboardPizza;
