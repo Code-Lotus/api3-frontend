@@ -3,12 +3,15 @@ import { api } from "../../../services/api";
 import Style from "../usuarios/usuarios.module.scss";
 import Navbar from "../../../components/navbar";
 import SidebarAdm from "../../../components/sidebar/adm";
+import DadosController from "../../../scripts/controllers/dados-controller";
 
 interface ProdutoProps {
     produto_id: number,
     produto_nome: string,
     produto_valor: number
 }
+
+const dadosController = new DadosController()
 
 export default function Produtos() {
     const titulos = ["ID", "NOME", "PREÇO"]
@@ -25,28 +28,30 @@ export default function Produtos() {
 
     return (
         <>
-        <Navbar/>
-        <SidebarAdm/>
-        <div className={Style.usuariosTableContainer}>
-            <table className={Style.usuariosTable}>
-            <thead>
-                <tr>
-                    {titulos.map(titulo => (
-                        <th>{titulo}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {produtos.map(produto => (
-                    <tr>
-                        <td>{produto.produto_id}</td>
-                        <td>{produto.produto_nome}</td>
-                        <td>{produto.produto_valor}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-        </div>
+            <Navbar/>
+            <SidebarAdm/>
+            <div className={Style.usuariosTableContainer}>
+                <section className={Style.usuariosTable}>
+                    <table className={Style.tabela}>
+                        <thead>
+                            <tr>
+                                {titulos.map(titulo => (
+                                    <th>{titulo}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {produtos.map(produto => (
+                                <tr>
+                                    <td>{produto.produto_id}</td>
+                                    <td>{produto.produto_nome}</td>
+                                    <td>{dadosController.mascaraPreco(produto.produto_valor.toString())}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
         </>
     )
 }

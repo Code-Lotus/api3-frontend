@@ -29,25 +29,27 @@ export default function Clientes() {
         <Navbar/>
         <SidebarAdm/>
         <div className={Style.usuariosTableContainer}>
-            <table className={Style.usuariosTable}>
-            <thead>
-                <tr>
-                    {titulos.map(titulo => (
-                        <th>{titulo}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {clientes.map(cliente => (
-                    <tr>
-                        <td>{cliente.cliente_id}</td>
-                        <td>{cliente.cliente_nome}</td>
-                        <td>{cliente.cliente_cpfcnpj}</td>
-                        <td>{cliente.cliente_segmento}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+            <section className={Style.usuariosTable}>
+                <table className={Style.tabela}>
+                    <thead>
+                        <tr>
+                            {titulos.map(titulo => (
+                                <th>{titulo}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {clientes.map(cliente => (
+                            <tr>
+                                <td>{cliente.cliente_id}</td>
+                                <td>{cliente.cliente_nome}</td>
+                                <td>{cliente.cliente_cpfcnpj}</td>
+                                <td>{cliente.cliente_segmento}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
         </div>
         </>
     )

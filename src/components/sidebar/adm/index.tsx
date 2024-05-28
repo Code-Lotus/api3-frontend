@@ -29,6 +29,30 @@ export default function SidebarAdm() {
                         <span className={Style.text}>Inserção</span>
                     </Link>
                 </li>
+                <li>
+                    <Link to="/usuarios" className={Style.a}>
+                        <i className='bx bx-user' id={Style.bx}></i> 
+                        <span className={Style.text}>Usuários</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/produtos" className={Style.a}>
+                        <i className='bx bx-package' id={Style.bx}></i> 
+                        <span className={Style.text}>Produtos</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/clientes" className={Style.a}>
+                        <i className='bx bx-male' id={Style.bx}></i> 
+                        <span className={Style.text}>Clientes</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/vendas" className={Style.a}>
+                        <i className='bx bx-cart' id={Style.bx}></i> 
+                        <span className={Style.text}>Vendas</span>
+                    </Link>
+                </li>
             </ul>
             <ul className={Style.sideMenu}>
                 <li>

@@ -80,10 +80,12 @@ async function adicionaVenda(data: Date, cid: number, pid: number, uid: number){
 	})
 }
 
+// const modelsController = new ModelsController();
+// const vendas1 = await modelsController.chamaVendas()
+// modelsController.converteVenda(vendas1)
+
 export default class ContainerInsercao extends Component {
-    render() {
-		const modelsController = new ModelsController();
-		modelsController.converteVenda(modelsController.chamaVendas())
+	render() {
         
 		return (
 		

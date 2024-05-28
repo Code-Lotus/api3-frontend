@@ -28,30 +28,32 @@ export default function Usuarios() {
 
     return (
         <>
-        <Navbar/>
-        <SidebarAdm/>
-        <div className={Style.usuariosTableContainer}>
-            <table className={Style.usuariosTable}>
-                <thead>
-                    <tr>
-                        {titulos.map((titulo, index) => (
-                            <th key={index}>{titulo}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {usuarios.map((usuario, index) => (
-                        <tr key={index}>
-                            <td>{usuario.usuario_id}</td>
-                            <td>{usuario.usuario_nome}</td>
-                            <td>{usuario.usuario_cpf}</td>
-                            <td>{usuario.usuario_email}</td>
-                            <td>{usuario.administrador ? "True" : "False"}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+            <Navbar/>
+            <SidebarAdm/>
+            <div className={Style.usuariosTableContainer}>
+                <section  className={Style.usuariosTable}>
+                    <table className={Style.tabela}>
+                        <thead>
+                            <tr>
+                                {titulos.map((titulo, index) => (
+                                    <th key={index}>{titulo}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {usuarios.map((usuario, index) => (
+                                <tr key={index}>
+                                    <td>{usuario.usuario_id}</td>
+                                    <td>{usuario.usuario_nome}</td>
+                                    <td>{usuario.usuario_cpf}</td>
+                                    <td>{usuario.usuario_email}</td>
+                                    <td>{usuario.administrador ? "True" : "False"}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
         </>
     );
 }

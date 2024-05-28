@@ -1,6 +1,6 @@
 .usuariosTableContainer {
     margin: 0 auto; 
-    margin-top: 50px;
+    margin-top: 12rem;
     margin-left: 33%;
 }
 
@@ -11,15 +11,33 @@
     border-collapse: collapse;
     border-radius: 10px;
     width: 70%;
-    background-color: white;
+    // background-color: white; 
+    line-height: 1.5;
+    padding: 1rem;
+}
+
+.tabela {
+    border-collapse: collapse;
 }
 
 .usuariosTable th,
 .usuariosTable td {
     padding: 8px;
+    border: 2.5px solid #696f79;
+    text-align: center;
 }
 
 .usuariosTable th {
-    background-color: #ffffff;
+    background-color: white;
     overflow: hidden;
+    padding: 0.75rem;
 }
+.usuariosTable td {
+    background-color: white;
+    overflow: hidden;
+    padding: 0.75rem;
+}
+
+// .usuariosTable td:nth-child(even){
+//     background-color: aqua;
+// }

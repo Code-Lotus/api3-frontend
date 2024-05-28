@@ -9,6 +9,7 @@ import Cadastro from "./pages/Usuário/cadastro/cadastro";
 import Usuarios from "./pages/Tabelas/usuarios";
 import Produtos from "./pages/Tabelas/produtos";
 import Clientes from "./pages/Tabelas/clientes";
+import Vendas from "./pages/Tabelas/vendas";
 
 export default function App() {
   return (
@@ -21,9 +22,10 @@ export default function App() {
           <Route path="/dashboardAdm" element={<ComponenteContextoDashboard child={<DashboardAdm />} />}/>
           <Route path="/comissaoAdm" element={<ComissaoAdm />}/>
           <Route path="/insercaoExcel" element={<InsercaoExcel />}/>
-          <Route path="/usuarios" element={<Usuarios/>}/>
-          <Route path="/produtos" element={<Produtos/>}/>
-          <Route path="/clientes" element={<Clientes/>}/>
+          <Route path="/usuarios" element={<Usuarios/>} />
+          <Route path="/produtos" element={<Produtos/>} />
+          <Route path="/clientes" element={<Clientes/>} />
+          <Route path="/vendas" element={<Vendas />} />
         </Route>
       </Routes>
     </BrowserRouter>
