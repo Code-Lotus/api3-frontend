@@ -15,11 +15,19 @@ import { Component } from "react";
 import Comissao from "../../../scripts/models/comissao";
 import Select from "../../../components/select";
 import Input from "../../../components/input";
+<<<<<<< HEAD
 import Filtros from "../../../scripts/controllers/filtros";
 import Vendedor from "../../../scripts/models/vendedor";
 
 const dadosController = new DadosController()
 const vendasController = new Vendas(Database.getPlanilhaVendas()) //puxar do banco
+=======
+import CamposController from "../../../scripts/controllers/camposController";
+
+const dadosController = new DadosController()
+const vendasController = new Vendas([]) //puxar do banco
+const camposController = new CamposController(Database.getPlanilhaVendas());
+>>>>>>> 4e9e2cb65e83a4dea6b1a5aa6a23286b07d91c20
 const comissao = new Comissao()
 const filtro = new Filtros()
 const vendas = Database.getPlanilhaVendas()
@@ -164,7 +172,7 @@ export default class DashboardVendedor extends Component {
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(total.toString())} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
-            <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={vendasController.mostraUltimasVendas(5)}/>
+            <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={camposController.mostraUltimasVendas(5)}/>
             <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
               {/* <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button> */}

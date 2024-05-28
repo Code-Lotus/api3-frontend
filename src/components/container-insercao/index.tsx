@@ -10,6 +10,7 @@ import {Database} from "../../scripts/controllers/localStorage"
 import DadosController from "../../scripts/controllers/dados-controller";
 import swal from "sweetalert";
 import { api } from "../../services/api";
+import ModelsController from "../../scripts/controllers/models-controller";
 
 const vendas = new Vendas([])
 const dadosController = new DadosController()
@@ -79,9 +80,14 @@ async function adicionaVenda(data: Date, cid: number, pid: number, uid: number){
 	})
 }
 
+// const modelsController = new ModelsController();
+// const vendas1 = await modelsController.chamaVendas()
+// modelsController.converteVenda(vendas1)
+
 export default class ContainerInsercao extends Component {
-    render() {
-        return (
+	render() {
+        
+		return (
 		
 				<div className={Style.dateTable}>
 					

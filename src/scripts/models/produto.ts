@@ -6,11 +6,11 @@ export default class Produto {
     ) {}
 
     get id(): number {
-        return this._id
+        return this.id
     }
     
     get nome(): string {
-        return this._nome
+        return this.nome
     }
     
     get dataCadastro(): Date {

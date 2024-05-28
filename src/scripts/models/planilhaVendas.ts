@@ -31,19 +31,19 @@ export default class PlanilhaVendas {
     }
 
     get vendedor(): Vendedor {
-        return this._vendedor
+        return this.vendedor
     }
 
     get produto(): Produto {
-        return this._produto
+        return this.produto
     }
 
     get cliente(): Cliente {
-        return this._cliente
+        return this.cliente
     }
 
     get valor(): number {
-        return this._valor
+        return this.valor
     }
     get formaPagamento(): string {
         return this._formaPagamento
