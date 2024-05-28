@@ -63,10 +63,10 @@ export default class Filtros {
     }
     
     //função responsável por filtrar as vendas de um único vendedor passado como argumento
-    public filtraPorVendedor(vendedor: Vendedor, lista: Array<PlanilhaVendas>): ReadonlyArray<PlanilhaVendas> {
+    public filtraPorVendedor(vendedor: Vendedor, lista: Array<PlanilhaVendas>): Array<PlanilhaVendas> {
         const listaFiltrada: Array<PlanilhaVendas> = [] //cria uma lista para armazenar a lista filtrada
         lista.forEach((venda => { //percorre a lista completa de vendas
-            if(venda.vendedor.cpf === vendedor.cpf) {
+            if(venda._vendedor._cpf === vendedor._cpf) {
                 listaFiltrada.push(venda) //e adiciona na lista filtrada onde o cpf/cnpj do cliente é igual ao passado no argumento
             }
         }))

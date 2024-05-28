@@ -1,7 +1,7 @@
 import PlanilhaVendas from "./planilhaVendas";
 
 export default class Vendedor {
-    private _cpf: string
+    public _cpf: string
     public _nome: string
     private _vendasRealizadas: Array<PlanilhaVendas>
 

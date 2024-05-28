@@ -37,9 +37,9 @@ export default class Vendas {
         return nomesMeses
     }
 
-    public calculaGanho(): number{
+    public calculaGanho(lista: PlanilhaVendas[]): number{
         let calculoDosMeses = 0
-        this.vendas.forEach((venda) => calculoDosMeses += venda._valor)
+        lista.forEach((venda) => calculoDosMeses += venda._valor)
 
         return calculoDosMeses
     }
@@ -172,7 +172,7 @@ export default class Vendas {
         return qtdDosMeses
     }
 
-    public calculaQtdDiasDeUmMes(lista: PlanilhaVendas[], mes: number): Array<number> {
+    public calculaQtdDiasDeUmMes(lista: PlanilhaVendas[]): Array<number> {
         const qtdDoMes: Array<number> = []
         let graficoMeses = [0, 0, 0, 0, 0, 0]
         lista.forEach(venda => {
@@ -287,7 +287,8 @@ export default class Vendas {
 
     public calculaQtdDiasDoMesComissao(mes: number, min: boolean, preco: number){
         const qtdDosDias: Array<number[]> = []
-        let listaFiltrada = this.filtraCada5Dias(this.filtraPorMesPreco(mes-1, min, preco))
+        let listaFiltrada = this.filtraCada5Dias(this.filtraPorMesPreco(mes, min, preco))
+        console.log(this.filtraPorMesPreco(mes, min, preco))
         let cnpn: number[] = []
         let cnpa: number[] = []
         let capn: number[] = []
@@ -301,15 +302,15 @@ export default class Vendas {
         })
 
         qtdDosDias.push(cnpn)
-        qtdDosDias.push(cnpa)
         qtdDosDias.push(capn)
         qtdDosDias.push(capa)
+        qtdDosDias.push(cnpa)
         return qtdDosDias
 }
 
-    public calculaPrecoComissoes(comissao: Comissao): Array<number> {
+    public calculaPrecoComissoes(comissao: Comissao, lista: PlanilhaVendas[]): Array<number> {
         let precoComissao = [0, 0, 0, 0]
-        this._vendas.forEach((venda) => {
+        lista.forEach((venda) => {
             let tipo = comissao.acharTipo(venda._cliente, venda._produto)
             switch(tipo) {
                 case 'cnpn':

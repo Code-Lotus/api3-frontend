@@ -15,16 +15,20 @@ import { Component } from "react";
 import Comissao from "../../../scripts/models/comissao";
 import Select from "../../../components/select";
 import Input from "../../../components/input";
+import Filtros from "../../../scripts/controllers/filtros";
+import Vendedor from "../../../scripts/models/vendedor";
 
 const dadosController = new DadosController()
-const vendasController = new Vendas([]) //puxar do banco
+const vendasController = new Vendas(Database.getPlanilhaVendas()) //puxar do banco
 const comissao = new Comissao()
+const filtro = new Filtros()
+const vendas = Database.getPlanilhaVendas()
 comissao.defineValComissao(4.5, 'cnpn')
 comissao.defineValComissao(3.5, 'cnpa')
 comissao.defineValComissao(2.5, 'capn')
 comissao.defineValComissao(2.0, 'capa')
-const lista = vendasController.calculaPrecoComissoes(comissao)
-const total = vendasController.calculaGanho()
+const lista = vendasController.calculaPrecoComissoes(comissao, filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas))
+const total = vendasController.calculaGanho(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas))
 
 export default class DashboardVendedor extends Component {
   static contextType = ContextoDashboardPizza;
@@ -105,9 +109,9 @@ export default class DashboardVendedor extends Component {
   mudaGraficoLinha(opcaoT: string, inputT: number, opcaoV: string, inputV: number){
     if(opcaoT === "Mês"){
       if(opcaoV === "Preço Máximo"){
-        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, false, inputV), inputT)})
+        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, false, inputV))})
       } else if(opcaoV === "Preço Mínimo"){
-        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, true, inputV), inputT)})
+        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, true, inputV))})
       }
     } else if(opcaoT === "Ano"){
       if(opcaoV === "Preço Máximo"){
@@ -155,7 +159,7 @@ export default class DashboardVendedor extends Component {
           <Input tipo="valor"/>
           <button onClick={this.handleAllChanges}>Filtrar</button>
           <div className={Style.cards}>
-            <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
+            <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas).length.toString())} titulo={"Vendas"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco((lista[0]+lista[1]+lista[2]+lista[3]).toString())} titulo={"Valor em comissão"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(total.toString())} titulo={"Valor das vendas"} />
           </div>
@@ -169,7 +173,7 @@ export default class DashboardVendedor extends Component {
           <section className={Style.graficos}>
             {/* por enquanto vamos usar pizza, depois sera de coluna */}
             <div className={Style.cardGeralColuna}>
-              <Coluna valores={valoresColuna} nome={["Cliente Novo/Produto Novo", "Cliente Novo/Produto Antigo", "Cliente Antigo/Produto Novo", "Cliente Antigo/Produto Antigo"]} categoria={categoriasColuna} />       
+              <Coluna valores={valoresColuna} nome={["Cliente Novo/Produto Novo", "Cliente Antigo/Produto Novo", "Cliente Novo/Produto Antigo", "Cliente Antigo/Produto Antigo"]} categoria={categoriasColuna} />       
               {/* <button className={Style.botao} onClick={this.handleValoresColunaChange}>Atualizar</button> */}
             </div>
             <div className={Style.cardGeral}>

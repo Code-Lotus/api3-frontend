@@ -17,7 +17,6 @@ import { api } from "../../../services/api";
 
 const dadosController = new DadosController()
 const vendasController = new Vendas([]) //Puxar do banco (tentar separar os geradores de campo e ordenadores pra ver se funfa)
-//comissao
 
 export default class DashboardAdm extends Component{
   static contextType = ContextoDashboardPizza;
@@ -53,7 +52,6 @@ export default class DashboardAdm extends Component{
   // }
   
   handleValoresPizzaChange = () => {
-    console.log("Mudou pizza")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -68,7 +66,6 @@ export default class DashboardAdm extends Component{
   };
 
   handleValoresLinhaChange = () => {
-    console.log("Mudou linha")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -81,7 +78,6 @@ export default class DashboardAdm extends Component{
   }
 
   handleValoresColunaChange = () => {
-    console.log("Mudou coluna")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -116,9 +112,9 @@ export default class DashboardAdm extends Component{
   mudaGraficoLinha(opcaoT: string, inputT: number, opcaoV: string, inputV: number){
     if(opcaoT === "Mês"){
       if(opcaoV === "Preço Máximo"){
-        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, false, inputV), inputT)})
+        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, false, inputV))})
       } else if(opcaoV === "Preço Mínimo"){
-        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, true, inputV), inputT)})
+        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, true, inputV))})
       }
     } else if(opcaoT === "Ano"){
       if(opcaoV === "Preço Máximo"){
@@ -173,7 +169,7 @@ export default class DashboardAdm extends Component{
           <div className={Style.cards}>
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
             {/* <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} /> */}
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(vendasController.calculaGanho().toString())} titulo={"Valor das vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(vendasController.calculaGanho(Database.getPlanilhaVendas()).toString())} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
             <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={vendasController.mostraUltimasVendasAdm(5)}/>
@@ -184,7 +180,7 @@ export default class DashboardAdm extends Component{
           </section>
           <section className={Style.graficos}>
             <div className={Style.cardGeralColuna}>
-              <Coluna valores={valoresColuna} nome={["Cliente Novo/Produto Novo", "Cliente Novo/Produto Antigo", "Cliente Antigo/Produto Novo", "Cliente Antigo/Produto Antigo"]} categoria={categoriasColuna} />
+              <Coluna valores={valoresColuna} nome={["Cliente Novo/Produto Novo", "Cliente Antigo/Produto Novo", "Cliente Antigo/Produto Antigo", "Cliente Novo/Produto Antigo"]} categoria={categoriasColuna} />
               {/* <button className={Style.botao} onClick={this.handleValoresColunaChange}>Atualizar</button> */}
             </div>
             <div className={Style.cardGeral}>
