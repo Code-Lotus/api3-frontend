@@ -166,8 +166,8 @@ export default class DashboardAdm extends Component{
           <Input tipo="tempo"/>
           <Input tipo="valor"/>
           <button onClick={this.handleAllChanges}>Filtrar</button>
-          <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
-          <p>{vendas.length}</p>
+          {/* <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
+          <p>{vendas.length}</p> */}
           <div className={Style.cards}>
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
             {/* <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} /> */}

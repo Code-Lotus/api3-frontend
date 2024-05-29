@@ -46,7 +46,7 @@ export default function Cadastro() {
             usuario_cpf: cpfRef.current?.value,
             usuario_email: emailRef.current?.value,
             usuario_senha: senhaRef.current?.value,
-            administrador: adm
+            administrador: adm ? '1' : '0'
         })
 
         nomeRef.current.value = "";
