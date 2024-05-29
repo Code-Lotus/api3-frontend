@@ -1,38 +1,64 @@
-import { Component } from "react"
-import Style from "./card.module.scss"
+import React, { Component } from "react";
+import Style from "./card.module.scss";
 
 type Props = {
-    classeCss?: string,
-    quantidade: string
-    titulo: string,
-}
+  classeCss?: string;
+  quantidade: string;
+  titulo: string;
+};
 
-export default class Card extends Component<Props>{    
-/* eslint-disable @typescript-eslint/no-useless-constructor */
-    
-    constructor(props: Props) {
-        super(props)
-    }
+type State = {
+  prop: {
+    classeCss?: string;
+    quantidade: string;
+    titulo: string;
+  } | null;
+};
 
-    public state = {
-        classeCss: this.props.classeCss,
-        quantidade: this.props.quantidade,
-        titulo: this.props.titulo,
-    }
+export default class Card extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      prop: null
+    };
+  }
 
-    render() {
-        return (
-            <>
-                <ul className={Style.box}>
-                    <li className={Style.li}>
-                        <i className={this.state.classeCss} id={Style.bx}></i>
-                        <span>
-                            <h3>{this.state.quantidade}</h3>
-                            <p>{this.state.titulo}</p>
-                        </span> 
-                    </li>
-                </ul>
-            </>
-        )
+  componentDidMount(): void {
+    this.updateState(this.props); // Initial update
+  }
+
+  componentDidUpdate(prevProps: Props): void {
+    if (prevProps !== this.props) {
+      this.updateState(this.props);
     }
+  }
+
+  updateState(props: Props) {
+    this.setState({
+      prop: {
+        classeCss: props.classeCss,
+        quantidade: props.quantidade,
+        titulo: props.titulo
+      }
+    });
+  }
+
+  render() {
+    const { prop } = this.state;
+    if (!prop) return null; // Guard clause in case state is not yet set
+
+    return (
+      <>
+        <ul className={Style.box}>
+          <li className={Style.li}>
+            <i className={prop.classeCss} id={Style.bx}></i>
+            <span>
+              <h3>{prop.quantidade}</h3>
+              <p>{prop.titulo}</p>
+            </span>
+          </li>
+        </ul>
+      </>
+    );
+  }
 }

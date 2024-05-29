@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import Style from "./sidebaradm.module.scss";
 
+
 export default function SidebarAdm() {
     return(
         <section className={Style.sidebar}>

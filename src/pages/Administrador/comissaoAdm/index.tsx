@@ -4,6 +4,7 @@ import SidebarAdm from "../../../components/sidebar/adm";
 import Card from "../../../components/card";
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../../services/api";
+import { Route } from "react-router-dom";
 
 interface ComissoesProps {
   comissao_id: number,
@@ -65,8 +66,11 @@ export default function ComissaoAdm() {
     cnpaRef.current.value = "";
     capnRef.current.value = "";
     capaRef.current.value = "";
+    
   }
-
+useEffect(() => {
+  console.log(cnpa)
+},[cnpa])
   return (
     <>
       <Navbar />
@@ -84,10 +88,12 @@ export default function ComissaoAdm() {
           <h1>Comissões</h1>
         </div>
         <div className={Style.cards}>
-          <Card classeCss="bx bxs-badge-dollar" quantidade={cnpn} titulo={"Cliente novo / Produto novo"} />
-          <Card classeCss="bx bxs-badge-dollar" quantidade={cnpa} titulo={"Cliente novo / Produto antigo"} />
-          <Card classeCss="bx bxs-badge-dollar" quantidade={capn} titulo={"Cliente antigo / Produto novo"} />
-          <Card classeCss="bx bxs-badge-dollar" quantidade={capa} titulo={"Cliente antigo / Produto antigo"} />
+
+            <Card classeCss="bx bxs-badge-dollar" quantidade={cnpn} titulo={"Cliente novo / Produto novo"} />
+            <Card classeCss="bx bxs-badge-dollar" quantidade={cnpa} titulo={"Cliente novo / Produto antigo"} />
+            <Card classeCss="bx bxs-badge-dollar" quantidade={capn} titulo={"Cliente antigo / Produto novo"} />
+            <Card classeCss="bx bxs-badge-dollar" quantidade={capa} titulo={"Cliente antigo / Produto antigo"} />
+
         </div>
         {/* <div className={Style.cards}>
           <Card quantidade={""} titulo={""} />

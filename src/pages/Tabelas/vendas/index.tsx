@@ -68,7 +68,7 @@ export default class Vendas extends Component<{}, State> {
     }
     
     public async carregaVendas(vendas: any) {
-        const response = await api.get("/vendas")
+        const response = await api.get("/vendas?page=1&per_page=5")
         // let lista: any = []
         for(const venda of response.data) {
             const listaNova = await modelsController.converteVenda(venda)
@@ -110,7 +110,7 @@ export default class Vendas extends Component<{}, State> {
                                         <td>{dadosController.mascaraPreco(venda._valor.toString())}</td>
                                         <td>{venda.formaPagamento}</td>
                                     </tr>
-                                ):<></>)}
+                                ):null)}
                             </tbody>
                         </table>
                     </section>
