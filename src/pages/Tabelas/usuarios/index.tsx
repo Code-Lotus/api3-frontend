@@ -26,6 +26,11 @@ export default function Usuarios() {
         setUsuarios(response.data);
     }
 
+    async function deletaUsuario(usuarioId: number) {
+        await api.delete(`/usuarios/${usuarioId}`);
+        setUsuarios(usuarios.filter(usuario => usuario.usuario_id !== usuarioId));
+    }
+
     return (
         <>
             <Navbar/>
@@ -38,6 +43,7 @@ export default function Usuarios() {
                                 {titulos.map((titulo, index) => (
                                     <th key={index}>{titulo}</th>
                                 ))}
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +54,10 @@ export default function Usuarios() {
                                     <td>{usuario.usuario_cpf}</td>
                                     <td>{usuario.usuario_email}</td>
                                     <td>{usuario.administrador == false ? "False" : "True"}</td>
+                                    <td>
+                                    <button className={Style.btn}>Editar</button>
+                                    <button className={Style.btn} onClick={() => deletaUsuario(usuario.usuario_id)}>Apagar</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

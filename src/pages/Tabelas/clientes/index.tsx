@@ -24,6 +24,11 @@ export default function Clientes() {
         setClientes(response.data);
     }
 
+    async function deletaClientes(clienteId: number) {
+        await api.delete(`/clientes/${clienteId}`);
+        setClientes(clientes.filter(cliente => cliente.cliente_id !== clienteId));
+    }
+
     return (
         <>
         <Navbar/>
@@ -48,7 +53,7 @@ export default function Clientes() {
                         <td>{cliente.cliente_segmento}</td>
                         <td>
                             <button className={Style.btn}>Editar</button>
-                            <button className={Style.btn}>Apagar</button>
+                            <button className={Style.btn} onClick={() => deletaClientes(cliente.cliente_id)}>Apagar</button>
                         </td>
                     </tr>
                 ))}

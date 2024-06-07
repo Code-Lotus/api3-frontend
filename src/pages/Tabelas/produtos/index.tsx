@@ -26,6 +26,11 @@ export default function Produtos() {
         setProdutos(response.data);
     }
 
+    async function deletaProdutos(produtoId: number) {
+        await api.delete(`/produtos/${produtoId}`);
+        setProdutos(produtos.filter(produto => produto.produto_id !== produtoId));
+    }
+
     return (
         <>
             <Navbar/>
@@ -38,6 +43,7 @@ export default function Produtos() {
                                 {titulos.map(titulo => (
                                     <th>{titulo}</th>
                                 ))}
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +52,12 @@ export default function Produtos() {
                                     <td>{produto.produto_id}</td>
                                     <td>{produto.produto_nome}</td>
                                     <td>{dadosController.mascaraPreco(produto.produto_valor.toString())}</td>
+                                    <td>
+                                    <button className={Style.btn}>Editar</button>
+                                    <button className={Style.btn} onClick={() => deletaProdutos(produto.produto_id)}>Apagar</button>
+                                    </td>
                                 </tr>
+                                
                             ))}
                         </tbody>
                     </table>

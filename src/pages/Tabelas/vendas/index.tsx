@@ -76,8 +76,11 @@ export default class Vendas extends Component<{}, State> {
             // console.log(listaNova)
             // console.log(vendas[0]._vendedor)
         }
-        this.setState(vendas)    
+        this.setState(vendas)   
+        
     }
+
+    
 
     render(){
         const { vendas } = this.state;
