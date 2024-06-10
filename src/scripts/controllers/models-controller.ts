@@ -2,7 +2,6 @@ import { api } from "../../services/api";
 import Cliente from "../models/cliente";
 import PlanilhaVendas from "../models/planilhaVendas";
 import Produto from "../models/produto";
-import VendaBD from "../models/vendaBd";
 import Vendedor from "../models/vendedor";
 
 export default class ModelsController {
@@ -11,7 +10,7 @@ export default class ModelsController {
         // console.log(typeof(vendas.data))
         return vendas.data
     }
-    
+
     private async chamaUsuarios() {
         const response = await api.get("/usuarios");
         // console.log(response.data)
@@ -29,6 +28,17 @@ export default class ModelsController {
         const response = await api.get("/produtos");
         // console.log(response.data)
         return response.data
+    }
+
+    public buscaVendas(vendas: any, id: number) {
+        let retorno: any[] = []
+        vendas.forEach((venda: {usuario_id: number}) => {
+            if(venda.usuario_id == id){
+                console.log("SODA!!")
+                retorno.push(venda)
+            }
+        })
+        return retorno
     }
 
     private buscaUsuario(usuarios: any, id: number) {
@@ -68,7 +78,8 @@ export default class ModelsController {
     }
 
     public async converteVenda(venda: any) {
-        // console.log(venda)
+        console.log("venda na func")
+        console.log(venda)
         // console.log(venda[0].usuario_id)
         const vendaLista = venda
         const usuarios = await this.chamaUsuarios();
@@ -80,12 +91,13 @@ export default class ModelsController {
         const produto = this.buscaProduto(produtos , vendaLista.produto_id)
         
         const newUsuario = new Vendedor(usuario.usuario_cpf, usuario.usuario_nome);
-        console.log(newUsuario.nome)
         const newCliente = new Cliente(cliente.cliente_cpfcnpj, cliente.cliente_nome, cliente.cliente_segmento, cliente.cliente_data);
         const newProduto = new Produto(produto.produto_id, produto.produto_nome, produto.produto_data);
         const valor = produto.produto_valor
         // console.log(new Date(venda.venda_data))
         const newVenda = new PlanilhaVendas(venda.venda_id, venda.venda_data, newUsuario, newProduto, newCliente, valor, venda.venda_forma_pagamento)
+        console.log("newVenda")
+        console.log(newVenda)
         return newVenda
     }
 }

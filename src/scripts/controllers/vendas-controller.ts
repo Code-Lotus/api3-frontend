@@ -86,10 +86,10 @@ export default class Vendas {
                     case 'capn':
                         qtdComissao[1]++
                         break;
-                    case 'capa':
+                    case 'cnpa':
                         qtdComissao[2]++
                         break;
-                    case 'cnpa':
+                    case 'capa':
                         qtdComissao[3]++
                         break;
                 }    
@@ -212,12 +212,12 @@ export default class Vendas {
         const listaFiltrada: Array<PlanilhaVendas> = []
         this.vendas.forEach(venda => {
             if(min){
-                if(new Date(venda._data).getMonth() === mes-1 && venda._valor >= preco) {
+                if(new Date(venda._data).getMonth() === mes && venda._valor >= preco) {
                     listaFiltrada.push(venda)
                 }
             }
             else {
-                if(new Date(venda._data).getMonth() === mes-1 && venda._valor <= preco){
+                if(new Date(venda._data).getMonth() === mes && venda._valor <= preco){
                     listaFiltrada.push(venda)
                 }
             }

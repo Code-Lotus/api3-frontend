@@ -8,6 +8,10 @@ export default class CamposController {
         private _vendas: PlanilhaVendas[]
     ){}
 
+    public set vendas(vendas: PlanilhaVendas[]) {
+        this._vendas = vendas
+    }
+
     public criaCampos(): Array<CampoProduto>{
         const ids: Array<number> = []
         const listaProdutos: Array<CampoProduto> = []

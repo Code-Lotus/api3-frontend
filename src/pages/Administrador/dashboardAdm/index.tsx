@@ -15,12 +15,17 @@ import Select from "../../../components/select";
 import Input from "../../../components/input";
 import { api } from "../../../services/api";
 import CamposController from "../../../scripts/controllers/camposController";
+import ModelsController from "../../../scripts/controllers/models-controller";
+import PlanilhaVendas from "../../../scripts/models/planilhaVendas";
+//vendasController.calculaQtdTodosOsMesesComissao(false, 10000)
+//vendasController.calculaQtdTodosOsMesesComissao(true, 0)
 
 const dadosController = new DadosController()
 const vendasController = new Vendas([]) //Puxar do banco (tentar separar os geradores de campo e ordenadores pra ver se funfa)
 const camposController = new CamposController(Database.getPlanilhaVendas());
+const modelsController = new ModelsController()
 
-export default class DashboardAdm extends Component{
+export default class DashboardAdm extends Component {
   static contextType = ContextoDashboardPizza;
   state = {
     valoresPizza: [1, 1, 1, 1], // Valores iniciais
@@ -29,8 +34,8 @@ export default class DashboardAdm extends Component{
     categoriasLinha: ["Dia 1", "Dia 7", "Dia 15", "Dia 22", "Dia 30"],
     newLinhaValues: [2, 1, 1, 2, 1, 3, 2, 4, 6, 7, 2, 5],
     newLinhaCategories: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-    valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
-    newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
+    valoresColuna: [[1,2,3],[4,5,6],[7,8,9]],
+    newColunaValues: [[1,2,3],[4,5,6],[7,8,9]],
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
     newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
     vendas: []
@@ -38,20 +43,32 @@ export default class DashboardAdm extends Component{
   
   // vendasController: Vendas | null = null
 
-  // componentDidMount(): void {
-  //   this.carregaVendas();
-  // }
+  componentDidMount(): void {
+     this.carregaVendas();
+  }
 
-  // async carregaVendas() {
-  //   const response = await api.get("/vendas");
-  //   this.vendasController = new Vendas(response.data) //não funciona, não é o mesmo modelo
-  //   this.setState({
-  //     vendas: response.data,
-  //     valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
-  //     newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0)
-  //   })
-  //   vendasController.vendas = response.data //não funciona, não é o mesmo modelo
-  // }
+  async carregaVendas() {
+    const response = await api.get("/vendas");
+    const resposta: PlanilhaVendas[] = []
+    response.data.forEach(async (venda: any) => {
+      console.log("venda")
+      console.log(venda)
+      let elemento = await modelsController.converteVenda(venda)
+      console.log("elemento")
+      console.log(elemento)
+      resposta.push(elemento)
+    })
+    console.log("resposta")
+    console.log(resposta)
+    vendasController.vendas = resposta
+    camposController.vendas = resposta
+    console.log(vendasController.vendas)
+    this.setState({
+      vendas: response.data,
+      valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
+      newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0)
+    })
+  }
   
   handleValoresPizzaChange = () => {
     let contexto: any = this.context;
@@ -151,7 +168,6 @@ export default class DashboardAdm extends Component{
   render() {
     const { newPizzaValues, newLinhaValues, newLinhaCategories, valoresColuna, categoriasColuna, vendas } = this.state;
     let contexto: any = this.context;
-    vendasController.vendas = Database.getPlanilhaVendas(); //resolução para parte dos problemas
 
     return(
       <>
@@ -169,12 +185,12 @@ export default class DashboardAdm extends Component{
           {/* <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
           <p>{vendas.length}</p> */}
           <div className={Style.cards}>
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(Database.getPlanilhaVendas().length.toString())} titulo={"Vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(vendasController.vendas.length.toString())} titulo={"Vendas"} />
             {/* <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} /> */}
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(vendasController.calculaGanho(Database.getPlanilhaVendas()).toString())} titulo={"Valor das vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(vendasController.calculaGanho(vendasController.vendas).toString())} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
-            <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={camposController.mostraUltimasVendasAdm(5)}/>
+            <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={vendasController.vendas.length < 5 ? camposController.mostraUltimasVendasAdm(vendasController.vendas.length) : camposController.mostraUltimasVendasAdm(5)}/>
             <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
               {/* <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button> */}

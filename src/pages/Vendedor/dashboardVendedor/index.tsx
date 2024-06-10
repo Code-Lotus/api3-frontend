@@ -2,7 +2,6 @@ import Card from "../../../components/card";
 import Coluna from "../../../components/graficos/coluna";
 import Linha from "../../../components/graficos/linha";
 import Pizza from "../../../components/graficos/pie";
-// import Grid from "../../../components/grid";
 import Historico from "../../../components/historico";
 import Navbar from "../../../components/navbar";
 import Sidebar from "../../../components/sidebar";
@@ -18,10 +17,15 @@ import Input from "../../../components/input";
 import Filtros from "../../../scripts/controllers/filtros";
 import Vendedor from "../../../scripts/models/vendedor";
 import CamposController from "../../../scripts/controllers/camposController";
+import ModelsController from "../../../scripts/controllers/models-controller";
+import { api } from "../../../services/api";
+import PlanilhaVendas from "../../../scripts/models/planilhaVendas";
 
-const vendasController = new Vendas(Database.getPlanilhaVendas()) //puxar do banco
 const dadosController = new DadosController()
+const vendasController = new Vendas([])
 const camposController = new CamposController(Database.getPlanilhaVendas());
+const modelsController = new ModelsController()
+
 const comissao = new Comissao()
 const filtro = new Filtros()
 const vendas = Database.getPlanilhaVendas()
@@ -44,8 +48,28 @@ export default class DashboardVendedor extends Component {
     valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
     newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-    newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"]
+    newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
+    vendas: []
   };
+
+  componentDidMount(): void {
+      this.carregaVendas();
+  }
+
+  async carregaVendas() {
+    const response = await api.get("/vendas")
+    const resposta: PlanilhaVendas[] = []
+    response.data.forEach(async (venda: any) => {
+      let elemento = await modelsController.converteVenda(venda)
+      resposta.push(elemento)
+    })
+    const vendas = modelsController.buscaVendas(resposta, 1)
+    vendasController.vendas = vendas
+    camposController.vendas= vendas
+    this.setState({
+      vendas: response.data
+    })
+  }
 
   handleValoresPizzaChange = () => {
     console.log("Mudou pizza")
