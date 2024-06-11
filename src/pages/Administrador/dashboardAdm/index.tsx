@@ -51,15 +51,9 @@ export default class DashboardAdm extends Component {
     const response = await api.get("/vendas");
     const resposta: PlanilhaVendas[] = []
     response.data.forEach(async (venda: any) => {
-      console.log("venda")
-      console.log(venda)
       let elemento = await modelsController.converteVenda(venda)
-      console.log("elemento")
-      console.log(elemento)
       resposta.push(elemento)
     })
-    console.log("resposta")
-    console.log(resposta)
     vendasController.vendas = resposta
     camposController.vendas = resposta
     console.log(vendasController.vendas)

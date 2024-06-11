@@ -19,7 +19,6 @@ import Vendedor from "../../../scripts/models/vendedor";
 import CamposController from "../../../scripts/controllers/camposController";
 import ModelsController from "../../../scripts/controllers/models-controller";
 import { api } from "../../../services/api";
-import PlanilhaVendas from "../../../scripts/models/planilhaVendas";
 
 const dadosController = new DadosController()
 const vendasController = new Vendas([])
@@ -28,13 +27,19 @@ const modelsController = new ModelsController()
 
 const comissao = new Comissao()
 const filtro = new Filtros()
-const vendas = Database.getPlanilhaVendas()
+
 comissao.defineValComissao(4.5, 'cnpn')
 comissao.defineValComissao(3.5, 'cnpa')
 comissao.defineValComissao(2.5, 'capn')
 comissao.defineValComissao(2.0, 'capa')
-const lista = vendasController.calculaPrecoComissoes(comissao, filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas))
-const total = vendasController.calculaGanho(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas))
+
+function somaComissao(lista: number[]) {
+  let retorno = 0
+  lista.forEach(n => {
+    retorno+=n
+  })
+  return retorno
+}
 
 export default class DashboardVendedor extends Component {
   static contextType = ContextoDashboardPizza;
@@ -49,7 +54,10 @@ export default class DashboardVendedor extends Component {
     newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
     newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
-    vendas: []
+    vendas: [],
+    listaComissao: [],
+    totalComissao: '0',
+    total: '0'
   };
 
   componentDidMount(): void {
@@ -67,7 +75,10 @@ export default class DashboardVendedor extends Component {
     vendasController.vendas = vendas
     camposController.vendas = vendas
     this.setState({
-      vendas: vendas
+      vendas: vendas,
+      listaComissao: vendasController.calculaPrecoComissoes(comissao, filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)),
+      totalComissao: somaComissao(this.state.listaComissao).toString(),
+      total: vendasController.calculaGanho(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)).toString()
     })
   }
 
@@ -183,8 +194,8 @@ export default class DashboardVendedor extends Component {
           <button onClick={this.handleAllChanges}>Filtrar</button>
           <div className={Style.cards}>
             {/* <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas).length.toString())} titulo={"Vendas"} /> */}
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco((lista[0]+lista[1]+lista[2]+lista[3]).toString())} titulo={"Valor em comissão"} />
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(total.toString())} titulo={"Valor das vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(this.state.totalComissao)} titulo={"Valor em comissão"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(this.state.total)} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
             <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={vendasController.vendas.length < 5? camposController.mostraUltimasVendas(vendasController.vendas.length) : camposController.mostraUltimasVendas(5)}/>
