@@ -72,7 +72,6 @@ export default class DashboardVendedor extends Component {
   }
 
   handleValoresPizzaChange = () => {
-    console.log("Mudou pizza")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -87,7 +86,6 @@ export default class DashboardVendedor extends Component {
   };
 
   handleValoresLinhaChange = () => {
-    console.log("Mudou linha")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -100,7 +98,6 @@ export default class DashboardVendedor extends Component {
   }
 
   handleValoresColunaChange = () => {
-    console.log("Mudou coluna")
     let contexto: any = this.context;
     let opcaoTempo = contexto.opcaoSelecionadaTempo;
     let inputTempo = contexto.valorInputTempo;
@@ -169,7 +166,7 @@ export default class DashboardVendedor extends Component {
   }
 
   render() {
-    const { newPizzaValues, newLinhaValues, newLinhaCategories, valoresColuna, categoriasColuna } = this.state;
+    const { newPizzaValues, newLinhaValues, newLinhaCategories, valoresColuna, categoriasColuna, vendas } = this.state;
 
     return (
       <>
@@ -177,7 +174,7 @@ export default class DashboardVendedor extends Component {
         <Sidebar />
         <div className={Style.all}>
           <div className={Style.topTitle}>
-            <h1>Bem-vindo, vendedor</h1>
+            <h1>Bem-vindo, Vendedor</h1>
           </div>
           <Select valores={["Mês", "Ano"]} tipo="tempo"/>
           <Select valores={["Preço Máximo", "Preço Mínimo"]} tipo="valor"/>
@@ -185,12 +182,12 @@ export default class DashboardVendedor extends Component {
           <Input tipo="valor"/>
           <button onClick={this.handleAllChanges}>Filtrar</button>
           <div className={Style.cards}>
-            <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas).length.toString())} titulo={"Vendas"} />
+            {/* <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas).length.toString())} titulo={"Vendas"} /> */}
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco((lista[0]+lista[1]+lista[2]+lista[3]).toString())} titulo={"Valor em comissão"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(total.toString())} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
-            <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={camposController.mostraUltimasVendas(5)}/>
+            <Historico cabecalho={["Data","Produto","Cliente","Valor da Venda"]} campos={vendasController.vendas.length < 5? camposController.mostraUltimasVendas(vendasController.vendas.length) : camposController.mostraUltimasVendas(5)}/>
             <div className={Style.cardGeral}>
               <Pizza valores={newPizzaValues} legenda={['Cliente Novo / Produto Novo', 'Cliente Antigo / Produto Novo', 'Cliente Antigo / Produto Antigo', 'Cliente Novo / Produto Antigo']} key={this.state.newPizzaValues.join('')} />
               {/* <button className={Style.botao} onClick={this.handleValoresPizzaChange}>Atualizar</button> */}

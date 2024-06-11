@@ -86,10 +86,10 @@ export default class Vendas {
                     case 'capn':
                         qtdComissao[1]++
                         break;
-                    case 'cnpa':
+                    case 'capa':
                         qtdComissao[2]++
                         break;
-                    case 'capa':
+                    case 'cnpa':
                         qtdComissao[3]++
                         break;
                 }    
@@ -259,9 +259,9 @@ export default class Vendas {
         }
 
         qtdDosMeses.push(cnpn)
-        qtdDosMeses.push(cnpa)
         qtdDosMeses.push(capn)
         qtdDosMeses.push(capa)
+        qtdDosMeses.push(cnpa)
         return qtdDosMeses
     }
 

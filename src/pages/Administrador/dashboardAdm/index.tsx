@@ -66,7 +66,7 @@ export default class DashboardAdm extends Component {
     this.setState({
       vendas: response.data,
       valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
-      newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0)
+      newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
     })
   }
   
@@ -121,7 +121,7 @@ export default class DashboardAdm extends Component {
       }
     } else if (opcaoT === "Ano") {
       if (opcaoV === "Preço Máximo") {
-        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, false, inputV), inputT) }); // Exemplo de valoresPizza para Ano
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, false, inputV), inputT) });
       } else if (opcaoV === "Preço Mínimo") {
         this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, true, inputV), inputT) });
       }
