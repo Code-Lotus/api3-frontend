@@ -103,7 +103,7 @@ export default class Vendas extends Component<{}, State> {
                                 {vendas.map((venda: any,index: any) => index%2==0? (
                                     <tr key={index}>
                                         <td>{venda.id}</td>
-                                        <td>{dadosController.ajustaDate(new Date(venda._data))}</td>
+                                        <td>{dadosController.ajustaDataVenda(venda._data)}</td>
                                         <td>{venda._vendedor._nome}</td>
                                         <td>{venda._produto._nome}</td>
                                         <td>{venda._produto._id}</td>

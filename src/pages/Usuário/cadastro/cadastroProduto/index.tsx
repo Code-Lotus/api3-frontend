@@ -30,9 +30,7 @@ export default function CadastroProduto() {
 
     async function criaProduto() {
         if(!nomeRef.current?.value || !valorRef.current?.value || !dataRef.current?.value) return;
-        console.log(nomeRef.current?.value)
-        console.log(valorRef.current?.value)
-        console.log(dataRef.current?.value)
+        // console.log(typeof(dataRef.current.value))
         dataRef.current.value += "T00:00:00.000Z"
 
         const response = await api.post("/produto", {

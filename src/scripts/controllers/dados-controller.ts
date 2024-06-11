@@ -6,6 +6,14 @@ export default class DadosController {
         let ano = datas[2]
         return dia + '/' + mes + '/' + ano
     }
+    
+    public ajustaDataVenda(data: string){
+        const datas = data.split('-')
+        let dia = datas[2].substring(0,2)
+        let mes = datas[1]
+        let ano = datas[0]
+        return dia + '/' + mes + '/' + ano
+    }
 
     public ajustaDate(data: Date){
         const dia = data.getDate()
