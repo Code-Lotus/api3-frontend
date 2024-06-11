@@ -30,14 +30,13 @@ export default class ModelsController {
         return response.data
     }
 
-    public buscaVendas(vendas: any, id: number) {
+    public buscaVendas(vendas: any[], cpf: string) {
         let retorno: any[] = []
-        vendas.forEach((venda: {usuario_id: number}) => {
-            if(venda.usuario_id == id){
-                console.log("SODA!!")
+        for(const venda of vendas) {
+            if(venda._vendedor._cpf == cpf){
                 retorno.push(venda)
             }
-        })
+        }
         return retorno
     }
 
@@ -78,13 +77,9 @@ export default class ModelsController {
     }
 
     public async converteVenda(venda: any) {
-        console.log("venda na func")
-        console.log(venda)
-        // console.log(venda[0].usuario_id)
         const vendaLista = venda
         const usuarios = await this.chamaUsuarios();
         const usuario = this.buscaUsuario(usuarios , vendaLista.usuario_id)
-        // console.log(usuario.usuario_cpf)
         const clientes = await this.chamaClientes();
         const cliente = this.buscaCliente(clientes , vendaLista.cliente_id)
         const produtos = await this.chamaProdutos();
@@ -94,10 +89,7 @@ export default class ModelsController {
         const newCliente = new Cliente(cliente.cliente_cpfcnpj, cliente.cliente_nome, cliente.cliente_segmento, cliente.cliente_data);
         const newProduto = new Produto(produto.produto_id, produto.produto_nome, produto.produto_data);
         const valor = produto.produto_valor
-        // console.log(new Date(venda.venda_data))
         const newVenda = new PlanilhaVendas(venda.venda_id, venda.venda_data, newUsuario, newProduto, newCliente, valor, venda.venda_forma_pagamento)
-        console.log("newVenda")
-        console.log(newVenda)
         return newVenda
     }
 }

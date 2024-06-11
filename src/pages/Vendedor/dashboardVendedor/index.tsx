@@ -58,16 +58,16 @@ export default class DashboardVendedor extends Component {
 
   async carregaVendas() {
     const response = await api.get("/vendas")
-    const resposta: PlanilhaVendas[] = []
-    response.data.forEach(async (venda: any) => {
+    const resposta: any[] = []
+    for(const venda of response.data) {
       let elemento = await modelsController.converteVenda(venda)
       resposta.push(elemento)
-    })
-    const vendas = modelsController.buscaVendas(resposta, 1)
+    }
+    const vendas = modelsController.buscaVendas(resposta, '123.456.789-00')
     vendasController.vendas = vendas
-    camposController.vendas= vendas
+    camposController.vendas = vendas
     this.setState({
-      vendas: response.data
+      vendas: vendas
     })
   }
 
