@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import Style from "../cadastro/cadastro.module.scss";
 import DadosController from "../../../scripts/controllers/dados-controller";
 // import CreateUsuarioService from "../../../../api3-backend/src/services/usuario/createUsuarioService";
 import { api } from "../../../services/api"
 import swal from 'sweetalert';
-import Sidebar from "../../../components/sidebar";
+// import Sidebar from "../../../components/sidebar";
 import SidebarAdm from "../../../components/sidebar/adm";
 import Navbar from "../../../components/navbar";
 
@@ -83,7 +84,7 @@ export default function Cadastro() {
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
         <div className={Style.box}>
             <div className={Style.topTitle}>
-            <h1>Cadastro</h1>
+                <h1>Cadastro</h1>
             </div>
                     <div>
                     <input type='text' name="nome" placeholder="Nome" ref={nomeRef}></input>
