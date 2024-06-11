@@ -16,14 +16,24 @@ import Input from "../../../components/input";
 import { api } from "../../../services/api";
 import CamposController from "../../../scripts/controllers/camposController";
 import ModelsController from "../../../scripts/controllers/models-controller";
-import PlanilhaVendas from "../../../scripts/models/planilhaVendas";
-//vendasController.calculaQtdTodosOsMesesComissao(false, 10000)
-//vendasController.calculaQtdTodosOsMesesComissao(true, 0)
+import Comissao from "../../../scripts/models/comissao";
+import Filtros from "../../../scripts/controllers/filtros";
 
-const dadosController = new DadosController()
-const vendasController = new Vendas([]) //Puxar do banco (tentar separar os geradores de campo e ordenadores pra ver se funfa)
-const camposController = new CamposController(Database.getPlanilhaVendas());
-const modelsController = new ModelsController()
+const dadosController = new DadosController();
+const vendasController = new Vendas([]);
+const camposController = new CamposController([]);
+const modelsController = new ModelsController();
+
+const comissao = new Comissao();
+const filtro = new Filtros();
+
+function somaComissao(lista: number[]) {
+  let retorno = 0
+  lista.forEach(n => {
+    retorno+=n
+  })
+  return retorno
+}
 
 export default class DashboardAdm extends Component {
   static contextType = ContextoDashboardPizza;
@@ -38,13 +48,25 @@ export default class DashboardAdm extends Component {
     newColunaValues: [[1,2,3],[4,5,6],[7,8,9]],
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
     newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
-    vendas: []
+    vendas: [],
+    qtd: '0',
+    listaComissao: [],
+    totalComissao: '0',
+    total: '0'
   };
   
   // vendasController: Vendas | null = null
 
   componentDidMount(): void {
      this.carregaVendas();
+  }
+
+  async carregaComissao() {
+    const response = await api.get("/comissoes")
+    comissao.defineValComissao(response.data[0].cnpn, 'cnpn')
+    comissao.defineValComissao(response.data[0].capn, 'capn')
+    comissao.defineValComissao(response.data[0].cnpa, 'cnpa')
+    comissao.defineValComissao(response.data[0].capa, 'capa')
   }
 
   async carregaVendas() {
@@ -56,11 +78,20 @@ export default class DashboardAdm extends Component {
     }
     vendasController.vendas = resposta
     camposController.vendas = resposta
+    await this.carregaComissao()
     this.setState({
-      vendas: response.data,
-      valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
+      vendas: resposta,
+      qtd: vendasController.vendas.length.toString(),
+      listaComissao: vendasController.calculaPrecoComissoes(comissao, resposta),
+      totalComissao: somaComissao(this.state.listaComissao).toString(),
+      total: vendasController.calculaGanho(vendasController.vendas).toString(),
+      valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 1000000),
       newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
-    })
+      valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(2024, false, 1000000), 2024),
+      newPizzaValues: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(2024, true, 1), 2024),
+      valoresLinha: vendasController.calculaQtdTodosMeses(2024, false, 1000000),
+      newLinhaValues: vendasController.calculaQtdTodosMeses(2024, true, 1)
+      })
   }
   
   handleValoresPizzaChange = () => {
@@ -70,10 +101,8 @@ export default class DashboardAdm extends Component {
     let opcaoValor = contexto.opcaoSelecionadaValor;
     let inputValor = contexto.valorInputValor;
 
-    // Atualizar valores de acordo com a opção selecionada
     this.mudaGraficoPizza(opcaoTempo, inputTempo, opcaoValor, inputValor);
 
-    // Atualizar 'newPizzaValues' com os novos valores
     this.setState({ newPizzaValues: this.state.valoresPizza });
   };
 
@@ -178,9 +207,9 @@ export default class DashboardAdm extends Component {
           {/* <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
           <p>{vendas.length}</p> */}
           <div className={Style.cards}>
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraQuantidade(vendasController.vendas.length.toString())} titulo={"Vendas"} />
-            {/* <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco("200.50")} titulo={"Valor em comissão"} /> */}
-            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(vendasController.calculaGanho(vendasController.vendas).toString())} titulo={"Valor das vendas"} />
+            <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(this.state.qtd)} titulo={"Vendas"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(this.state.totalComissao)} titulo={"Valor em comissão"} />
+            <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(this.state.total)} titulo={"Valor das vendas"} />
           </div>
           <section className={Style.grafico}>
             <HistoricoAdm cabecalho={["Data", "Produto", "Cliente", "Vendedor", "Valor da Venda"]} campos={vendasController.vendas.length < 5 ? camposController.mostraUltimasVendasAdm(vendasController.vendas.length) : camposController.mostraUltimasVendasAdm(5)}/>

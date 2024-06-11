@@ -95,9 +95,6 @@ useEffect(() => {
             <Card classeCss="bx bxs-badge-dollar" quantidade={capa} titulo={"Cliente antigo / Produto antigo"} />
 
         </div>
-        {/* <div className={Style.cards}>
-          <Card quantidade={""} titulo={""} />
-        </div> */}
         <section className={Style.dateTable}>
           <div className={Style.order}>
             <div className={Style.head}>
@@ -109,9 +106,9 @@ useEffect(() => {
               <p>Cliente novo / Produto novo</p>
               <input type="number" ref={cnpnRef}></input>
               <p>Cliente novo / Produto antigo</p>
-              <input type="number" ref={capnRef}></input>
-              <p>Cliente antigo / Produto novo</p>
               <input type="number" ref={cnpaRef}></input>
+              <p>Cliente antigo / Produto novo</p>
+              <input type="number" ref={capnRef}></input>
               <p>Cliente antigo / Produto antigo</p>
               <input type="number" ref={capaRef}></input>
             </div>

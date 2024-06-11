@@ -20,18 +20,13 @@ import CamposController from "../../../scripts/controllers/camposController";
 import ModelsController from "../../../scripts/controllers/models-controller";
 import { api } from "../../../services/api";
 
-const dadosController = new DadosController()
-const vendasController = new Vendas([])
-const camposController = new CamposController(Database.getPlanilhaVendas());
-const modelsController = new ModelsController()
+const dadosController = new DadosController();
+const vendasController = new Vendas([]);
+const camposController = new CamposController([]);
+const modelsController = new ModelsController();
 
-const comissao = new Comissao()
-const filtro = new Filtros()
-
-comissao.defineValComissao(4.5, 'cnpn')
-comissao.defineValComissao(3.5, 'cnpa')
-comissao.defineValComissao(2.5, 'capn')
-comissao.defineValComissao(2.0, 'capa')
+const comissao = new Comissao();
+const filtro = new Filtros();
 
 function somaComissao(lista: number[]) {
   let retorno = 0
@@ -55,6 +50,7 @@ export default class DashboardVendedor extends Component {
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
     newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
     vendas: [],
+    qtd: '0',
     listaComissao: [],
     totalComissao: '0',
     total: '0'
@@ -62,6 +58,14 @@ export default class DashboardVendedor extends Component {
 
   componentDidMount(): void {
       this.carregaVendas();
+  }
+
+  async carregaComissao() {
+    const response = await api.get("/comissoes")
+    comissao.defineValComissao(response.data[0].cnpn, 'cnpn')
+    comissao.defineValComissao(response.data[0].capn, 'capn')
+    comissao.defineValComissao(response.data[0].cnpa, 'cnpa')
+    comissao.defineValComissao(response.data[0].capa, 'capa')
   }
 
   async carregaVendas() {
@@ -74,11 +78,19 @@ export default class DashboardVendedor extends Component {
     const vendas = modelsController.buscaVendas(resposta, '123.456.789-00')
     vendasController.vendas = vendas
     camposController.vendas = vendas
+    await this.carregaComissao()
     this.setState({
       vendas: vendas,
+      qtd: vendasController.vendas.length.toString(),
       listaComissao: vendasController.calculaPrecoComissoes(comissao, filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)),
       totalComissao: somaComissao(this.state.listaComissao).toString(),
-      total: vendasController.calculaGanho(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)).toString()
+      total: vendasController.calculaGanho(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)).toString(),
+      valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 1000000),
+      newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
+      valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(2024, false, 1000000), 2024),
+      newPizzaValues: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(2024, true, 1), 2024),
+      valoresLinha: vendasController.calculaQtdTodosMeses(2024, false, 1000000),
+      newLinhaValues: vendasController.calculaQtdTodosMeses(2024, true, 1)
     })
   }
 
@@ -89,10 +101,8 @@ export default class DashboardVendedor extends Component {
     let opcaoValor = contexto.opcaoSelecionadaValor;
     let inputValor = contexto.valorInputValor;
 
-    // Atualizar valores de acordo com a opção selecionada
     this.mudaGraficoPizza(opcaoTempo, inputTempo, opcaoValor, inputValor);
 
-    // Atualizar 'newPizzaValues' com os novos valores
     this.setState({ newPizzaValues: this.state.valoresPizza });
   };
 
@@ -133,7 +143,7 @@ export default class DashboardVendedor extends Component {
       }
     } else if (opcaoT === "Ano") {
       if (opcaoV === "Preço Máximo") {
-        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, false, inputV), inputT) }); // Exemplo de valoresPizza para Ano
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, false, inputV), inputT) });
       } else if (opcaoV === "Preço Mínimo") {
         this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(inputT, true, inputV), inputT) });
       }
@@ -193,7 +203,7 @@ export default class DashboardVendedor extends Component {
           <Input tipo="valor"/>
           <button onClick={this.handleAllChanges}>Filtrar</button>
           <div className={Style.cards}>
-            {/* <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas).length.toString())} titulo={"Vendas"} /> */}
+            <Card classeCss="bx bxs-cart" quantidade={dadosController.mascaraQuantidade(this.state.qtd)} titulo={"Vendas"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(this.state.totalComissao)} titulo={"Valor em comissão"} />
             <Card classeCss="bx bxs-dollar-circle" quantidade={dadosController.mascaraPreco(this.state.total)} titulo={"Valor das vendas"} />
           </div>
