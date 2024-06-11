@@ -49,14 +49,13 @@ export default class DashboardAdm extends Component {
 
   async carregaVendas() {
     const response = await api.get("/vendas");
-    const resposta: PlanilhaVendas[] = []
-    response.data.forEach(async (venda: any) => {
-      let elemento = await modelsController.converteVenda(venda)
-      resposta.push(elemento)
-    })
+    const resposta: any[] = []
+    for(const venda of response.data){
+        let elemento = await modelsController.converteVenda(venda)
+        resposta.push(elemento)
+    }
     vendasController.vendas = resposta
     camposController.vendas = resposta
-    console.log(vendasController.vendas)
     this.setState({
       vendas: response.data,
       valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
