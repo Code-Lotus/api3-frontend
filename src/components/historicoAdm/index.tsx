@@ -43,7 +43,7 @@ export default class HistoricoAdm extends Component<Props> {
                                 <tbody>
                                     {campos.map((colunas, index) => (
                                         <tr key={index}>
-                                            <td>{dadosController.ajustaDate(new Date(colunas.ultimaVenda._data))}</td>
+                                            <td>{dadosController.ajustaDate(colunas.data)}</td>
                                             <td>{colunas.produto._nome}</td>
                                             <td>{colunas.ultimaVenda._cliente._nome}</td>
                                             <td>{colunas.vendedor._nome}</td>

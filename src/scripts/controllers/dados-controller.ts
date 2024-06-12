@@ -16,8 +16,8 @@ export default class DadosController {
     }
 
     public ajustaDate(data: Date){
-        const dia = data.getDate()
-        const mes = data.getMonth()
+        const dia = data.getDate() + 1
+        const mes = data.getMonth() + 1
         const ano = data.getFullYear()
         return dia + '/' + mes + '/' + ano
     }

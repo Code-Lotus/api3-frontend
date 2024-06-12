@@ -45,8 +45,8 @@ export default class DashboardVendedor extends Component {
     categoriasLinha: ["Dia 1", "Dia 7", "Dia 15", "Dia 22", "Dia 30"],
     newLinhaValues: [2, 1, 1, 2, 1, 3, 2, 4, 6, 7, 2, 5],
     newLinhaCategories: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-    valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000),
-    newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
+    valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 10000, 2024),
+    newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0, 2024),
     categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
     newColunasCategories: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"],
     vendas: [],
@@ -85,8 +85,8 @@ export default class DashboardVendedor extends Component {
       listaComissao: vendasController.calculaPrecoComissoes(comissao, filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)),
       totalComissao: somaComissao(this.state.listaComissao).toString(),
       total: vendasController.calculaGanho(filtro.filtraPorVendedor(new Vendedor('123.456.789-00', 'Joao'), vendas)).toString(),
-      valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 1000000),
-      newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0),
+      valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, 1000000, 2024),
+      newColunaValues: vendasController.calculaQtdTodosOsMesesComissao(true, 0, 2024),
       valoresPizza: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(2024, false, 1000000), 2024),
       newPizzaValues: vendasController.calculaQtdPorComissaoPorAno(vendasController.filtraPorAnoPreco(2024, true, 1), 2024),
       valoresLinha: vendasController.calculaQtdTodosMeses(2024, false, 1000000),
@@ -137,9 +137,9 @@ export default class DashboardVendedor extends Component {
   mudaGraficoPizza(opcaoT: string, inputT: number, opcaoV: string, inputV: number) {
     if (opcaoT === "Mês") {
       if(opcaoV === "Preço Máximo"){
-        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(vendasController.filtraPorMesPreco(inputT, false, inputV), inputT)});
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(vendasController.filtraPorMesPreco(inputT, false, inputV, vendasController.vendas), inputT)});
       } else if(opcaoV === "Preço Mínimo"){
-        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(vendasController.filtraPorMesPreco(inputT, true, inputV), inputT)});
+        this.setState({ valoresPizza: vendasController.calculaQtdPorComissaoPorMes(vendasController.filtraPorMesPreco(inputT, true, inputV, vendasController.vendas), inputT)});
       }
     } else if (opcaoT === "Ano") {
       if (opcaoV === "Preço Máximo") {
@@ -153,9 +153,9 @@ export default class DashboardVendedor extends Component {
   mudaGraficoLinha(opcaoT: string, inputT: number, opcaoV: string, inputV: number){
     if(opcaoT === "Mês"){
       if(opcaoV === "Preço Máximo"){
-        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, false, inputV))})
+        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, false, inputV, vendasController.vendas))})
       } else if(opcaoV === "Preço Mínimo"){
-        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, true, inputV))})
+        this.setState({categoriasLinha: ["Dia 5", "Dia 10", "Dia 15", "Dia 20", "Dia 25", "Dia 30"], valoresLinha: vendasController.calculaQtdDiasDeUmMes(vendasController.filtraPorMesPreco(inputT, true, inputV, vendasController.vendas))})
       }
     } else if(opcaoT === "Ano"){
       if(opcaoV === "Preço Máximo"){
@@ -179,9 +179,9 @@ export default class DashboardVendedor extends Component {
     } else if(opcaoT === "Ano") {
       this.setState({categoriasColuna: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]})
       if(opcaoV === "Preço Máximo"){
-        this.setState({valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, inputV)})
+        this.setState({valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(false, inputV, inputT)})
       } else if(opcaoV === "Preço Mínimo"){
-        this.setState({valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(true, inputV)})
+        this.setState({valoresColuna: vendasController.calculaQtdTodosOsMesesComissao(true, inputV, inputT)})
       }
     }
   }

@@ -16,26 +16,27 @@ export default class CamposController {
         const ids: Array<number> = []
         const listaProdutos: Array<CampoProduto> = []
         this._vendas.forEach(venda => {
-            if(!(ids.includes(venda._produto._id))){
-                let campo = new CampoProduto(venda._produto, 1, venda._valor, venda)
-                listaProdutos.push(campo)
-                ids.push(venda._produto._id)
-            } else {
-                const index = ids.indexOf(venda._produto._id)
-                let qtd = listaProdutos[index].qtd
-                let ultimaVenda = listaProdutos[index].ultimaVenda
+            let campo = new CampoProduto(venda._produto, venda._valor, venda, new Date(venda._data))
+            // if(!(ids.includes(venda._produto._id))){
+            //     listaProdutos.push(campo)
+            //     ids.push(venda._produto._id)
+            // } else {
+            //     const index = ids.indexOf(venda._produto._id)
+            //     let qtd = listaProdutos[index].qtd
+            //     let ultimaVenda = listaProdutos[index].ultimaVenda
                 
-                let campo;
+            //     let campo;
 
-                if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
-                    campo = new CampoProduto(venda._produto, qtd+1, venda._valor, venda)
-                    campo.ultimaVenda = venda
-                }
-                else {
-                    campo = new CampoProduto(venda._produto, qtd+1, venda._valor, ultimaVenda)
-                }
-                listaProdutos.splice(index, 1, campo)
-            }
+            //     if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
+            //         campo = new CampoProduto(venda._produto, qtd+1, venda._valor, venda, new Date(venda._data))
+            //         campo.ultimaVenda = venda
+            //     }
+            //     else {
+            //         campo = new CampoProduto(venda._produto, qtd+1, venda._valor, ultimaVenda, new Date(venda._data))
+            //     }
+            //     listaProdutos.splice(index, 1, campo)
+            listaProdutos.push(campo)
+            // }
         })
         return listaProdutos
     }
@@ -44,26 +45,26 @@ export default class CamposController {
         const ids: Array<number> = []
         const listaProdutos: Array<CampoProdutoAdm> = []
         this._vendas.forEach(venda => {
-            if(!(ids.includes(venda._produto._id))){
-                let campo = new CampoProdutoAdm(venda._produto, 1, venda._valor, venda._vendedor, venda)
-                listaProdutos.push(campo)
-                ids.push(venda._produto._id)
-            } else {
-                const index = ids.indexOf(venda._produto._id)
-                let qtd = listaProdutos[index].qtd
-                let ultimaVenda = listaProdutos[index].ultimaVenda
+            let campo = new CampoProdutoAdm(venda._produto, venda._valor, venda._vendedor, venda, new Date(venda._data))
+            // if(!(ids.includes(venda._produto._id))){
+            //     listaProdutos.push(campo)
+            //     ids.push(venda._produto._id)
+            // } else {
+            //     const index = ids.indexOf(venda._produto._id)
+            //     let qtd = listaProdutos[index].qtd
+            //     let ultimaVenda = listaProdutos[index].ultimaVenda
                 
-                let campo;
+            //     let campo;
 
-                if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
-                    campo = new CampoProdutoAdm(venda._produto, qtd+1, venda._valor, venda._vendedor, venda)
-                    campo.ultimaVenda = venda
-                }
-                else {
-                    campo = new CampoProdutoAdm(venda._produto, qtd+1, venda._valor, venda._vendedor, ultimaVenda)
-                }
-                listaProdutos.splice(index, 1, campo)
-            }
+            //     if(new Date(venda._data).getTime() > new Date(ultimaVenda._data).getTime()){
+            //         campo = new CampoProdutoAdm(venda._produto, qtd+1, venda._valor, venda._vendedor, venda, venda._data)
+            //         campo.ultimaVenda = venda
+            //     }
+            //     else {
+            //         campo = new CampoProdutoAdm(venda._produto, qtd+1, venda._valor, venda._vendedor, ultimaVenda, venda._data)
+            //     }
+            listaProdutos.push(campo)
+            // }
         })
         return listaProdutos
     }
@@ -86,9 +87,9 @@ export default class CamposController {
 
     public ordenaCampoData() {
         return this.criaCampos().sort((a, b) => {
-            if(new Date(a.ultimaVenda._data).getTime() > new Date(b.ultimaVenda._data).getTime()){
+            if(new Date(a.data).getTime() > new Date(b.data).getTime()){
                 return -1
-            } else if(new Date(b.ultimaVenda._data).getTime() > new Date(a.ultimaVenda._data).getTime()){
+            } else if(new Date(b.data).getTime() > new Date(a.data).getTime()){
                 return 1
             } else {
                 return 0
@@ -98,9 +99,9 @@ export default class CamposController {
 
     public ordenaCampoAdmData(){
         return this.criaCamposAdm().sort((a, b) => {
-            if(new Date(a.ultimaVenda._data).getTime() > new Date(b.ultimaVenda._data).getTime()){
+            if(new Date(a.data).getTime() > new Date(b.data).getTime()){
                 return -1
-            } else if(new Date(b.ultimaVenda._data).getTime() > new Date(a.ultimaVenda._data).getTime()){
+            } else if(new Date(b.data).getTime() > new Date(a.data).getTime()){
                 return 1
             } else {
                 return 0

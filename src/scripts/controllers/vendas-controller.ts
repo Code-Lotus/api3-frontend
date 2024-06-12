@@ -208,9 +208,9 @@ export default class Vendas {
         return contMes
     }
 
-    public filtraPorMesPreco(mes: number, min: boolean, preco: number){
+    public filtraPorMesPreco(mes: number, min: boolean, preco: number, lista: PlanilhaVendas[]){
         const listaFiltrada: Array<PlanilhaVendas> = []
-        this.vendas.forEach(venda => {
+        lista.forEach(venda => {
             if(min){
                 if(new Date(venda._data).getMonth() === mes && venda._valor >= preco) {
                     listaFiltrada.push(venda)
@@ -242,7 +242,7 @@ export default class Vendas {
         return listaFiltrada
     }
 
-    public calculaQtdTodosOsMesesComissao(min: boolean, preco: number){
+    public calculaQtdTodosOsMesesComissao(min: boolean, preco: number, ano: number){
         const qtdDosMeses: Array<number[]> = []
         let listaFiltrada = []
         let cnpn = []
@@ -251,7 +251,7 @@ export default class Vendas {
         let capa = []
         
         for(let i = 0; i < 12; i++){
-            listaFiltrada = this.filtraPorMesPreco(i, min, preco)
+            listaFiltrada = this.filtraPorMesPreco(i, min, preco, this.filtraPorAnoPreco(ano, min, preco))
             cnpn.push(this.calculaUmaComissaoPorMes('cnpn', listaFiltrada))
             cnpa.push(this.calculaUmaComissaoPorMes('cnpa', listaFiltrada))
             capn.push(this.calculaUmaComissaoPorMes('capn', listaFiltrada))
@@ -287,8 +287,7 @@ export default class Vendas {
 
     public calculaQtdDiasDoMesComissao(mes: number, min: boolean, preco: number){
         const qtdDosDias: Array<number[]> = []
-        let listaFiltrada = this.filtraCada5Dias(this.filtraPorMesPreco(mes, min, preco))
-        console.log(this.filtraPorMesPreco(mes, min, preco))
+        let listaFiltrada = this.filtraCada5Dias(this.filtraPorMesPreco(mes, min, preco, this.vendas))
         let cnpn: number[] = []
         let cnpa: number[] = []
         let capn: number[] = []
@@ -329,20 +328,4 @@ export default class Vendas {
         })
         return precoComissao
     }
-
-    // async geraVendas(data: any[]) {
-    //     const listaVendas: PlanilhaVendas[] = []
-    //     data.forEach(vendaBanco => {
-    //         const vendedor = new Vendedor();
-    //         const produto = new Produto();
-    //         const cliente = new Cliente();
-    //         const valor = ;
-    //         const venda = new PlanilhaVendas(vendaBanco.venda_id, vendaBanco.venda_data, vendedor, produto, cliente, valor, vendaBanco.forma_pagamento)
-    //     })
-    // }
-
-    // async puxaVendas() {
-    //     const response = await api.get("/vendas")
-    //     return response.data;
-    // } 
 }
