@@ -61,10 +61,14 @@ export default class Vendas extends Component<{}, State> {
     }
     
 
-    public titulos = ["ID", "DATA", "VENDEDOR", "PRODUTO", "PRODUTO ID", "CLIENTE", "CPF/CNPJ", "SEGMENTO", "VALOR", "FORMA DE PAGAMENTO"]
+    public titulos = ["ID", "DATA", "VENDEDOR", "PRODUTO", "PRODUTO ID", "CLIENTE", "CPF/CNPJ", "SEGMENTO", "VALOR", "FORMA DE PAGAMENTO", "AÇÕES"]
     
     async componentDidMount() {
         await this.carregaVendas(this.state.vendas)
+    }
+
+    async componentDidUpdate() {
+        // await this.componentDidMount()
     }
     
     public async carregaVendas(vendas: any) {
@@ -77,7 +81,19 @@ export default class Vendas extends Component<{}, State> {
             // console.log(vendas[0]._vendedor)
         }
         this.setState(vendas)   
-        
+    }
+
+    public async deletaVendas(vendaId: number) {
+        console.log(vendaId)
+        const response = await api.delete("/venda", {
+            data: {
+                venda_id: vendaId
+            }
+        });
+        // this.carregaVendas(this.state.vendas)
+        this.componentDidMount()
+
+        // setProdutos(produtos.filter(produto => produto.produto_id !== produtoId));
     }
 
     
@@ -112,6 +128,8 @@ export default class Vendas extends Component<{}, State> {
                                         <td>{venda._cliente._segmento}</td>
                                         <td>{dadosController.mascaraPreco(venda._valor.toString())}</td>
                                         <td>{venda.formaPagamento}</td>
+                                        <button className={Style.btn}>Editar</button>
+                                        <button className={Style.btn} onClick={() => this.deletaVendas(venda.id)}>Apagar</button>
                                     </tr>
                                 ):null)}
                             </tbody>
