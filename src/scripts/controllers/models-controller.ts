@@ -1,7 +1,9 @@
+import Usuarios from "../../pages/Tabelas/usuarios";
 import { api } from "../../services/api";
 import Cliente from "../models/cliente";
 import PlanilhaVendas from "../models/planilhaVendas";
 import Produto from "../models/produto";
+import VendaBD from "../models/vendaBd";
 import Vendedor from "../models/vendedor";
 
 export default class ModelsController {
@@ -76,6 +78,36 @@ export default class ModelsController {
         return retorno
     }
 
+    public buscaIdUsuario(users: any, venda: PlanilhaVendas) {
+        let userId = -1
+        users.forEach((user: any, index: number) => {
+            if(user.usuario_cpf == venda._vendedor._cpf) {
+                userId = index
+            }
+        })
+        return userId
+    }
+
+    public buscaIdCliente(clientes: any, venda: PlanilhaVendas) {
+        let clientId = -1
+        clientes.forEach((cliente: any, index: number) => {
+            if(cliente.cliente_cpfcnpj == venda._cliente.cpfcnpj) {
+                clientId = index
+            }
+        })
+        return clientId
+    }
+
+    public buscaIdProduto(produtos: any, venda: PlanilhaVendas) {
+        let prodId = -1
+        produtos.forEach((produto: any, index: number) => {
+            if(produto.produto_nome == venda._produto._nome) {
+                prodId = index
+            }
+        })
+        return prodId
+    }
+
     public async converteVenda(venda: any) {
         const vendaLista = venda
         const usuarios = await this.chamaUsuarios();
@@ -84,12 +116,31 @@ export default class ModelsController {
         const cliente = this.buscaCliente(clientes , vendaLista.cliente_id)
         const produtos = await this.chamaProdutos();
         const produto = this.buscaProduto(produtos , vendaLista.produto_id)
-        
         const newUsuario = new Vendedor(usuario.usuario_cpf, usuario.usuario_nome);
         const newCliente = new Cliente(cliente.cliente_cpfcnpj, cliente.cliente_nome, cliente.cliente_segmento, cliente.cliente_data);
         const newProduto = new Produto(produto.produto_id, produto.produto_nome, produto.produto_data);
         const valor = produto.produto_valor
         const newVenda = new PlanilhaVendas(venda.venda_id, venda.venda_data, newUsuario, newProduto, newCliente, valor, venda.venda_forma_pagamento)
         return newVenda
+    }
+
+    public async convertePlanilhaVenda(venda: PlanilhaVendas) {
+        //id - data - formapag - idprod - idcli - iduser
+        let clienteId: number = -1
+        let produtoId: number = -1
+        let usuarioId: number = -1
+        const clientes = await this.chamaClientes()
+        if(this.buscaIdCliente(clientes, venda) >= 0) {
+            clienteId = this.buscaIdCliente(clientes, venda)
+        }
+        const produtos = await this.chamaProdutos()
+        if(this.buscaIdProduto(produtos, venda) >= 0) {
+            produtoId = this.buscaIdProduto(produtos, venda)
+        }
+        const usuarios = await this.chamaUsuarios()
+        if(this.buscaIdUsuario(usuarios, venda) >= 0) {
+            usuarioId = this.buscaIdUsuario(usuarios, venda)
+        }
+        const vendabd = new VendaBD(venda.id, venda._data, venda.formaPagamento, clienteId, produtoId, usuarioId)
     }
 }
