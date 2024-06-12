@@ -27,8 +27,14 @@ export default function Usuarios() {
     }
 
     async function deletaUsuario(usuarioId: number) {
-        await api.delete(`/usuarios/${usuarioId}`);
-        setUsuarios(usuarios.filter(usuario => usuario.usuario_id !== usuarioId));
+        if(!usuarioId) return;
+        const response = await api.delete("/usuario", {
+            data: {
+                usuario_id: usuarioId
+            }
+        });
+        carregaUsuarios()   
+        // setUsuarios(usuarios.filter(usuario => usuario.usuario_id !== usuarioId));
     }
 
     return (

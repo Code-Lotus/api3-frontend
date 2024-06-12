@@ -27,8 +27,13 @@ export default function Produtos() {
     }
 
     async function deletaProdutos(produtoId: number) {
-        await api.delete(`/produtos/${produtoId}`);
-        setProdutos(produtos.filter(produto => produto.produto_id !== produtoId));
+        const response = await api.delete("/produto", {
+            data: {
+                produto_id: produtoId
+            }
+        });
+        carregaProdutos()
+        // setProdutos(produtos.filter(produto => produto.produto_id !== produtoId));
     }
 
     return (
