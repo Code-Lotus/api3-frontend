@@ -37,6 +37,12 @@ export default function SidebarAdm() {
                     </Link>
                 </li>
                 <li>
+                    <Link to="/cadastroCliente" className={Style.a}>
+                        <i className='bx bx-user-plus' id={Style.bx}></i> 
+                        <span className={Style.text}>Cadastro Cliente</span>
+                    </Link>
+                </li>
+                <li>
                     <Link to="/cadastroProduto" className={Style.a}>
                         <i className='bx bx-user-plus' id={Style.bx}></i> 
                         <span className={Style.text}>Cadastro Produto</span>

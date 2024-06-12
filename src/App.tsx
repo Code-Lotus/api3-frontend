@@ -12,6 +12,7 @@ import Clientes from "./pages/Tabelas/clientes";
 import Vendas from "./pages/Tabelas/vendas";
 import CadastroProduto from "./pages/Usuário/cadastro/cadastroProduto";
 import CadastroVenda from "./pages/Usuário/cadastro/cadastroVenda";
+import CadastroCliente from "./pages/Usuário/cadastro/cadastroCliente";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="cadastroProduto" element={<CadastroProduto />}/>
           <Route path="cadastroVenda" element={<CadastroVenda />}/>
+          <Route path="cadastroCliente" element={<CadastroCliente />}/>
           <Route path="/dashboardVendedor" element={<ComponenteContextoDashboard child={<DashboardVendedor/>} />} />
           <Route path="/dashboardAdm" element={<ComponenteContextoDashboard child={<DashboardAdm />} />}/>
           <Route path="/comissaoAdm" element={<ComissaoAdm />}/>
