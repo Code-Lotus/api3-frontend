@@ -82,7 +82,7 @@ export default function Vendas() {
                         </thead>
                         <tbody>
                             {/* <td>{this.state.vendas[0].usuario.nome}</td> */}
-                            {vendas.map((venda: any,index: any) => index%2==0? (
+                            {vendas.map((venda: any,index: any) => (
                                 <tr key={index}>
                                     <td>{venda.id}</td>
                                     <td>{dadosController.ajustaDataVenda(venda._data)}</td>
@@ -97,7 +97,7 @@ export default function Vendas() {
                                     <button className={Style.btn}>Editar</button>
                                     <button className={Style.btn} onClick={() => deletaVendas(venda.id)}>Apagar</button>
                                 </tr>
-                            ): null)}
+                            ))}
                         </tbody>
                     </table>
                 </section>

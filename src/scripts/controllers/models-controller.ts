@@ -1,4 +1,3 @@
-import Usuarios from "../../pages/Tabelas/usuarios";
 import { api } from "../../services/api";
 import Cliente from "../models/cliente";
 import PlanilhaVendas from "../models/planilhaVendas";
@@ -125,22 +124,56 @@ export default class ModelsController {
     }
 
     public async convertePlanilhaVenda(venda: PlanilhaVendas) {
-        //id - data - formapag - idprod - idcli - iduser
         let clienteId: number = -1
         let produtoId: number = -1
         let usuarioId: number = -1
+        
         const clientes = await this.chamaClientes()
-        if(this.buscaIdCliente(clientes, venda) >= 0) {
+        if(this.buscaIdCliente(clientes, venda) >= 1) {
             clienteId = this.buscaIdCliente(clientes, venda)
+        } else {
+            const cliente = venda._cliente
+            const response = await api.post("/cliente", {
+                cliente_nome: cliente._nome,
+                cliente_cpfcnpj: cliente.cpfcnpj,
+                cliente_segmento: cliente.segmento,
+                cliente_data: venda._data
+            })
+            console.log(response.data)
+            clienteId = response.data.cliente_id
         }
+        
         const produtos = await this.chamaProdutos()
-        if(this.buscaIdProduto(produtos, venda) >= 0) {
+        if(this.buscaIdProduto(produtos, venda) >= 1) {
             produtoId = this.buscaIdProduto(produtos, venda)
+        } else {
+            const produto = venda._produto
+            const response = await api.post("/produto", {
+                produto_nome: produto._nome,
+                produto_valor: venda._valor,
+                produto_data: venda._data
+            })
+            console.log(response.data)
+            produtoId = response.data.produto_id
         }
+        
         const usuarios = await this.chamaUsuarios()
-        if(this.buscaIdUsuario(usuarios, venda) >= 0) {
+        if(this.buscaIdUsuario(usuarios, venda) >= 1) {
             usuarioId = this.buscaIdUsuario(usuarios, venda)
+        } else {
+            const usuario = venda._vendedor
+            const response = await api.post("/usuario", {
+                usuario_nome: usuario._nome,
+                usuario_cpf: usuario._cpf,
+                usuario_email: usuario._nome + '@gmail.com',
+                usuario_senha: usuario._cpf,
+                administrador: '0'
+            })
+            console.log(response.data)
+            usuarioId = response.data.usuario_id
         }
+
         const vendabd = new VendaBD(venda.id, venda._data, venda.formaPagamento, clienteId, produtoId, usuarioId)
+        return vendabd
     }
 }

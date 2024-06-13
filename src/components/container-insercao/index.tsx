@@ -22,23 +22,16 @@ let id = 1
 async function recebeArquivo(evento: any) {
     const arquivo = evento.target.files[0] //pega o primeiro elemento da lista de arquivos
     const rows = await readXlsxFile(arquivo) //lê um arquivo excel e guarda numa variável um array de linhas do excel
-    for(let i = 1; i < rows.length; i++){
-		const dados = rows[i] //pega as linhas com os conteúdos (não os cabeçalhos)
+	for(let i = 1; i < rows.length; i++){
+		const dados = rows[i]
+		console.log(dados)
 		const dataVenda = dadosController.ajustaData(dados[0].toString())
 		const dadosVendedor = [dados[2].toString(), dados[1].toString()]
 		const dadosProduto = [dados[4].toString(), dados[3].toString()]
 		const dadosCliente = [dados[6].toString(), dados[5].toString(), dados[7].toString()]
 		const valor = dados[8].toString()
 		const formaPagamento = dados[9].toString()
-		let dia = aleatoriza(29).toString()
-		let mes = aleatoriza(13).toString()
-		let ano = anoAleatorio().toString()
-		const dataProduto = `${mes}/${dia}/${ano}`    //APAGAR!!!!!!!
-		let dia1 = aleatoriza(29).toString()
-		let mes1 = aleatoriza(13).toString()
-		let ano1 = anoAleatorio().toString()
-		const dataCliente = `${mes1}/${dia1}/${ano1}`
-		venda = new PlanilhaVendas(id++, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date(dataProduto)), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date(dataCliente)), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
+		venda = new PlanilhaVendas(id++, new Date(dataVenda), new Vendedor(dadosVendedor[0], dadosVendedor[1]), new Produto(parseInt(dadosProduto[0]), dadosProduto[1], new Date()), new Cliente(dadosCliente[0], dadosCliente[1], dadosCliente[2], new Date()), parseFloat(valor), formaPagamento) //cria um objeto da classe planilha vendas com os valores do excel
 		listaAuxiliar.push(venda)
 	}
 }
@@ -58,12 +51,14 @@ function anoAleatorio() {
 	return (2022 + num)
 }
 
-function salvaArquivo() {
-	listaAuxiliar.forEach(item => {
+async function salvaArquivo() {
+	const modelsController = new ModelsController()
+	for(const item of listaAuxiliar){
 		vendas.vendas.push(item)
 		Database.addEntry(item)
-		// adicionaVenda(new Date(item._data), )
-	}) //adiciona o objeto planilha vendas na lista de vendas
+		const vendasBD = await modelsController.convertePlanilhaVenda(item)
+		adicionaVenda(vendasBD.data, vendasBD.formaPagamento, vendasBD.clienteId, vendasBD.produtoId, vendasBD.usuarioId)
+	}
 	swal({
 		title: "Arquivo inserido",
 		text: "Arquivo inserido com sucesso!",
@@ -71,13 +66,20 @@ function salvaArquivo() {
 	})
 }
 
-async function adicionaVenda(data: Date, cid: number, pid: number, uid: number){
+async function adicionaVenda(data: Date, fpagamento: string, cid: number, pid: number, uid: number){
+	console.log(data)
+	console.log(fpagamento)
+	console.log(cid)
+	console.log(pid)
+	console.log(uid)
 	const response = await api.post("/venda", {
 		venda_data: data,
+		venda_forma_pagamento: fpagamento,
 		cliente_id: cid,
 		produto_id: pid,
 		usuario_id: uid
 	})
+	console.log(response.data)
 }
 
 // const modelsController = new ModelsController();
