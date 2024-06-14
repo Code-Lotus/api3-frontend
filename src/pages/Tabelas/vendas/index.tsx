@@ -38,10 +38,13 @@ const dadosController = new DadosController()
 export default function Vendas() {
     const titulos = ["ID", "DATA", "VENDEDOR", "PRODUTO", "PRODUTO ID", "CLIENTE", "CPF/CNPJ", "SEGMENTO", "VALOR", "FORMA DE PAGAMENTO", "AÇÕES"]
     const [vendas, setVendas] = useState<VendasProps[]>([]);
+    const [editingId,setEditingId] = useState<number| null>(null);
+    const [editField,setEditField] = useState<string>("");
+    const [editValue,setEditValue]=useState<string>("")
+
+
     
-    useEffect(() => {
-        carregaVendas();
-    }, [])
+    useEffect(() => {carregaVendas();}, [])
 
     async function carregaVendas() {
         const response = await api.get("/vendas?page=1&per_page=5")
@@ -66,6 +69,31 @@ export default function Vendas() {
         carregaVendas()
     }
 
+
+
+    const handleEdit = (id:number, field:string, value:string)=>{
+        setEditingId(id)
+        setEditField(field)
+        setEditValue(value)
+    }
+
+    const handleSave = async(id:number,field:string,value:string)=>{
+        try {
+            await api.put("/venda",{id,[field]:value})
+            setVendas((prevVendas )=>
+                prevVendas.map((venda)=>
+                    venda.venda_id === id ? {...venda,[field]:value}:venda
+                )
+            )
+            setEditingId(null)
+            setEditField("")
+            setEditValue("")
+        }
+        catch(error){
+            console.log("Erro:",error)
+        }
+        
+    }
     return(
         <>
             <Navbar />
@@ -85,7 +113,7 @@ export default function Vendas() {
                             {vendas.map((venda: any,index: any) => (
                                 <tr key={index}>
                                     <td>{venda.id}</td>
-                                    <td>{dadosController.ajustaDataVenda(venda._data)}</td>
+                                    {/* 
                                     <td>{venda._vendedor._nome}</td>
                                     <td>{venda._produto._nome}</td>
                                     <td>{venda._produto._id}</td>
@@ -93,8 +121,64 @@ export default function Vendas() {
                                     <td>{venda._cliente.cpfcnpj}</td>
                                     <td>{venda._cliente._segmento}</td>
                                     <td>{dadosController.mascaraPreco(venda._valor.toString())}</td>
-                                    <td>{venda.formaPagamento}</td>
-                                    <button className={Style.btn}>Editar</button>
+                                    <td>{venda.formaPagamento}</td> */}
+
+                                    <td>{dadosController.ajustaDataVenda(venda._data)}</td>
+                                    <td>{editingId === venda.venda_id && editField === "usuario_nome" ? (
+                                        <input
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                            onBlur={() => handleSave(venda.venda_id, "usuario_nome", editValue)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") handleSave(venda.venda_id, "usuario_nome", editValue);
+                                            }}
+                                        /> 
+                                        ) : (
+                                        <span onClick={() => handleEdit(venda.venda_id, "usuario_nome", venda.usuario.nome)}>
+                                            {venda.usuario.nome}
+                                        </span>
+                                            )
+                                        }
+                                    </td>
+
+                                    <td>{editingId === venda.venda_id && editField === "produto_nome" ? (
+                                        <input
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                            onBlur={() => handleSave(venda.venda_id, "produto_nome", editValue)}
+                                            onKeyDown={(e) => {
+                                            if (e.key === "Enter") handleSave(venda.venda_id, "produto_nome", editValue);
+                                            }}
+                                        />
+                                        ) : (
+                                        <span onClick={() => handleEdit(venda.venda_id, "produto_nome", venda.produto.nome)}>
+                                            {venda.produto.nome}
+                                        </span>
+                                        )}
+                                    </td>
+                                    <td>{venda.produto.id}</td>
+                                    <td>
+                                        {editingId === venda.venda_id && editField === "cliente_nome" ? (
+                                        <input
+                                            value={editValue}
+                                            onChange={(e) => setEditValue(e.target.value)}
+                                            onBlur={() => handleSave(venda.venda_id, "cliente_nome", editValue)}
+                                            onKeyDown={(e) => {
+                                            if (e.key === "Enter") handleSave(venda.venda_id, "cliente_nome", editValue);
+                                            }}
+                                        />
+                                        ) : (
+                                        <span onClick={() => handleEdit(venda.venda_id, "cliente_nome", venda.cliente.nome)}>
+                                            {venda.cliente.nome}
+                                        </span>
+                                        )}
+                                    </td>
+                                    <td>{venda.cliente.cpfcnpj}</td>
+                                    <td>{venda.cliente.segmento}</td>
+                                    <td>{dadosController.mascaraPreco(venda.venda_valor.toString())}</td>
+                                    <td>{venda.venda_forma_pagamento}</td>
+                                    <td></td>
+                                    <button className={Style.btn} onClick={()=> setEditingId(venda.venda_id)}>Editar</button>
                                     <button className={Style.btn} onClick={() => deletaVendas(venda.id)}>Apagar</button>
                                 </tr>
                             ))}
