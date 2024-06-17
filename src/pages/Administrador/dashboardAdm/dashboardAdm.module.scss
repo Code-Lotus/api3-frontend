@@ -123,3 +123,45 @@
     text-decoration: none; /* Remove sublinhado padrão para links */
 
 }
+
+
+/* CSS File: styles.css */
+
+/* Estilo base do botão */
+.btnConfirm {
+    background-color: #007bff; /* Cor de fundo inicial */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    padding: 10px 20px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    font-family: Arial, sans-serif; /* Fonte */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Muda o cursor para pointer ao passar sobre o botão */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Animação suave para a cor de fundo e transformação */
+    margin-left: 5rem;
+    margin-top: 1rem;
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+.btnConfirm:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho do botão */
+}
+
+/* Efeito ao clicar no botão */
+.btnConfirm:active {
+    background-color: #004494; /* Cor de fundo ao clicar */
+    transform: scale(0.95); /* Diminui ligeiramente o tamanho do botão ao clicar */
+}
+
+/* Estilo adicional para diferentes estados */
+.btnConfirm:focus {
+    outline: none; /* Remove a linha de foco padrão */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Adiciona uma sombra ao redor do botão */
+}
+
+/* Estilo para um botão desativado */
+.btnConfirm:disabled {
+    background-color: #cccccc; /* Cor de fundo para o botão desativado */
+    cursor: not-allowed; /* Muda o cursor para não permitido */
+}

@@ -1,9 +1,26 @@
-.select{
-    padding: 8px 12px; /* Adiciona um pequeno preenchimento interno */
-    font-size: 14px; /* Define o tamanho da fonte */
-    border: 1px solid #ccc; /* Adiciona uma borda sólida */
-    border-radius: 4px; /* Adiciona cantos arredondados */
-    background-color: #f0f0f0; /* Define a cor de fundo */
-    color: #333; /* Define a cor do texto */
-    cursor: pointer; /* Altera o cursor ao passar por cima */
+/* CSS File: styles.css */
+
+/* Estilo base para o select */
+.selectCustom {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    background-color: #ffffff(201, 238, 255);
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    padding-right: 2rem;
+    margin-left: 1rem;
+}
+
+/* Estilo quando o select está focado */
+.selectCustom:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Estilo quando o mouse passa sobre o select */
+.selectCustom:hover {
+    background-color: #fff;
 }

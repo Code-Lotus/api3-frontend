@@ -57,7 +57,7 @@ export default class Input extends Component<Props, State> {
 
         return (
             <>
-                <input className={Style.input} type="number" onChange={this.handleValueChange} max={maximo} min={minimo} defaultValue={padrao} />
+                <input className={Style.inputCustom} type="number" onChange={this.handleValueChange} max={maximo} min={minimo} defaultValue={padrao} />
             </>
         )
     }

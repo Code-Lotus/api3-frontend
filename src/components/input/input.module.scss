@@ -1,9 +1,22 @@
-.input{
-    padding: 8px 12px; /* Adiciona um pequeno preenchimento interno */
-    font-size: 14px; /* Define o tamanho da fonte */
-    border: 1px solid #ccc; /* Adiciona uma borda sólida */
-    border-radius: 4px; /* Adiciona cantos arredondados */
-    background-color: #f0f0f0; /* Define a cor de fundo */
-    color: #333; /* Define a cor do texto */
-    cursor: text; /* Altera o cursor ao passar por cima */
+/* Estilo para um input */
+.inputCustom {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    margin-left: 1rem;
+    padding-right: 1.6rem;
+}
+
+/* Estilo quando o input está focado */
+.inputCustom:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Estilo quando o mouse passa sobre o input */
+.inputCustom:hover {
+    background-color: #ffffff;
 }

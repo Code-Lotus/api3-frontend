@@ -201,9 +201,10 @@ export default class DashboardAdm extends Component {
           </div>
           <Select valores={["Mês", "Ano"]} tipo="tempo"/>
           <Select valores={["Preço Máximo", "Preço Mínimo"]} tipo="valor"/>
+          <br/>
           <Input tipo="tempo"/>
           <Input tipo="valor"/>
-          <button onClick={this.handleAllChanges}>Filtrar</button>
+          <button className={Style.btnConfirm} onClick={this.handleAllChanges}>Filtrar</button>
           {/* <p>{contexto.opcaoSelecionadaTempo},{contexto.valorInputTempo},{contexto.opcaoSelecionadaValor},{contexto.valorInputValor}</p>
           <p>{vendas.length}</p> */}
           <div className={Style.cards}>

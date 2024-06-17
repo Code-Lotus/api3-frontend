@@ -50,7 +50,7 @@ export default class Select extends Component<Props, State>{
 
         return (
             <>
-                <select className={Style.select} value={selectedOption} onChange={this.handleSelectChange} defaultValue={padrao}>
+                <select className={Style.selectCustom} value={selectedOption} onChange={this.handleSelectChange} defaultValue={padrao}>
                     {valores.map((option, index) => (
                         <option key={index} value={option}>
                             {option}
